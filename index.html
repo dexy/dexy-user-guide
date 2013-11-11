@@ -1,0 +1,2180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="Asciidoctor 0.1.4" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dexy User Guide</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
+audio, canvas, video { display: inline-block; }
+audio:not([controls]) { display: none; height: 0; }
+[hidden] { display: none; }
+html { background: #fff; color: #000; font-family: sans-serif; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; }
+body { margin: 0; }
+a:focus { outline: thin dotted; }
+a:active, a:hover { outline: 0; }
+h1 { font-size: 2em; margin: 0.67em 0; }
+abbr[title] { border-bottom: 1px dotted; }
+b, strong { font-weight: bold; }
+dfn { font-style: italic; }
+hr { -moz-box-sizing: content-box; box-sizing: content-box; height: 0; }
+mark { background: #ff0; color: #000; }
+code, kbd, pre, samp { font-family: monospace, serif; font-size: 1em; }
+pre { white-space: pre-wrap; }
+q { quotes: "\201C" "\201D" "\2018" "\2019"; }
+small { font-size: 80%; }
+sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+img { border: 0; }
+svg:not(:root) { overflow: hidden; }
+figure { margin: 0; }
+fieldset { border: 1px solid #c0c0c0; margin: 0 2px; padding: 0.35em 0.625em 0.75em; }
+legend { border: 0; padding: 0; }
+button, input, select, textarea { font-family: inherit; font-size: 100%; margin: 0; }
+button, input { line-height: normal; }
+button, select { text-transform: none; }
+button, html input[type="button"], input[type="reset"], input[type="submit"] { -webkit-appearance: button; cursor: pointer; }
+button[disabled], html input[disabled] { cursor: default; }
+input[type="checkbox"], input[type="radio"] { box-sizing: border-box; padding: 0; }
+input[type="search"] { -webkit-appearance: textfield; -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box; }
+input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
+textarea { overflow: auto; vertical-align: top; }
+table { border-collapse: collapse; border-spacing: 0; }
+*, *:before, *:after { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+html, body { font-size: 100%; }
+body { background: white; color: #222222; padding: 0; margin: 0; font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; font-weight: normal; font-style: normal; line-height: 1; position: relative; cursor: auto; }
+a:hover { cursor: pointer; }
+a:focus { outline: none; }
+img, object, embed { max-width: 100%; height: auto; }
+object, embed { height: 100%; }
+img { -ms-interpolation-mode: bicubic; }
+#map_canvas img, #map_canvas embed, #map_canvas object, .map_canvas img, .map_canvas embed, .map_canvas object { max-width: none !important; }
+.left { float: left !important; }
+.right { float: right !important; }
+.text-left { text-align: left !important; }
+.text-right { text-align: right !important; }
+.text-center { text-align: center !important; }
+.text-justify { text-align: justify !important; }
+.hide { display: none; }
+.antialiased, body { -webkit-font-smoothing: antialiased; }
+img { display: inline-block; vertical-align: middle; }
+textarea { height: auto; min-height: 50px; }
+select { width: 100%; }
+p.lead, .paragraph.lead > p, #preamble > .sectionbody > .paragraph:first-of-type p { font-size: 1.21875em; line-height: 1.6; }
+.subheader, #content #toctitle, .admonitionblock td.content > .title, .exampleblock > .title, .imageblock > .title, .videoblock > .title, .listingblock > .title, .literalblock > .title, .openblock > .title, .paragraph > .title, .quoteblock > .title, .sidebarblock > .title, .tableblock > .title, .verseblock > .title, .dlist > .title, .olist > .title, .ulist > .title, .qlist > .title, .hdlist > .title, .tableblock > caption { line-height: 1.4; color: #7a2518; font-weight: 300; margin-top: 0.2em; margin-bottom: 0.5em; }
+div, dl, dt, dd, ul, ol, li, h1, h2, h3, #toctitle, .sidebarblock > .content > .title, h4, h5, h6, pre, form, p, blockquote, th, td { margin: 0; padding: 0; direction: ltr; }
+a { color: #005498; text-decoration: underline; line-height: inherit; }
+a:hover, a:focus { color: #00467f; }
+a img { border: none; }
+p { font-family: inherit; font-weight: normal; font-size: 1em; line-height: 1.6; margin-bottom: 1.25em; text-rendering: optimizeLegibility; }
+p aside { font-size: 0.875em; line-height: 1.35; font-style: italic; }
+h1, h2, h3, #toctitle, .sidebarblock > .content > .title, h4, h5, h6 { font-family: Georgia, "URW Bookman L", Helvetica, Arial, sans-serif; font-weight: normal; font-style: normal; color: #ba3925; text-rendering: optimizeLegibility; margin-top: 1em; margin-bottom: 0.5em; line-height: 1.2125em; }
+h1 small, h2 small, h3 small, #toctitle small, .sidebarblock > .content > .title small, h4 small, h5 small, h6 small { font-size: 60%; color: #e99b8f; line-height: 0; }
+h1 { font-size: 2.125em; }
+h2 { font-size: 1.6875em; }
+h3, #toctitle, .sidebarblock > .content > .title { font-size: 1.375em; }
+h4 { font-size: 1.125em; }
+h5 { font-size: 1.125em; }
+h6 { font-size: 1em; }
+hr { border: solid #dddddd; border-width: 1px 0 0; clear: both; margin: 1.25em 0 1.1875em; height: 0; }
+em, i { font-style: italic; line-height: inherit; }
+strong, b { font-weight: bold; line-height: inherit; }
+small { font-size: 60%; line-height: inherit; }
+code { font-family: Consolas, "Liberation Mono", Courier, monospace; font-weight: normal; color: #6d180b; }
+ul, ol, dl { font-size: 1em; line-height: 1.6; margin-bottom: 1.25em; list-style-position: outside; font-family: inherit; }
+ul, ol { margin-left: 1.5em; }
+ul li ul, ul li ol { margin-left: 1.25em; margin-bottom: 0; font-size: 1em; }
+ul.square li ul, ul.circle li ul, ul.disc li ul { list-style: inherit; }
+ul.square { list-style-type: square; }
+ul.circle { list-style-type: circle; }
+ul.disc { list-style-type: disc; }
+ul.no-bullet { list-style: none; }
+ol li ul, ol li ol { margin-left: 1.25em; margin-bottom: 0; }
+dl dt { margin-bottom: 0.3125em; font-weight: bold; }
+dl dd { margin-bottom: 1.25em; }
+abbr, acronym { text-transform: uppercase; font-size: 90%; color: #222222; border-bottom: 1px dotted #dddddd; cursor: help; }
+abbr { text-transform: none; }
+blockquote { margin: 0 0 1.25em; padding: 0.5625em 1.25em 0 1.1875em; border-left: 1px solid #dddddd; }
+blockquote cite { display: block; font-size: inherit; color: #555555; }
+blockquote cite:before { content: "\2014 \0020"; }
+blockquote cite a, blockquote cite a:visited { color: #555555; }
+blockquote, blockquote p { line-height: 1.6; color: #6f6f6f; }
+.vcard { display: inline-block; margin: 0 0 1.25em 0; border: 1px solid #dddddd; padding: 0.625em 0.75em; }
+.vcard li { margin: 0; display: block; }
+.vcard .fn { font-weight: bold; font-size: 0.9375em; }
+.vevent .summary { font-weight: bold; }
+.vevent abbr { cursor: auto; text-decoration: none; font-weight: bold; border: none; padding: 0 0.0625em; }
+@media only screen and (min-width: 768px) { h1, h2, h3, #toctitle, .sidebarblock > .content > .title, h4, h5, h6 { line-height: 1.4; }
+  h1 { font-size: 2.75em; }
+  h2 { font-size: 2.3125em; }
+  h3, #toctitle, .sidebarblock > .content > .title { font-size: 1.6875em; }
+  h4 { font-size: 1.4375em; } }
+.print-only { display: none !important; }
+@media print { * { background: transparent !important; color: #000 !important; box-shadow: none !important; text-shadow: none !important; }
+  a, a:visited { text-decoration: underline; }
+  a[href]:after { content: " (" attr(href) ")"; }
+  abbr[title]:after { content: " (" attr(title) ")"; }
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }
+  pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
+  thead { display: table-header-group; }
+  tr, img { page-break-inside: avoid; }
+  img { max-width: 100% !important; }
+  @page { margin: 0.5cm; }
+  p, h2, h3, #toctitle, .sidebarblock > .content > .title { orphans: 3; widows: 3; }
+  h2, h3, #toctitle, .sidebarblock > .content > .title { page-break-after: avoid; }
+  .hide-on-print { display: none !important; }
+  .print-only { display: block !important; }
+  .hide-for-print { display: none !important; }
+  .show-for-print { display: inherit !important; } }
+table { background: white; margin-bottom: 1.25em; border: solid 1px #dddddd; }
+table thead, table tfoot { background: whitesmoke; font-weight: bold; }
+table thead tr th, table thead tr td, table tfoot tr th, table tfoot tr td { padding: 0.5em 0.625em 0.625em; font-size: inherit; color: #222222; text-align: left; }
+table tr th, table tr td { padding: 0.5625em 0.625em; font-size: inherit; color: #222222; }
+table tr.even, table tr.alt, table tr:nth-of-type(even) { background: #f9f9f9; }
+table thead tr th, table tfoot tr th, table tbody tr td, table tr td, table tfoot tr td { display: table-cell; line-height: 1.6; }
+.clearfix:before, .clearfix:after, .float-group:before, .float-group:after { content: " "; display: table; }
+.clearfix:after, .float-group:after { clear: both; }
+*:not(pre) > code { font-size: 0.9375em; padding: 1px 3px 0; white-space: nowrap; background-color: #f2f2f2; border: 1px solid #cccccc; -webkit-border-radius: 4px; border-radius: 4px; text-shadow: none; }
+pre, pre > code { line-height: 1.4; color: inherit; font-family: Consolas, "Liberation Mono", Courier, monospace; font-weight: normal; }
+kbd.keyseq { color: #555555; }
+kbd:not(.keyseq) { display: inline-block; color: #222222; font-size: 0.75em; line-height: 1.4; background-color: #F7F7F7; border: 1px solid #ccc; -webkit-border-radius: 3px; border-radius: 3px; -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px white inset; box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px white inset; margin: -0.15em 0.15em 0 0.15em; padding: 0.2em 0.6em 0.2em 0.5em; vertical-align: middle; white-space: nowrap; }
+kbd kbd:first-child { margin-left: 0; }
+kbd kbd:last-child { margin-right: 0; }
+.menuseq, .menu { color: #090909; }
+p a > code:hover { color: #561309; }
+#header, #content, #footnotes, #footer { width: 100%; margin-left: auto; margin-right: auto; margin-top: 0; margin-bottom: 0; max-width: 62.5em; *zoom: 1; position: relative; padding-left: 0.9375em; padding-right: 0.9375em; }
+#header:before, #header:after, #content:before, #content:after, #footnotes:before, #footnotes:after, #footer:before, #footer:after { content: " "; display: table; }
+#header:after, #content:after, #footnotes:after, #footer:after { clear: both; }
+#header { margin-bottom: 2.5em; }
+#header > h1 { color: black; font-weight: normal; border-bottom: 1px solid #dddddd; margin-bottom: -28px; padding-bottom: 32px; }
+#header span { color: #6f6f6f; }
+#header #revnumber { text-transform: capitalize; }
+#header br { display: none; }
+#header br + span { padding-left: 3px; }
+#header br + span:before { content: "\2013 \0020"; }
+#header br + span.author { padding-left: 0; }
+#header br + span.author:before { content: ", "; }
+#toc { border-bottom: 3px double #ebebeb; padding-bottom: 1.25em; }
+#toc > ul { margin-left: 0.25em; }
+#toc ul.sectlevel0 > li > a { font-style: italic; }
+#toc ul.sectlevel0 ul.sectlevel1 { margin-left: 0; margin-top: 0.5em; margin-bottom: 0.5em; }
+#toc ul { list-style-type: none; }
+#toctitle { color: #7a2518; }
+@media only screen and (min-width: 1280px) { body.toc2 { padding-left: 20em; }
+  #toc.toc2 { position: fixed; width: 20em; left: 0; top: 0; border-right: 1px solid #ebebeb; border-bottom: 0; z-index: 1000; padding: 1em; height: 100%; overflow: auto; }
+  #toc.toc2 #toctitle { margin-top: 0; }
+  #toc.toc2 > ul { font-size: .95em; }
+  #toc.toc2 ul ul { margin-left: 0; padding-left: 1.25em; }
+  #toc.toc2 ul.sectlevel0 ul.sectlevel1 { padding-left: 0; margin-top: 0.5em; margin-bottom: 0.5em; }
+  body.toc2.toc-right { padding-left: 0; padding-right: 20em; }
+  body.toc2.toc-right #toc.toc2 { border-right: 0; border-left: 1px solid #ebebeb; left: auto; right: 0; } }
+#content #toc { border-style: solid; border-width: 1px; border-color: #d9d9d9; margin-bottom: 1.25em; padding: 1.25em; background: #f2f2f2; border-width: 0; -webkit-border-radius: 4px; border-radius: 4px; }
+#content #toc > :first-child { margin-top: 0; }
+#content #toc > :last-child { margin-bottom: 0; }
+#content #toc a { text-decoration: none; }
+#content #toctitle { font-weight: bold; font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; font-size: 1em; padding-left: 0.125em; }
+#footer { max-width: 100%; background-color: #222222; padding: 1.25em; }
+#footer-text { color: #dddddd; line-height: 1.44; }
+.sect1 { padding-bottom: 1.25em; }
+.sect1 + .sect1 { border-top: 3px double #ebebeb; }
+#content h1 > a.anchor, h2 > a.anchor, h3 > a.anchor, #toctitle > a.anchor, .sidebarblock > .content > .title > a.anchor, h4 > a.anchor, h5 > a.anchor, h6 > a.anchor { position: absolute; width: 1em; margin-left: -1em; display: block; text-decoration: none; visibility: hidden; text-align: center; font-weight: normal; }
+#content h1 > a.anchor:before, h2 > a.anchor:before, h3 > a.anchor:before, #toctitle > a.anchor:before, .sidebarblock > .content > .title > a.anchor:before, h4 > a.anchor:before, h5 > a.anchor:before, h6 > a.anchor:before { content: '\00A7'; font-size: .85em; vertical-align: text-top; display: block; margin-top: 0.05em; }
+#content h1:hover > a.anchor, #content h1 > a.anchor:hover, h2:hover > a.anchor, h2 > a.anchor:hover, h3:hover > a.anchor, #toctitle:hover > a.anchor, .sidebarblock > .content > .title:hover > a.anchor, h3 > a.anchor:hover, #toctitle > a.anchor:hover, .sidebarblock > .content > .title > a.anchor:hover, h4:hover > a.anchor, h4 > a.anchor:hover, h5:hover > a.anchor, h5 > a.anchor:hover, h6:hover > a.anchor, h6 > a.anchor:hover { visibility: visible; }
+#content h1 > a.link, h2 > a.link, h3 > a.link, #toctitle > a.link, .sidebarblock > .content > .title > a.link, h4 > a.link, h5 > a.link, h6 > a.link { color: #ba3925; text-decoration: none; }
+#content h1 > a.link:hover, h2 > a.link:hover, h3 > a.link:hover, #toctitle > a.link:hover, .sidebarblock > .content > .title > a.link:hover, h4 > a.link:hover, h5 > a.link:hover, h6 > a.link:hover { color: #a53221; }
+.imageblock, .literalblock, .listingblock, .verseblock, .videoblock { margin-bottom: 1.25em; }
+.admonitionblock td.content > .title, .exampleblock > .title, .imageblock > .title, .videoblock > .title, .listingblock > .title, .literalblock > .title, .openblock > .title, .paragraph > .title, .quoteblock > .title, .sidebarblock > .title, .tableblock > .title, .verseblock > .title, .dlist > .title, .olist > .title, .ulist > .title, .qlist > .title, .hdlist > .title { text-align: left; font-weight: bold; }
+.tableblock > caption { text-align: left; font-weight: bold; white-space: nowrap; overflow: visible; max-width: 0; }
+table.tableblock #preamble > .sectionbody > .paragraph:first-of-type p { font-size: inherit; }
+.admonitionblock > table { border: 0; background: none; width: 100%; }
+.admonitionblock > table td.icon { text-align: center; width: 80px; }
+.admonitionblock > table td.icon img { max-width: none; }
+.admonitionblock > table td.icon .title { font-weight: bold; text-transform: uppercase; }
+.admonitionblock > table td.content { padding-left: 1.125em; padding-right: 1.25em; border-left: 1px solid #dddddd; color: #6f6f6f; }
+.admonitionblock > table td.content > :last-child > :last-child { margin-bottom: 0; }
+.exampleblock > .content { border-style: solid; border-width: 1px; border-color: #e6e6e6; margin-bottom: 1.25em; padding: 1.25em; background: white; -webkit-border-radius: 4px; border-radius: 4px; }
+.exampleblock > .content > :first-child { margin-top: 0; }
+.exampleblock > .content > :last-child { margin-bottom: 0; }
+.exampleblock > .content h1, .exampleblock > .content h2, .exampleblock > .content h3, .exampleblock > .content #toctitle, .sidebarblock.exampleblock > .content > .title, .exampleblock > .content h4, .exampleblock > .content h5, .exampleblock > .content h6, .exampleblock > .content p { color: #333333; }
+.exampleblock > .content h1, .exampleblock > .content h2, .exampleblock > .content h3, .exampleblock > .content #toctitle, .sidebarblock.exampleblock > .content > .title, .exampleblock > .content h4, .exampleblock > .content h5, .exampleblock > .content h6 { line-height: 1; margin-bottom: 0.625em; }
+.exampleblock > .content h1.subheader, .exampleblock > .content h2.subheader, .exampleblock > .content h3.subheader, .exampleblock > .content .subheader#toctitle, .sidebarblock.exampleblock > .content > .subheader.title, .exampleblock > .content h4.subheader, .exampleblock > .content h5.subheader, .exampleblock > .content h6.subheader { line-height: 1.4; }
+.exampleblock.result > .content { -webkit-box-shadow: 0 1px 8px #d9d9d9; box-shadow: 0 1px 8px #d9d9d9; }
+.sidebarblock { border-style: solid; border-width: 1px; border-color: #d9d9d9; margin-bottom: 1.25em; padding: 1.25em; background: #f2f2f2; -webkit-border-radius: 4px; border-radius: 4px; }
+.sidebarblock > :first-child { margin-top: 0; }
+.sidebarblock > :last-child { margin-bottom: 0; }
+.sidebarblock h1, .sidebarblock h2, .sidebarblock h3, .sidebarblock #toctitle, .sidebarblock > .content > .title, .sidebarblock h4, .sidebarblock h5, .sidebarblock h6, .sidebarblock p { color: #333333; }
+.sidebarblock h1, .sidebarblock h2, .sidebarblock h3, .sidebarblock #toctitle, .sidebarblock > .content > .title, .sidebarblock h4, .sidebarblock h5, .sidebarblock h6 { line-height: 1; margin-bottom: 0.625em; }
+.sidebarblock h1.subheader, .sidebarblock h2.subheader, .sidebarblock h3.subheader, .sidebarblock .subheader#toctitle, .sidebarblock > .content > .subheader.title, .sidebarblock h4.subheader, .sidebarblock h5.subheader, .sidebarblock h6.subheader { line-height: 1.4; }
+.sidebarblock > .content > .title { color: #7a2518; margin-top: 0; line-height: 1.6; }
+.exampleblock > .content > :last-child > :last-child, .exampleblock > .content .olist > ol > li:last-child > :last-child, .exampleblock > .content .ulist > ul > li:last-child > :last-child, .exampleblock > .content .qlist > ol > li:last-child > :last-child, .sidebarblock > .content > :last-child > :last-child, .sidebarblock > .content .olist > ol > li:last-child > :last-child, .sidebarblock > .content .ulist > ul > li:last-child > :last-child, .sidebarblock > .content .qlist > ol > li:last-child > :last-child { margin-bottom: 0; }
+.literalblock > .content pre, .listingblock > .content pre { background: none; border-width: 1px 0; border-style: dotted; border-color: #bfbfbf; -webkit-border-radius: 4px; border-radius: 4px; padding: 0.75em 0.75em 0.5em 0.75em; word-wrap: break-word; }
+.literalblock > .content pre.nowrap, .listingblock > .content pre.nowrap { overflow-x: auto; white-space: pre; word-wrap: normal; }
+.literalblock > .content pre > code, .listingblock > .content pre > code { display: block; }
+@media only screen { .literalblock > .content pre, .listingblock > .content pre { font-size: 0.8em; } }
+@media only screen and (min-width: 768px) { .literalblock > .content pre, .listingblock > .content pre { font-size: 0.9em; } }
+@media only screen and (min-width: 1280px) { .literalblock > .content pre, .listingblock > .content pre { font-size: 1em; } }
+.listingblock > .content { position: relative; }
+.listingblock:hover code[class*=" language-"]:before { text-transform: uppercase; font-size: 0.9em; color: #999; position: absolute; top: 0.375em; right: 0.375em; }
+.listingblock:hover code.asciidoc:before { content: "asciidoc"; }
+.listingblock:hover code.clojure:before { content: "clojure"; }
+.listingblock:hover code.css:before { content: "css"; }
+.listingblock:hover code.groovy:before { content: "groovy"; }
+.listingblock:hover code.html:before { content: "html"; }
+.listingblock:hover code.java:before { content: "java"; }
+.listingblock:hover code.javascript:before { content: "javascript"; }
+.listingblock:hover code.python:before { content: "python"; }
+.listingblock:hover code.ruby:before { content: "ruby"; }
+.listingblock:hover code.scss:before { content: "scss"; }
+.listingblock:hover code.xml:before { content: "xml"; }
+.listingblock:hover code.yaml:before { content: "yaml"; }
+.listingblock.terminal pre .command:before { content: attr(data-prompt); padding-right: 0.5em; color: #999; }
+.listingblock.terminal pre .command:not([data-prompt]):before { content: '$'; }
+table.pyhltable { border: 0; margin-bottom: 0; }
+table.pyhltable td { vertical-align: top; padding-top: 0; padding-bottom: 0; }
+table.pyhltable td.code { padding-left: .75em; padding-right: 0; }
+.highlight.pygments .lineno, table.pyhltable td:not(.code) { color: #999; padding-left: 0; padding-right: .5em; border-right: 1px solid #dddddd; }
+.highlight.pygments .lineno { display: inline-block; margin-right: .25em; }
+table.pyhltable .linenodiv { background-color: transparent !important; padding-right: 0 !important; }
+.quoteblock { margin: 0 0 1.25em; padding: 0.5625em 1.25em 0 1.1875em; border-left: 1px solid #dddddd; }
+.quoteblock blockquote { margin: 0 0 1.25em 0; padding: 0 0 0.5625em 0; border: 0; }
+.quoteblock blockquote > .paragraph:last-child p { margin-bottom: 0; }
+.quoteblock .attribution { margin-top: -.25em; padding-bottom: 0.5625em; font-size: inherit; color: #555555; }
+.quoteblock .attribution br { display: none; }
+.quoteblock .attribution cite { display: block; margin-bottom: 0.625em; }
+table thead th, table tfoot th { font-weight: bold; }
+table.tableblock.grid-all { border-collapse: separate; border-spacing: 1px; -webkit-border-radius: 4px; border-radius: 4px; border-top: 1px solid #dddddd; border-bottom: 1px solid #dddddd; }
+table.tableblock.frame-topbot, table.tableblock.frame-none { border-left: 0; border-right: 0; }
+table.tableblock.frame-sides, table.tableblock.frame-none { border-top: 0; border-bottom: 0; }
+table.tableblock td .paragraph:last-child p, table.tableblock td > p:last-child { margin-bottom: 0; }
+th.tableblock.halign-left, td.tableblock.halign-left { text-align: left; }
+th.tableblock.halign-right, td.tableblock.halign-right { text-align: right; }
+th.tableblock.halign-center, td.tableblock.halign-center { text-align: center; }
+th.tableblock.valign-top, td.tableblock.valign-top { vertical-align: top; }
+th.tableblock.valign-bottom, td.tableblock.valign-bottom { vertical-align: bottom; }
+th.tableblock.valign-middle, td.tableblock.valign-middle { vertical-align: middle; }
+p.tableblock.header { color: #222222; font-weight: bold; }
+td > div.verse { white-space: pre; }
+ol { margin-left: 1.75em; }
+ul li ol { margin-left: 1.5em; }
+dl dd { margin-left: 1.125em; }
+dl dd:last-child, dl dd:last-child > :last-child { margin-bottom: 0; }
+ol > li p, ul > li p, ul dd, ol dd, .olist .olist, .ulist .ulist, .ulist .olist, .olist .ulist { margin-bottom: 0.625em; }
+ul.unstyled, ol.unnumbered, ul.checklist, ul.none { list-style-type: none; }
+ul.unstyled, ol.unnumbered, ul.checklist { margin-left: 0.625em; }
+ul.checklist li > p:first-child > i[class^="icon-check"]:first-child, ul.checklist li > p:first-child > input[type="checkbox"]:first-child { margin-right: 0.25em; }
+ul.checklist li > p:first-child > input[type="checkbox"]:first-child { position: relative; top: 1px; }
+ul.inline { margin: 0 auto 0.625em auto; margin-left: -1.375em; margin-right: 0; padding: 0; list-style: none; overflow: hidden; }
+ul.inline > li { list-style: none; float: left; margin-left: 1.375em; display: block; }
+ul.inline > li > * { display: block; }
+.unstyled dl dt { font-weight: normal; font-style: normal; }
+ol.arabic { list-style-type: decimal; }
+ol.decimal { list-style-type: decimal-leading-zero; }
+ol.loweralpha { list-style-type: lower-alpha; }
+ol.upperalpha { list-style-type: upper-alpha; }
+ol.lowerroman { list-style-type: lower-roman; }
+ol.upperroman { list-style-type: upper-roman; }
+ol.lowergreek { list-style-type: lower-greek; }
+.hdlist > table, .colist > table { border: 0; background: none; }
+.hdlist > table > tbody > tr, .colist > table > tbody > tr { background: none; }
+td.hdlist1 { padding-right: .8em; font-weight: bold; }
+td.hdlist1, td.hdlist2 { vertical-align: top; }
+.literalblock + .colist, .listingblock + .colist { margin-top: -0.5em; }
+.colist > table tr > td:first-of-type { padding: 0 .8em; line-height: 1; }
+.colist > table tr > td:last-of-type { padding: 0.25em 0; }
+.qanda > ol > li > p > em:only-child { color: #00467f; }
+.thumb, .th { line-height: 0; display: inline-block; border: solid 4px white; -webkit-box-shadow: 0 0 0 1px #dddddd; box-shadow: 0 0 0 1px #dddddd; }
+.imageblock.left, .imageblock[style*="float: left"] { margin: 0.25em 0.625em 1.25em 0; }
+.imageblock.right, .imageblock[style*="float: right"] { margin: 0.25em 0 1.25em 0.625em; }
+.imageblock > .title { margin-bottom: 0; }
+.imageblock.thumb, .imageblock.th { border-width: 6px; }
+.imageblock.thumb > .title, .imageblock.th > .title { padding: 0 0.125em; }
+.image.left, .image.right { margin-top: 0.25em; margin-bottom: 0.25em; display: inline-block; line-height: 0; }
+.image.left { margin-right: 0.625em; }
+.image.right { margin-left: 0.625em; }
+a.image { text-decoration: none; }
+span.footnote, span.footnoteref { vertical-align: super; font-size: 0.875em; }
+span.footnote a, span.footnoteref a { text-decoration: none; }
+#footnotes { padding-top: 0.75em; padding-bottom: 0.75em; margin-bottom: 0.625em; }
+#footnotes hr { width: 20%; min-width: 6.25em; margin: -.25em 0 .75em 0; border-width: 1px 0 0 0; }
+#footnotes .footnote { padding: 0 0.375em; line-height: 1.3; font-size: 0.875em; margin-left: 1.2em; text-indent: -1.2em; margin-bottom: .2em; }
+#footnotes .footnote a:first-of-type { font-weight: bold; text-decoration: none; }
+#footnotes .footnote:last-of-type { margin-bottom: 0; }
+#content #footnotes { margin-top: -0.625em; margin-bottom: 0; padding: 0.75em 0; }
+.gist .file-data > table { border: none; background: #fff; width: 100%; margin-bottom: 0; }
+.gist .file-data > table td.line-data { width: 99%; }
+div.unbreakable { page-break-inside: avoid; }
+.big { font-size: larger; }
+.small { font-size: smaller; }
+.underline { text-decoration: underline; }
+.overline { text-decoration: overline; }
+.line-through { text-decoration: line-through; }
+.aqua { color: #00bfbf; }
+.aqua-background { background-color: #00fafa; }
+.black { color: black; }
+.black-background { background-color: black; }
+.blue { color: #0000bf; }
+.blue-background { background-color: #0000fa; }
+.fuchsia { color: #bf00bf; }
+.fuchsia-background { background-color: #fa00fa; }
+.gray { color: #606060; }
+.gray-background { background-color: #7d7d7d; }
+.green { color: #006000; }
+.green-background { background-color: #007d00; }
+.lime { color: #00bf00; }
+.lime-background { background-color: #00fa00; }
+.maroon { color: #600000; }
+.maroon-background { background-color: #7d0000; }
+.navy { color: #000060; }
+.navy-background { background-color: #00007d; }
+.olive { color: #606000; }
+.olive-background { background-color: #7d7d00; }
+.purple { color: #600060; }
+.purple-background { background-color: #7d007d; }
+.red { color: #bf0000; }
+.red-background { background-color: #fa0000; }
+.silver { color: #909090; }
+.silver-background { background-color: #bcbcbc; }
+.teal { color: #006060; }
+.teal-background { background-color: #007d7d; }
+.white { color: #bfbfbf; }
+.white-background { background-color: #fafafa; }
+.yellow { color: #bfbf00; }
+.yellow-background { background-color: #fafa00; }
+span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
+.admonitionblock td.icon [class^="icon-"]:before { font-size: 2.5em; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); cursor: default; }
+.admonitionblock td.icon .icon-note:before { content: "\f05a"; color: #005498; color: #003f72; }
+.admonitionblock td.icon .icon-tip:before { content: "\f0eb"; text-shadow: 1px 1px 2px rgba(155, 155, 0, 0.8); color: #111; }
+.admonitionblock td.icon .icon-warning:before { content: "\f071"; color: #bf6900; }
+.admonitionblock td.icon .icon-caution:before { content: "\f06d"; color: #bf3400; }
+.admonitionblock td.icon .icon-important:before { content: "\f06a"; color: #bf0000; }
+.conum { display: inline-block; color: white !important; background-color: #222222; -webkit-border-radius: 100px; border-radius: 100px; text-align: center; width: 20px; height: 20px; font-size: 12px; font-weight: bold; line-height: 20px; font-family: Arial, sans-serif; font-style: normal; position: relative; top: -2px; letter-spacing: -1px; }
+.conum * { color: white !important; }
+.conum + b { display: none; }
+.conum:after { content: attr(data-value); }
+.conum:not([data-value]):empty { display: none; }
+.literalblock > .content > pre, .listingblock > .content > pre { -webkit-border-radius: 0; border-radius: 0; }
+
+</style>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet"/>
+<style>
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #ffffff; }
+.highlight .tok-c { color: #888888 } /* Comment */
+.highlight .tok-err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .tok-k { color: #008800; font-weight: bold } /* Keyword */
+.highlight .tok-cm { color: #888888 } /* Comment.Multiline */
+.highlight .tok-cp { color: #cc0000; font-weight: bold } /* Comment.Preproc */
+.highlight .tok-c1 { color: #888888 } /* Comment.Single */
+.highlight .tok-cs { color: #cc0000; font-weight: bold; background-color: #fff0f0 } /* Comment.Special */
+.highlight .tok-gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .tok-ge { font-style: italic } /* Generic.Emph */
+.highlight .tok-gr { color: #aa0000 } /* Generic.Error */
+.highlight .tok-gh { color: #333333 } /* Generic.Heading */
+.highlight .tok-gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .tok-go { color: #888888 } /* Generic.Output */
+.highlight .tok-gp { color: #555555 } /* Generic.Prompt */
+.highlight .tok-gs { font-weight: bold } /* Generic.Strong */
+.highlight .tok-gu { color: #666666 } /* Generic.Subheading */
+.highlight .tok-gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .tok-kc { color: #008800; font-weight: bold } /* Keyword.Constant */
+.highlight .tok-kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
+.highlight .tok-kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
+.highlight .tok-kp { color: #008800 } /* Keyword.Pseudo */
+.highlight .tok-kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
+.highlight .tok-kt { color: #888888; font-weight: bold } /* Keyword.Type */
+.highlight .tok-m { color: #0000DD; font-weight: bold } /* Literal.Number */
+.highlight .tok-s { color: #dd2200; background-color: #fff0f0 } /* Literal.String */
+.highlight .tok-na { color: #336699 } /* Name.Attribute */
+.highlight .tok-nb { color: #003388 } /* Name.Builtin */
+.highlight .tok-nc { color: #bb0066; font-weight: bold } /* Name.Class */
+.highlight .tok-no { color: #003366; font-weight: bold } /* Name.Constant */
+.highlight .tok-nd { color: #555555 } /* Name.Decorator */
+.highlight .tok-ne { color: #bb0066; font-weight: bold } /* Name.Exception */
+.highlight .tok-nf { color: #0066bb; font-weight: bold } /* Name.Function */
+.highlight .tok-nl { color: #336699; font-style: italic } /* Name.Label */
+.highlight .tok-nn { color: #bb0066; font-weight: bold } /* Name.Namespace */
+.highlight .tok-py { color: #336699; font-weight: bold } /* Name.Property */
+.highlight .tok-nt { color: #bb0066; font-weight: bold } /* Name.Tag */
+.highlight .tok-nv { color: #336699 } /* Name.Variable */
+.highlight .tok-ow { color: #008800 } /* Operator.Word */
+.highlight .tok-w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .tok-mf { color: #0000DD; font-weight: bold } /* Literal.Number.Float */
+.highlight .tok-mh { color: #0000DD; font-weight: bold } /* Literal.Number.Hex */
+.highlight .tok-mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
+.highlight .tok-mo { color: #0000DD; font-weight: bold } /* Literal.Number.Oct */
+.highlight .tok-sb { color: #dd2200; background-color: #fff0f0 } /* Literal.String.Backtick */
+.highlight .tok-sc { color: #dd2200; background-color: #fff0f0 } /* Literal.String.Char */
+.highlight .tok-sd { color: #dd2200; background-color: #fff0f0 } /* Literal.String.Doc */
+.highlight .tok-s2 { color: #dd2200; background-color: #fff0f0 } /* Literal.String.Double */
+.highlight .tok-se { color: #0044dd; background-color: #fff0f0 } /* Literal.String.Escape */
+.highlight .tok-sh { color: #dd2200; background-color: #fff0f0 } /* Literal.String.Heredoc */
+.highlight .tok-si { color: #3333bb; background-color: #fff0f0 } /* Literal.String.Interpol */
+.highlight .tok-sx { color: #22bb22; background-color: #f0fff0 } /* Literal.String.Other */
+.highlight .tok-sr { color: #008800; background-color: #fff0ff } /* Literal.String.Regex */
+.highlight .tok-s1 { color: #dd2200; background-color: #fff0f0 } /* Literal.String.Single */
+.highlight .tok-ss { color: #aa6600; background-color: #fff0f0 } /* Literal.String.Symbol */
+.highlight .tok-bp { color: #003388 } /* Name.Builtin.Pseudo */
+.highlight .tok-vc { color: #336699 } /* Name.Variable.Class */
+.highlight .tok-vg { color: #dd7700 } /* Name.Variable.Global */
+.highlight .tok-vi { color: #3333bb } /* Name.Variable.Instance */
+.highlight .tok-il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+</style>
+<script src="jquery.js" type="text/javascript"></script><script src="view-result.js" type="text/javascript"></script></head>
+<body class="article toc2 toc-right">
+<div id="header">
+<h1>Dexy User Guide</h1>
+<div class="toc2" id="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_introduction">Introduction</a></li>
+<li><a href="#_telling_dexy_what_to_do">Telling Dexy What To Do</a></li>
+<li><a href="#_running_dexy">Running Dexy</a></li>
+<li>
+<ul class="sectlevel2">
+<li><a href="#_command_line_help">Command Line Help</a></li>
+<li><a href="#_setting_up_and_running_dexy">Setting Up and Running Dexy</a></li>
+<li><a href="#_cache_management">Cache Management</a></li>
+<li><a href="#_filter_documentation">Filter Documentation</a></li>
+</ul>
+</li>
+<li><a href="#_filters">Filters</a></li>
+<li>
+<ul class="sectlevel2">
+<li><a href="#_workspaces">Workspaces</a></li>
+<li>
+<ul class="sectlevel3">
+<li><a href="#_using_working_directories">Using Working Directories</a></li>
+<li><a href="#_including_and_excluding_inputs">Including and Excluding Inputs</a></li>
+<li><a href="#_making_extra_directories">Making Extra Directories</a></li>
+<li><a href="#_adding_new_files">Adding New Files</a></li>
+<li><a href="#_additional_documents">Additional Documents</a></li>
+</ul>
+</li>
+<li><a href="#_templating_filters">Templating Filters</a></li>
+<li>
+<ul class="sectlevel3">
+<li><a href="#_choosing_which_template_plugins_to_use">Choosing Which Template Plugins to Use</a></li>
+<li><a href="#_the_jinja_filter">The Jinja Filter</a></li>
+<li><a href="#_alternative_templating_filters">Alternative Templating Filters</a></li>
+<li><a href="#_stubbing_out_dynamic_content">Stubbing Out Dynamic Content</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You don’t have to know Python, write Python or be a programmer in order to use
+Dexy. There is some Python code in this document if you are interested. Source
+code blocks are indicated by <span class="icon"><i class="icon-code" title="Clicking this won’t do anything, it’s just an example of what the icon looks like."></i></span> and tests are
+indicated by <span class="icon"><i class="icon-shield" title="Clicking this won’t do anything, it’s just an example of what the icon looks like."></i></span>, click the icons to toggle viewing
+any of these individual blocks.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_telling_dexy_what_to_do">Telling Dexy What To Do</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Configuring your dexy projects.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_running_dexy">Running Dexy</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_command_line_help">Command Line Help</h3>
+<div class="paragraph">
+<p>Dexy’s command-line interface uses <a href="https://pypi.python.org/pypi/python-modargs">python-modargs</a>
+to process commands and arguments. All arguments can take any number of dashes,
+so <code>-r</code> and <code>--r</code> and <code>---r</code> all do the same thing.</p>
+</div>
+<div class="paragraph">
+<p>The <code>dexy help</code> command gives you access to information about dexy commands:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> dexy <span class="tok-nb">help</span>
+
+<span class="tok-go">For help on the main `dexy` command, run `dexy help -on dexy`.</span>
+
+<span class="tok-go">The dexy tool includes several different commands:</span>
+<span class="tok-go">  `dexy help --all` lists all available commands</span>
+<span class="tok-go">  `dexy help --on XXX` provides help on a specific command</span>
+
+<span class="tok-go">Commands for running dexy:</span>
+<span class="tok-go">  `dexy` runs dexy</span>
+<span class="tok-go">  `dexy setup` makes directories dexy needs</span>
+<span class="tok-go">  `dexy cleanup` removes directories dexy has created</span>
+<span class="tok-go">  `dexy reset` empties and resets dexy's working directories</span>
+
+<span class="tok-go">Commands which print lists of dexy features:</span>
+<span class="tok-go">  `dexy filters` filters like |jinja |py |javac</span>
+<span class="tok-go">  `dexy env` elements available in document templates</span>
+<span class="tok-go">  `dexy reports` reporters like `output` and `run`</span>
+
+<span class="tok-go">Commands which print information about your project:</span>
+<span class="tok-go">  (you need to be in the project dir and have run dexy already)</span>
+<span class="tok-go">  `dexy grep` search for documents and keys in documents</span>
+<span class="tok-go">  `dexy info` list metadata about a particular document</span>
+<span class="tok-go">  `dexy targets` list target names you can run</span>
+
+<span class="tok-go">Other commands:</span>
+<span class="tok-go">  `dexy serve` start a local static web server to view generated docs</span>
+<span class="tok-go">  `dexy help` you're reading it</span>
+<span class="tok-go">  `dexy version` print the version of dexy software which is installed</span>
+</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>--all</code> flag will print out all the available dexy commands:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> dexy <span class="tok-nb">help</span> --all
+
+<span class="tok-go">Available commands for dexy are:</span>
+<span class="tok-go">   cite</span>
+<span class="tok-go">   cleanup</span>
+<span class="tok-go">   conf</span>
+<span class="tok-go">   dexy</span>
+<span class="tok-go">   env</span>
+<span class="tok-go">   fcmd</span>
+<span class="tok-go">   fcmds</span>
+<span class="tok-go">   filter</span>
+<span class="tok-go">   filters</span>
+<span class="tok-go">   gen</span>
+<span class="tok-go">   grep</span>
+<span class="tok-go">   help</span>
+<span class="tok-go">   info</span>
+<span class="tok-go">   it</span>
+<span class="tok-go">   reporters</span>
+<span class="tok-go">   reports</span>
+<span class="tok-go">   reset</span>
+<span class="tok-go">   serve</span>
+<span class="tok-go">   setup</span>
+<span class="tok-go">   targets</span>
+<span class="tok-go">   template</span>
+<span class="tok-go">   templates</span>
+<span class="tok-go">   version</span>
+
+<span class="tok-go">For help on a particular command type, e.g., 'dexy help -on version'</span>
+</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can get help on a particular command using the <code>-on</code> flag:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> dexy <span class="tok-nb">help</span> --on setup
+<span class="tok-go">=====================</span>
+<span class="tok-go">Help for 'dexy setup'</span>
+<span class="tok-go">=====================</span>
+<span class="tok-go">   Create the directories dexy needs to run.</span>
+
+<span class="tok-go">   Arguments:</span>
+<span class="tok-go">      artifactsdir - Where dexy should store working files.</span>
+<span class="tok-go">            [optional, defaults to '.dexy'] e.g. 'dexy setup --artifactsdir .dexy'</span>
+</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_setting_up_and_running_dexy">Setting Up and Running Dexy</h3>
+<div class="paragraph">
+<p>It can be inconvenient if you accidentally run the <code>dexy</code> command somewhere you
+didn’t mean to, like in your home directory, so <code>dexy</code> won’t run unless it
+finds a <code>.dexy</code> directory in the current working directory. If you try to run
+dexy by accident, you’ll see a message like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> dexy
+<span class="tok-go">Oops, there's a problem running your command.</span>
+<span class="tok-go">Here is some more information:</span>
+<span class="tok-go">'You need to run 'dexy setup' in this directory first.'</span>
+</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Running <code>dexy setup</code> creates the <code>.dexy</code> directory:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> dexy setup
+</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And now you can run dexy:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> dexy
+<span class="tok-go">dexy run finished in 0.061</span>
+<span class="tok-go">dexy reports finished in 0.036</span>
+</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>.dexy</code> directory is used to store working files, cached files, the
+<code>dexy.log</code> and some dexy reports:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> ls .dexy
+<span class="tok-go">batch.args.pickle  dexy.log	 id_parsetab.py  reports</span>
+<span class="tok-go">batches		   id_lextab.py  last		 work</span>
+</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cache_management">Cache Management</h3>
+<div class="paragraph">
+<p>Dexy stores cached files in the <code>.dexy</code> directory to help speed up subsequent
+runs. You shouldn’t have to manage this manually, but if you want to force dexy
+to re-run everything you can empty the cache by running dexy with the <code>-r</code>
+option or running the <code>dexy reset</code> command.</p>
+</div>
+<div class="paragraph">
+<p>Dexy might also create a <code>.trash</code> directory although it should remove this
+automatically.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_filter_documentation">Filter Documentation</h3>
+<div class="paragraph">
+<p>The <code>filters</code> command lets you list all available dexy filters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> dexy filters
+<span class="tok-go">Installed filters:</span>
+<span class="tok-go">  abc : Runs `abcm2ps` on .abc music files.</span>
+<span class="tok-go">  abcm : Runs `abcm2ps` on .abc music files, generating all output formats.</span>
+<span class="tok-go">  ansi2html : Generates HTML from ANSI color codes using ansi2html.</span>
+<span class="tok-go">  apis : Base class for filters which post content to a remote API.</span>
+<span class="tok-go">  archive : Creates a .tgz archive of all input documents.</span>
+<span class="tok-go">  asciidoc : Runs asciidoc command.</span>
+<span class="tok-go">  asciidoctor : Runs `asciidoctor`.</span>
+<span class="tok-go">  asciisyn : Surrounds code with highlighting instructions for Asciidoctor</span>
+<span class="tok-go">  bash : Runs bash scripts using 'bash' and returns stdout.</span>
+<span class="tok-go">  bashint : Runs bash. use to run bash scripts.</span>
+<span class="tok-go">  bleach : Runs the Bleach HTML sanitizer. &lt;https://github.com/jsocol/bleach&gt;</span>
+<span class="tok-go">  bn : Forces previous filter to output .bmp extension.</span>
+<span class="tok-go">  botoup : Uses boto library to upload content to S3, returns the URL.</span>
+<span class="tok-go">  bw : Converts color pdf to black and white.</span>
+<span class="tok-go">  bwconv : Converts color pdf to black and white.</span>
+<span class="tok-go">  c : Compile code using gcc and run.</span>
+<span class="tok-go">  calibre : Runs `ebook-convert` command (part of calibre)</span>
+<span class="tok-go">  casperjs : Runs scripts using casper js. Saves cookies.</span>
+<span class="tok-go">  cb : Changes file extension to .sh</span>
+<span class="tok-go">  cfussy : Compile code using gcc and run, raising an error if compiled code returns nonzero exit.</span>
+<span class="tok-go">  ch : Changes file extension to .html</span>
+<span class="tok-go">  chext : Dummy filter for allowing changing a file extension.</span>
+<span class="tok-go">  cinput : Compile code using gcc and run with input.</span>
+<span class="tok-go">  cj : Changes file extension to .json</span>
+<span class="tok-go">  clang : Compile code using clang and run.</span>
+<span class="tok-go">  clanginput : compile code using clang and run with input.</span>
+<span class="tok-go">  clj : Runs clojure.</span>
+<span class="tok-go">  cowsay : Runs input through 'cowsay'.</span>
+<span class="tok-go">  cowthink : Runs input through 'cowthink'.</span>
+<span class="tok-go">  cpickle : Forces previous filter to output .cpickle extension.</span>
+<span class="tok-go">  cpp : Compile c++ code using cpp and run.</span>
+<span class="tok-go">  cppinput : Compile c++ code using cpp and run with input.</span>
+<span class="tok-go">  ct : Changes file extension to .txt</span>
+<span class="tok-go">  customize : Add &lt;script&gt; tags or &lt;link&gt; tags to an HTML file's header.</span>
+<span class="tok-go">  dexy : Filter which implements some default behaviors.</span>
+<span class="tok-go">  dict : Returns an ordered dict with a single element.</span>
+<span class="tok-go">  ditaa : Runs ditaa to generate images from ascii art.</span>
+<span class="tok-go">  dot : Renders .dot files to either PNG or PDF images.</span>
+<span class="tok-go">  dvilatex : Run Latex outputting a .dvi file.</span>
+<span class="tok-go">  easyhtml : Wraps your text in HTML header/footer which includes Baseline CSS resets.</span>
+<span class="tok-go">  easylatex : Wraps your text in LaTeX article header/footer.</span>
+<span class="tok-go">  ebook : Runs `ebook-convert` command (part of calibre)</span>
+<span class="tok-go">  embedfonts : Runs ghostscript ps2pdf with prepress settings.</span>
+<span class="tok-go">  eps2pdf : Uses epstopdf to convert .eps files to .pdf</span>
+<span class="tok-go">  epstopdf : Uses epstopdf to convert .eps files to .pdf</span>
+<span class="tok-go">  escript : Runs Erlang scripts using the escript command.</span>
+<span class="tok-go">  espeak : Runs espeak text to speech.</span>
+<span class="tok-go">  f95 : Compiles and executes fortran code.</span>
+<span class="tok-go">  figlet : Runs input through 'figlet'.</span>
+<span class="tok-go">  filterargs : Prints out the args it receives.</span>
+<span class="tok-go">  fn : Deprecated. No longer needed.</span>
+<span class="tok-go">  fopdf : Uses asciidoctor-fopdf to generate PDF.</span>
+<span class="tok-go">  forcebmp : Forces previous filter to output .bmp extension.</span>
+<span class="tok-go">  forcegif : Forces previous filter to output .gif extension.</span>
+<span class="tok-go">  forcehtml : Forces previous filter to output .html extension.</span>
+<span class="tok-go">  forcejpg : Forces previous filter to output .jpg extension.</span>
+<span class="tok-go">  forcejson : Forces previous filter to output .json extension.</span>
+<span class="tok-go">  forcelatex : Forces previous filter to output .tex extension.</span>
+<span class="tok-go">  forcepdf : Forces previous filter to output .pdf extension.</span>
+<span class="tok-go">  forcepng : Forces previous filter to output .png extension.</span>
+<span class="tok-go">  forcer : Forces previous filter to output .R extension.</span>
+<span class="tok-go">  forcesvg : Forces previous filter to output .svg extension.</span>
+<span class="tok-go">  forcetext : Forces previous filter to output .txt extension.</span>
+<span class="tok-go">  forcexml : Forces previous filter to output .xml extension.</span>
+<span class="tok-go">  fortran : Compiles and executes fortran code.</span>
+<span class="tok-go">  ft : Apply another file to bottom of file.</span>
+<span class="tok-go">  gcc : Compile code using gcc and run.</span>
+<span class="tok-go">  gn : Forces previous filter to output .gif extension.</span>
+<span class="tok-go">  go : Runs 'go run' command on an input .go file. http://golang.org/</span>
+<span class="tok-go">  gotest : Runs 'go test' command on an input .go file. http://golang.org/</span>
+<span class="tok-go">  graphviz : Renders .dot files to either PNG or PDF images.</span>
+<span class="tok-go">  h : Forces previous filter to output .html extension.</span>
+<span class="tok-go">  hd : Apply another file to top of file.</span>
+<span class="tok-go">  head : Returns just the first 10 lines of input.</span>
+<span class="tok-go">  htlatex : Generates HTML from Latex source using htlatex</span>
+<span class="tok-go">  html2pdf : Deprecated, use casper.js instead.</span>
+<span class="tok-go">  htmlsections : Splits files into sections based on comments like ### "foo"</span>
+<span class="tok-go">  htmltidy : Uses tidy to clean and validate HTML.</span>
+<span class="tok-go">  ipynb : Get data out of an IPython notebook.</span>
+<span class="tok-go">  ipynbcasper : Launch IPython notebook and run a casperjs script against the server.</span>
+<span class="tok-go">  ipynbx : Generates a static file based on an IPython notebook.</span>
+<span class="tok-go">  ipython : Runs python code in the IPython console.</span>
+<span class="tok-go">  irb : Runs ruby code in irb.</span>
+<span class="tok-go">  irbout : Runs ruby scripts in irb.</span>
+<span class="tok-go">  j : Forces previous filter to output .json extension.</span>
+<span class="tok-go">  java : Compiles java code and runs main method.</span>
+<span class="tok-go">  javac : Compiles java code and returns the .class object</span>
+<span class="tok-go">  jinja : Runs the Jinja templating engine.</span>
+<span class="tok-go">  jirb : Run jruby code in jirb.</span>
+<span class="tok-go">  jlcon : Runs julia (.jl) files in the repl.</span>
+<span class="tok-go">  jn : Forces previous filter to output .jpg extension.</span>
+<span class="tok-go">  join : Takes sectioned code and joins it into a single section. Some filters which</span>
+<span class="tok-go">  jruby : Run jruby code and return stdout.</span>
+<span class="tok-go">  js : Runs code through rhino js interpreter.</span>
+<span class="tok-go">  jsint : Runs rhino JavaScript interpeter.</span>
+<span class="tok-go">  julia : Runs julia (.jl) files.</span>
+<span class="tok-go">  jython : jython</span>
+<span class="tok-go">  jythoni : jython in REPL</span>
+<span class="tok-go">  keyvalueexample : Example of storing key value data.</span>
+<span class="tok-go">  kshint : Runs ksh. Use to run bash scripts.</span>
+<span class="tok-go">  kv : Creates a new key-value store.</span>
+<span class="tok-go">  l : Forces previous filter to output .tex extension.</span>
+<span class="tok-go">  latexdvi : Run Latex outputting a .dvi file.</span>
+<span class="tok-go">  latextile : Converts textile to LaTeX using Redcloth.</span>
+<span class="tok-go">  lines : Returns each line in its own section.</span>
+<span class="tok-go">  lua : Runs code through lua interpreter.</span>
+<span class="tok-go">  lynxdump : Converts HTML to plain text by using lynx -dump.</span>
+<span class="tok-go">  lyx : Runs lyx to generate LaTeX output.</span>
+<span class="tok-go">  lyxjinja : Converts dexy:foo.txt|bar into &lt;&lt; d['foo.txt|bar'] &gt;&gt;</span>
+<span class="tok-go">  make : Runs make tasks.</span>
+<span class="tok-go">  man : Read command names from a file and fetch man pages for each.</span>
+<span class="tok-go">  markdown : Runs a Markdown processor to convert markdown to HTML.</span>
+<span class="tok-go">  matlabint : Runs matlab in REPL.</span>
+<span class="tok-go">  newdoc : A filter which adds an extra document to the tree.</span>
+<span class="tok-go">  node : Runs scripts using node js</span>
+<span class="tok-go">  nodejs : Runs scripts using node js</span>
+<span class="tok-go">  org : Convert .org files to other formats.</span>
+<span class="tok-go">  others : Example of accessing other documents.</span>
+<span class="tok-go">  outputabc : Only outputs extension .abc</span>
+<span class="tok-go">  p : Forces previous filter to output .pdf extension.</span>
+<span class="tok-go">  pandoc : Convert documents to various available output formats using pandoc.</span>
+<span class="tok-go">  pdf2cairo : Runs `pdftocairo` from the poppler library.</span>
+<span class="tok-go">  pdf2img : Runs ghostscript to convert PDF files to images.</span>
+<span class="tok-go">  pdf2jpg : Converts a PDF file to a jpg image using ghostscript.</span>
+<span class="tok-go">  pdf2text : Uses pdftotext from the poppler library to convert PDFs to text.</span>
+<span class="tok-go">  pdfcrop : Runs the PDFcrop script http://pdfcrop.sourceforge.net/</span>
+<span class="tok-go">  pdfinfo : Uses the pdfinfo script to retrieve metadata about a PDF.</span>
+<span class="tok-go">  pdftotext : Uses pdftotext from the poppler library to convert PDFs to text.</span>
+<span class="tok-go">  phantomjs : Runs scripts using phantom js.</span>
+<span class="tok-go">  php : Runs php file.</span>
+<span class="tok-go">  phpint : Runs PHP in interpeter mode.</span>
+<span class="tok-go">  phrender : Renders HTML to PNG/PDF using phantom.js.</span>
+<span class="tok-go">  pickle : Forces previous filter to output .pickle extension.</span>
+<span class="tok-go">  pn : Forces previous filter to output .png extension.</span>
+<span class="tok-go">  ppjson : Pretty prints JSON input.</span>
+<span class="tok-go">  process : Calls `set_data` method to store output.</span>
+<span class="tok-go">  processmanual : Writes output directly to output file.</span>
+<span class="tok-go">  processtext : Uses process_text method</span>
+<span class="tok-go">  processwithdict : Stores sectional data using `process` method.</span>
+<span class="tok-go">  ps2pdf : Converts a postscript file to PDF format.</span>
+<span class="tok-go">  pstopdf : Converts a postscript file to PDF format.</span>
+<span class="tok-go">  py : Runs Python code and returns stdout.</span>
+<span class="tok-go">  pycon : Runs python code in python's REPL.</span>
+<span class="tok-go">  pydoc : Returns introspected python data in key-value storage format.</span>
+<span class="tok-go">  pyg : Apply Pygments &lt;http://pygments.org/&gt; syntax highlighting.</span>
+<span class="tok-go">  pyg4rst : Surrounds code with highlighting instructions for ReST</span>
+<span class="tok-go">  pyin : Runs python code and passes input</span>
+<span class="tok-go">  pyout : Runs Python code and returns stdout.</span>
+<span class="tok-go">  pytest : Runs the tests in the specified Python modules.</span>
+<span class="tok-go">  r : Runs R in REPL.</span>
+<span class="tok-go">  ragel : Generates ruby source code from a ragel file.</span>
+<span class="tok-go">  rageldot : Generates state chart in .dot format of ragel state machine.</span>
+<span class="tok-go">  ragelruby : Generates ruby source code from a ragel file.</span>
+<span class="tok-go">  ragelrubydot : Generates state chart in .dot format of ragel state machine for ruby.</span>
+<span class="tok-go">  rb : Runs ruby scripts and return stdout.</span>
+<span class="tok-go">  rbrepl : Runs ruby code in irb.</span>
+<span class="tok-go">  rd2pdf : Generates a pdf from R documentation file.</span>
+<span class="tok-go">  Rd2pdf : Generates a pdf from R documentation file.</span>
+<span class="tok-go">  rdconv : Convert R documentation to other formats.</span>
+<span class="tok-go">  redcloth : Converts textile to HTML using Redcloth.</span>
+<span class="tok-go">  redclothl : Converts textile to LaTeX using Redcloth.</span>
+<span class="tok-go">  regetron : Filter which loads .regex file into regetron and runs any input text against it.</span>
+<span class="tok-go">  rhino : Runs code through rhino js interpreter.</span>
+<span class="tok-go">  rhinoint : Runs rhino JavaScript interpeter.</span>
+<span class="tok-go">  rint : Runs R in REPL.</span>
+<span class="tok-go">  rintbatch : Runs R files in batch mode, returning an R console transcript.</span>
+<span class="tok-go">  rintmock : Experimental filter to run R in sections without using pexpect.</span>
+<span class="tok-go">  rlrb : Generates ruby source code from a ragel file.</span>
+<span class="tok-go">  rlrbd : Generates state chart in .dot format of ragel state machine for ruby.</span>
+<span class="tok-go">  rout : Runs R files in batch mode, returning just the output.</span>
+<span class="tok-go">  routbatch : Runs R files in batch mode, returning just the output.</span>
+<span class="tok-go">  rst : A 'native' ReST filter which uses the docutils library.</span>
+<span class="tok-go">  rst2beamer : Runs rst2beamer command (docutils).</span>
+<span class="tok-go">  rst2html : Convert rst to HTML</span>
+<span class="tok-go">  rst2latex : Runs rst2latex command (docutils).</span>
+<span class="tok-go">  rst2man : Runs rst2man command (docutils).</span>
+<span class="tok-go">  rst2odt : Runs rst2odt command (docutils).</span>
+<span class="tok-go">  rst2xml : Runs rst2xml command (docutils).</span>
+<span class="tok-go">  rstbody : Returns just the body part of an ReST document.</span>
+<span class="tok-go">  rstdocparts : Returns key-value storage of document parts.</span>
+<span class="tok-go">  rstmeta : Extracts bibliographical metadata and makes this available to dexy.</span>
+<span class="tok-go">  rust : Runs rust code.</span>
+<span class="tok-go">  rustc : Runs rust code.</span>
+<span class="tok-go">  rusti : Runs rust code in the rust repl (rusti). EXPERIMENTAL.</span>
+<span class="tok-go">  scala : Compiles and runs .scala files.</span>
+<span class="tok-go">  scalac : Compiles .scala code to .class files.</span>
+<span class="tok-go">  scalai : Runs scala code in the REPL.</span>
+<span class="tok-go">  sed : Runs a sed script.</span>
+<span class="tok-go">  sh : Runs bash scripts using 'sh' and returns stdout.</span>
+<span class="tok-go">  shint : Runs bash. use to run bash scripts.</span>
+<span class="tok-go">  slides : Converts paragraphs to HTML and wrap each slide in a header and footer.</span>
+<span class="tok-go">  sloc : Runs code through sloccount.</span>
+<span class="tok-go">  sloccount : Runs code through sloccount.</span>
+<span class="tok-go">  soups : Split a HTML file into nested sections based on header tags.</span>
+<span class="tok-go">  split : Generate index page linking to multiple pages from single source.</span>
+<span class="tok-go">  ss : Add a blank space to the start of each line.</span>
+<span class="tok-go">  stata : Runs stata files.</span>
+<span class="tok-go">  statai : Runs stata files.</span>
+<span class="tok-go">  strings : Clean non-printing characters from text using the 'strings' tool.</span>
+<span class="tok-go">  svg : Forces previous filter to output .svg extension.</span>
+<span class="tok-go">  svg2pdf : Converts an SVG file to PDF by running it through casper js.</span>
+<span class="tok-go">  t : Forces previous filter to output .txt extension.</span>
+<span class="tok-go">  tags : Wrap text in specified HTML tags.</span>
+<span class="tok-go">  taverna : Runs workflows in Taverna via command line tool.</span>
+<span class="tok-go">  template : Base class for templating system filters such as JinjaFilter. Templating</span>
+<span class="tok-go">  textile : Converts textile to HTML using Redcloth.</span>
+<span class="tok-go">  tgzdir : Create a .tgz archive containing the unprocessed files in a directory.</span>
+<span class="tok-go">  tidy : Uses tidy to clean and validate HTML.</span>
+<span class="tok-go">  tidycheck : Runs `tidy` to check for valid HTML.</span>
+<span class="tok-go">  tidyerrors : Uses tidy to print HTML errors.</span>
+<span class="tok-go">  tikz : Renders Tikz code to PDF.</span>
+<span class="tok-go">  used : Runs `sed` on the input file.</span>
+<span class="tok-go">  wc : Runs input through wc command line tool.</span>
+<span class="tok-go">  wiki2beamer : Converts wiki content to beamer.</span>
+<span class="tok-go">  wkhtmltopdf : Deprecated, use casper.js instead.</span>
+<span class="tok-go">  wordpress : Posts to a WordPress blog.</span>
+<span class="tok-go">  wrap : Wraps text after 79 characters (tries to preserve existing line breaks and</span>
+<span class="tok-go">  x : Forces previous filter to output .xml extension.</span>
+<span class="tok-go">  xelatex : Runs .tex files using xelatex.</span>
+<span class="tok-go">  xetex : Runs .tex files using xelatex.</span>
+<span class="tok-go">  xmlsec : Stores all elements in the input XML document which have any of the</span>
+<span class="tok-go">  yamlargs : Specify attributes in YAML at top of file.</span>
+<span class="tok-go">  zip : Creates a .zip archive of all input documents.</span>
+
+<span class="tok-go">For more information about a particular filter,</span>
+<span class="tok-go">use the -alias flag and specify the filter alias.</span>
+</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To print the full docstring and available settings for particular filter, use
+the <code>-alias</code> option:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> dexy filters -alias jinja
+
+<span class="tok-go">Runs the Jinja templating engine.</span>
+
+<span class="tok-go">aliases: jinja</span>
+<span class="tok-go">tags:</span>
+
+<span class="tok-go">Converts from file formats:</span>
+<span class="tok-go">   .*</span>
+
+<span class="tok-go">Converts to file formats:</span>
+<span class="tok-go">   .*</span>
+
+<span class="tok-go">Settings:</span>
+<span class="tok-go">    add-new-files</span>
+<span class="tok-go">        Boolean or list of extensions/patterns to match.</span>
+<span class="tok-go">        default value: False</span>
+
+<span class="tok-go">    added-in-version</span>
+<span class="tok-go">        Dexy version when this filter was first available.</span>
+<span class="tok-go">        default value:</span>
+
+<span class="tok-go">    additional-doc-filters</span>
+<span class="tok-go">        Filters to apply to additional documents created as side effects.</span>
+<span class="tok-go">        default value: {}</span>
+
+<span class="tok-go">    additional-doc-settings</span>
+<span class="tok-go">        Settings to apply to additional documents created as side effects.</span>
+<span class="tok-go">        default value: {}</span>
+
+<span class="tok-go">    block-end-string</span>
+<span class="tok-go">        Tag to indicate the start of a block.</span>
+<span class="tok-go">        default value: %}</span>
+
+<span class="tok-go">    block-start-string</span>
+<span class="tok-go">        Tag to indicate the start of a block.</span>
+<span class="tok-go">        default value: {%</span>
+
+<span class="tok-go">    changetags</span>
+<span class="tok-go">        Automatically change from { to &lt; based tags for .tex and .wiki files.</span>
+<span class="tok-go">        default value: True</span>
+
+<span class="tok-go">    comment-end-string</span>
+<span class="tok-go">        Tag to indicate the start of a comment.</span>
+<span class="tok-go">        default value: #}</span>
+
+<span class="tok-go">    comment-start-string</span>
+<span class="tok-go">        Tag to indicate the start of a comment.</span>
+<span class="tok-go">        default value: {#</span>
+
+<span class="tok-go">    examples</span>
+<span class="tok-go">        Templates which should be used as examples for this filter.</span>
+<span class="tok-go">        default value: []</span>
+
+<span class="tok-go">    exclude-add-new-files</span>
+<span class="tok-go">        List of directories or patterns to skip even if they match add-new-files.</span>
+<span class="tok-go">        default value: []</span>
+
+<span class="tok-go">    ext</span>
+<span class="tok-go">        File extension to output.</span>
+<span class="tok-go">        default value: None</span>
+
+<span class="tok-go">    extension-map</span>
+<span class="tok-go">        Dictionary mapping input extensions to default output extensions.</span>
+<span class="tok-go">        default value: None</span>
+
+<span class="tok-go">    input-extensions</span>
+<span class="tok-go">        List of extensions which this filter can accept as input.</span>
+<span class="tok-go">        default value: ['.*']</span>
+
+<span class="tok-go">    jinja-path</span>
+<span class="tok-go">        List of additional directories to pass to jinja loader.</span>
+<span class="tok-go">        default value: []</span>
+
+<span class="tok-go">    keep-originals</span>
+<span class="tok-go">        Whether, if additional-doc-filters are specified, the original unmodified docs should also be added.</span>
+<span class="tok-go">        default value: False</span>
+
+<span class="tok-go">    mkdir</span>
+<span class="tok-go">        A directory which should be created in working dir.</span>
+<span class="tok-go">        default value: None</span>
+
+<span class="tok-go">    mkdirs</span>
+<span class="tok-go">        A list of directories which should be created in working dir.</span>
+<span class="tok-go">        default value: []</span>
+
+<span class="tok-go">    output</span>
+<span class="tok-go">        Whether to output results of this filter by default by reporters such as 'output' or 'website'.</span>
+<span class="tok-go">        default value: True</span>
+
+<span class="tok-go">    output-data-type</span>
+<span class="tok-go">        Alias of data type to use to store filter output.</span>
+<span class="tok-go">        default value: generic</span>
+
+<span class="tok-go">    output-extensions</span>
+<span class="tok-go">        List of extensions which this filter can produce as output.</span>
+<span class="tok-go">        default value: ['.*']</span>
+
+<span class="tok-go">    override-workspace-exclude-filters</span>
+<span class="tok-go">        If True, document will be populated to other workspaces ignoring workspace-exclude-filters.</span>
+<span class="tok-go">        default value: False</span>
+
+<span class="tok-go">    plugins</span>
+<span class="tok-go">        List of plugins for run_plugins to use.</span>
+<span class="tok-go">        default value: []</span>
+
+<span class="tok-go">    preserve-prior-data-class</span>
+<span class="tok-go">        Whether output data class should be set to match the input data class.</span>
+<span class="tok-go">        default value: False</span>
+
+<span class="tok-go">    require-output</span>
+<span class="tok-go">        Should dexy raise an exception if no output is produced by this filter?</span>
+<span class="tok-go">        default value: True</span>
+
+<span class="tok-go">    skip-plugins</span>
+<span class="tok-go">        List of plugins which run_plugins should not use.</span>
+<span class="tok-go">        default value: []</span>
+
+<span class="tok-go">    variable-end-string</span>
+<span class="tok-go">        Tag to indicate the start of a variable.</span>
+<span class="tok-go">        default value: }}</span>
+
+<span class="tok-go">    variable-start-string</span>
+<span class="tok-go">        Tag to indicate the start of a variable.</span>
+<span class="tok-go">        default value: {{</span>
+
+<span class="tok-go">    variables</span>
+<span class="tok-go">        Variables to be made available to document.</span>
+<span class="tok-go">        default value: {}</span>
+
+<span class="tok-go">    vars</span>
+<span class="tok-go">        Variables to be made available to document.</span>
+<span class="tok-go">        default value: {}</span>
+
+<span class="tok-go">    workspace-exclude-filters</span>
+<span class="tok-go">        Filters whose output should be excluded from workspace.</span>
+<span class="tok-go">        default value: ['pyg']</span>
+
+<span class="tok-go">    workspace-includes</span>
+<span class="tok-go">        If set to a list of filenames or extensions, only these will be populated to working dir.</span>
+<span class="tok-go">        default value: ['.jinja']</span>
+
+
+<span class="tok-go">For online docs see http://dexy.it/docs/filters/jinja</span>
+
+<span class="tok-go">If you have suggestions or feedback about this filter,</span>
+<span class="tok-go">please contact info@dexy.it</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_filters">Filters</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section deals with important concepts and features which are shared by all
+filters or groups of similar filters.</p>
+</div>
+<div class="sect2">
+<h3 id="_workspaces">Workspaces</h3>
+<div class="paragraph">
+<p>Many filters create a temporary workspace within the <code>.dexy</code> directory when
+they run. This workspace will mimic the directory structure of the main project
+and will be populated with the desired input files in their correct states
+(i.e. run through any applicable filters).</p>
+</div>
+<div class="paragraph">
+<p>This provides a limited amount of isolation, in that processes are not changing
+files in the main project repository (unless there is a malicious or
+poorly-designed script), and any files generated as side effects do not clutter
+up the main project space.</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><span class="icon"><a class="image" href="https://github.com/dexy/dexy/issues/103"><i class="icon-github icon-3x"></i></a></span> Provide a <em>chroot</em> option for process filters.</p>
+</div>
+<div class="paragraph">
+<p>Provide a way to limit potential side effects by chroot-locking processes spawned by dexy filters by default.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Updated at: 2013-11-10T05:20:47Z</p>
+</li>
+<li>
+<p>Assigned to: None</p>
+</li>
+<li>
+<p>Milestone: None</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, a bash script is being run through the <code>shint</code> filter, and
+running the <code>pwd</code> command allows us to see the working directory where the code
+is being executed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> <span class="tok-nb">pwd</span>
+<span class="tok-go">/home/ana/dev/dexy-user-guide/.dexy/work/c8/c863ad8b5cf0ea27fae7b0242812f315-002-idio-shint/examples</span>
+</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Check the filter documentation for each filter to see which of these
+workspace-related options are supported.</p>
+</div>
+<div class="sect3">
+<h4 id="_using_working_directories">Using Working Directories</h4>
+<div class="paragraph">
+<p>The <code>use-wd</code> boolean setting controls whether or not to create and populate a
+working directory and to set the process’s <code>cwd</code> to the working directory. The
+setting defaults to True.
+<span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of Use Wd Option Defaults To True"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">def</span> <span class="tok-nf">use_wd_option_defaults_to_true__test</span><span class="tok-p">():</span>
+    <span class="tok-n">shint</span> <span class="tok-o">=</span> <span class="tok-n">Filter</span><span class="tok-o">.</span><span class="tok-n">create_instance</span><span class="tok-p">(</span><span class="tok-s">'shint'</span><span class="tok-p">)</span>
+    <span class="tok-k">assert</span> <span class="tok-n">shint</span><span class="tok-o">.</span><span class="tok-n">setting</span><span class="tok-p">(</span><span class="tok-s">'use-wd'</span><span class="tok-p">)</span> <span class="tok-o">==</span> <span class="tok-bp">True</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>When <code>use-wd</code> is True (the default case), then a working directory is created
+within the <code>.dexy/work</code> directory.
+<span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of If Use Wd True Code Runs In Work Dir"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">def</span> <span class="tok-nf">if_use_wd_true_code_runs_in_work_dir__test</span><span class="tok-p">():</span>
+    <span class="tok-k">with</span> <span class="tok-n">wrap</span><span class="tok-p">()</span> <span class="tok-k">as</span> <span class="tok-n">wrapper</span><span class="tok-p">:</span>
+        <span class="tok-n">doc</span> <span class="tok-o">=</span> <span class="tok-n">Doc</span><span class="tok-p">(</span><span class="tok-s">"test.sh|shint"</span><span class="tok-p">,</span>
+                <span class="tok-n">wrapper</span><span class="tok-p">,</span>
+                <span class="tok-p">[],</span>
+                <span class="tok-n">contents</span> <span class="tok-o">=</span> <span class="tok-s">"pwd"</span><span class="tok-p">,</span>
+                <span class="tok-n">shint</span> <span class="tok-o">=</span> <span class="tok-p">{</span> <span class="tok-s">'use-wd'</span> <span class="tok-p">:</span> <span class="tok-bp">True</span> <span class="tok-p">}</span>
+                <span class="tok-p">)</span>
+
+        <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">run_docs</span><span class="tok-p">(</span><span class="tok-n">doc</span><span class="tok-p">)</span>
+        <span class="tok-k">assert</span> <span class="tok-s">".dexy/work"</span> <span class="tok-ow">in</span> <span class="tok-nb">str</span><span class="tok-p">(</span><span class="tok-n">doc</span><span class="tok-o">.</span><span class="tok-n">output_data</span><span class="tok-p">())</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>When <code>use-wd</code> is set to False, the code runs directly in the project root.
+<span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of If Use Wd False Code Runs In Project Home"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">def</span> <span class="tok-nf">if_use_wd_false_code_runs_in_project_home__test</span><span class="tok-p">():</span>
+    <span class="tok-k">with</span> <span class="tok-n">wrap</span><span class="tok-p">()</span> <span class="tok-k">as</span> <span class="tok-n">wrapper</span><span class="tok-p">:</span>
+        <span class="tok-n">doc</span> <span class="tok-o">=</span> <span class="tok-n">Doc</span><span class="tok-p">(</span><span class="tok-s">"test.sh|shint"</span><span class="tok-p">,</span>
+                <span class="tok-n">wrapper</span><span class="tok-p">,</span>
+                <span class="tok-p">[],</span>
+                <span class="tok-n">contents</span> <span class="tok-o">=</span> <span class="tok-s">"pwd"</span><span class="tok-p">,</span>
+                <span class="tok-n">shint</span> <span class="tok-o">=</span> <span class="tok-p">{</span> <span class="tok-s">'use-wd'</span> <span class="tok-p">:</span> <span class="tok-bp">False</span> <span class="tok-p">}</span>
+                <span class="tok-p">)</span>
+
+        <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">run_docs</span><span class="tok-p">(</span><span class="tok-n">doc</span><span class="tok-p">)</span>
+        <span class="tok-k">assert</span> <span class="tok-ow">not</span> <span class="tok-s">".dexy/work"</span> <span class="tok-ow">in</span> <span class="tok-nb">str</span><span class="tok-p">(</span><span class="tok-n">doc</span><span class="tok-o">.</span><span class="tok-n">output_data</span><span class="tok-p">())</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_including_and_excluding_inputs">Including and Excluding Inputs</h4>
+<div class="paragraph">
+<p>Working directories can be populated with the documents specified as
+dependencies or inputs. This can end up being a lot of files, and sometimes we
+want to control more precisely which files are copied.  Several settings help
+to manage which files are copied.
+<span class="icon"><a class="image" href="#"><i class="icon-code"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python">    <span class="tok-k">def</span> <span class="tok-nf">include_input_in_workspace</span><span class="tok-p">(</span><span class="tok-bp">self</span><span class="tok-p">,</span> <span class="tok-n">inpt</span><span class="tok-p">):</span>
+        <span class="tok-sd">"""</span>
+<span class="tok-sd">        Whether to include the contents of the input file inpt in the workspace</span>
+<span class="tok-sd">        for this filter.</span>
+<span class="tok-sd">        """</span>
+        <span class="tok-n">workspace_includes</span> <span class="tok-o">=</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">setting</span><span class="tok-p">(</span><span class="tok-s">'workspace-includes'</span><span class="tok-p">)</span>
+
+        <span class="tok-k">if</span> <span class="tok-n">workspace_includes</span> <span class="tok-ow">is</span> <span class="tok-ow">not</span> <span class="tok-bp">None</span><span class="tok-p">:</span>
+            <span class="tok-k">if</span> <span class="tok-n">inpt</span><span class="tok-o">.</span><span class="tok-n">ext</span> <span class="tok-ow">in</span> <span class="tok-n">workspace_includes</span><span class="tok-p">:</span>
+                <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">log_debug</span><span class="tok-p">(</span><span class="tok-s">"Including </span><span class="tok-si">%s</span><span class="tok-s"> because file extension matches."</span> <span class="tok-o">%</span> <span class="tok-n">inpt</span><span class="tok-p">)</span>
+                <span class="tok-k">return</span> <span class="tok-bp">True</span>
+            <span class="tok-k">elif</span> <span class="tok-n">inpt</span><span class="tok-o">.</span><span class="tok-n">output_data</span><span class="tok-p">()</span><span class="tok-o">.</span><span class="tok-n">basename</span><span class="tok-p">()</span> <span class="tok-ow">in</span> <span class="tok-n">workspace_includes</span><span class="tok-p">:</span>
+                <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">log_debug</span><span class="tok-p">(</span><span class="tok-s">"Including </span><span class="tok-si">%s</span><span class="tok-s"> because base name matches."</span> <span class="tok-o">%</span> <span class="tok-n">inpt</span><span class="tok-p">)</span>
+                <span class="tok-k">return</span> <span class="tok-bp">True</span>
+            <span class="tok-k">else</span><span class="tok-p">:</span>
+                <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">log_debug</span><span class="tok-p">(</span><span class="tok-s">"Excluding </span><span class="tok-si">%s</span><span class="tok-s"> because does not match workspace-includes"</span> <span class="tok-o">%</span> <span class="tok-n">inpt</span><span class="tok-p">)</span>
+                <span class="tok-k">return</span> <span class="tok-bp">False</span>
+
+        <span class="tok-k">elif</span> <span class="tok-ow">not</span> <span class="tok-n">inpt</span><span class="tok-o">.</span><span class="tok-n">filters</span><span class="tok-p">:</span>
+            <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">log_debug</span><span class="tok-p">(</span><span class="tok-s">"Including because </span><span class="tok-si">%s</span><span class="tok-s"> has no filters."</span> <span class="tok-o">%</span> <span class="tok-n">inpt</span><span class="tok-p">)</span>
+            <span class="tok-k">return</span> <span class="tok-bp">True</span>
+
+        <span class="tok-k">elif</span> <span class="tok-n">inpt</span><span class="tok-o">.</span><span class="tok-n">filters</span><span class="tok-p">[</span><span class="tok-o">-</span><span class="tok-mi">1</span><span class="tok-p">]</span><span class="tok-o">.</span><span class="tok-n">setting</span><span class="tok-p">(</span><span class="tok-s">'override-workspace-exclude-filters'</span><span class="tok-p">):</span>
+            <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">log_debug</span><span class="tok-p">(</span><span class="tok-s">"Including </span><span class="tok-si">%s</span><span class="tok-s"> because override-workspace-exclude-filters is set."</span> <span class="tok-o">%</span> <span class="tok-n">inpt</span><span class="tok-p">)</span>
+            <span class="tok-k">return</span> <span class="tok-bp">True</span>
+
+        <span class="tok-k">else</span><span class="tok-p">:</span>
+            <span class="tok-n">workspace_exclude_filters</span> <span class="tok-o">=</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">setting</span><span class="tok-p">(</span><span class="tok-s">'workspace-exclude-filters'</span><span class="tok-p">)</span>
+
+            <span class="tok-k">if</span> <span class="tok-n">workspace_exclude_filters</span> <span class="tok-ow">is</span> <span class="tok-bp">None</span><span class="tok-p">:</span>
+                <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">log_debug</span><span class="tok-p">(</span><span class="tok-s">"Including because exclude_filters is None."</span><span class="tok-p">)</span>
+                <span class="tok-k">return</span> <span class="tok-bp">True</span>
+            <span class="tok-k">elif</span> <span class="tok-nb">any</span><span class="tok-p">(</span><span class="tok-n">a</span> <span class="tok-ow">in</span> <span class="tok-n">workspace_exclude_filters</span> <span class="tok-k">for</span> <span class="tok-n">a</span> <span class="tok-ow">in</span> <span class="tok-n">inpt</span><span class="tok-o">.</span><span class="tok-n">filter_aliases</span><span class="tok-p">):</span>
+                <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">log_debug</span><span class="tok-p">(</span><span class="tok-s">"Excluding </span><span class="tok-si">%s</span><span class="tok-s"> because of workspace-exclude-filters"</span> <span class="tok-o">%</span> <span class="tok-n">inpt</span><span class="tok-p">)</span>
+                <span class="tok-k">return</span> <span class="tok-bp">False</span>
+            <span class="tok-k">else</span><span class="tok-p">:</span>
+                <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">log_debug</span><span class="tok-p">(</span><span class="tok-s">"Including </span><span class="tok-si">%s</span><span class="tok-s"> because not excluded"</span> <span class="tok-o">%</span> <span class="tok-n">inpt</span><span class="tok-p">)</span>
+                <span class="tok-k">return</span> <span class="tok-bp">True</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>workspace-exclude-filters</code> A list of filter aliases. Input files which had
+these filters applied will be excluded.</p>
+</li>
+<li>
+<p><code>override-workspace-exclude-filters</code> A boolean specified on an input file.
+This input file will be included in working directories regardless of the
+parent’s workspace-exclude-filters setting.</p>
+</li>
+<li>
+<p><code>workspace-include</code> A list of filenames or wildcard patterns. These and only
+these will be written to the workspace.  When this is set,
+workspace-exclude-filters and override-workspace-exclude-filters are
+ignored.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The <code>workspace-exclude-filters</code> setting takes a list of filter aliases and it
+doesn’t populate the working directory with any documents which include any of
+these filter aliases. So if <code>jinja</code> is in <code>workspace-exclude-filters</code> then a
+document named <code>hello.txt|jinja</code> will not be written to the working directory.
+<span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of Workspace Exclude Filters Excluding Jinja"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">def</span> <span class="tok-nf">workspace_exclude_filters_excluding_jinja__test</span><span class="tok-p">():</span>
+    <span class="tok-k">with</span> <span class="tok-n">wrap</span><span class="tok-p">()</span> <span class="tok-k">as</span> <span class="tok-n">wrapper</span><span class="tok-p">:</span>
+        <span class="tok-n">yaml</span> <span class="tok-o">=</span> <span class="tok-s">"""</span>
+<span class="tok-s">        - test.sh|sh:</span>
+<span class="tok-s">            - sh: { workspace-exclude-filters: ['jinja'] }</span>
+<span class="tok-s">            - hello.txt|jinja</span>
+<span class="tok-s">            - script.py|py</span>
+<span class="tok-s">            - script.py|pyg</span>
+
+<span class="tok-s">        """</span>
+
+        <span class="tok-n">populate</span><span class="tok-p">(</span><span class="tok-n">yaml</span><span class="tok-p">)</span>
+        <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">run_from_new</span><span class="tok-p">()</span>
+        <span class="tok-n">ls_wd</span> <span class="tok-o">=</span> <span class="tok-n">read_result</span><span class="tok-p">(</span><span class="tok-n">wrapper</span><span class="tok-p">)</span>
+        <span class="tok-k">assert</span> <span class="tok-ow">not</span> <span class="tok-s">"hello.txt"</span> <span class="tok-ow">in</span> <span class="tok-n">ls_wd</span>
+        <span class="tok-k">assert</span> <span class="tok-n">ls_wd</span> <span class="tok-o">==</span> <span class="tok-p">[</span>
+                <span class="tok-s">"script.py.html"</span><span class="tok-p">,</span> <span class="tok-c"># script.py|pyg</span>
+                <span class="tok-s">"script.txt"</span><span class="tok-p">,</span> <span class="tok-c"># script.py|py</span>
+                <span class="tok-s">"test.sh"</span><span class="tok-p">]</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>To include all input files, set <code>workspace-exclude-filters</code> to an empty list.
+<span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of Workspace Exclude Filters No Excludes"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">def</span> <span class="tok-nf">workspace_exclude_filters_no_excludes__test</span><span class="tok-p">():</span>
+    <span class="tok-k">with</span> <span class="tok-n">wrap</span><span class="tok-p">()</span> <span class="tok-k">as</span> <span class="tok-n">wrapper</span><span class="tok-p">:</span>
+        <span class="tok-n">yaml</span> <span class="tok-o">=</span> <span class="tok-s">"""</span>
+<span class="tok-s">        - test.sh|sh:</span>
+<span class="tok-s">            - sh: { workspace-exclude-filters: [] }</span>
+<span class="tok-s">            - hello.txt|jinja</span>
+<span class="tok-s">            - script.py|py</span>
+<span class="tok-s">            - script.py|pyg</span>
+
+<span class="tok-s">        """</span>
+
+        <span class="tok-n">populate</span><span class="tok-p">(</span><span class="tok-n">yaml</span><span class="tok-p">)</span>
+        <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">run_from_new</span><span class="tok-p">()</span>
+        <span class="tok-n">ls_wd</span> <span class="tok-o">=</span> <span class="tok-n">read_result</span><span class="tok-p">(</span><span class="tok-n">wrapper</span><span class="tok-p">)</span>
+
+        <span class="tok-k">assert</span> <span class="tok-n">ls_wd</span> <span class="tok-o">==</span> <span class="tok-p">[</span>
+                <span class="tok-s">"hello.txt"</span><span class="tok-p">,</span> <span class="tok-c"># hello.txt|jinja</span>
+                <span class="tok-s">"script.py.html"</span><span class="tok-p">,</span> <span class="tok-c"># script.py|pyg</span>
+                <span class="tok-s">"script.txt"</span><span class="tok-p">,</span> <span class="tok-c"># script.py|py</span>
+                <span class="tok-s">"test.sh"</span><span class="tok-p">]</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>workspace-exclude-filters</code> setting defaults to <code>['pyg']</code> since usually
+syntax highlighted content is included in documents via templating, not via the
+file system. When <code>pyg</code> outputs image files or stylesheets, these have
+<code>override-workspace-exclude-filters</code> set to True by the filter.
+<span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of Workspace Exclude Filters Pyg Defaults"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">def</span> <span class="tok-nf">workspace_exclude_filters_pyg_defaults__test</span><span class="tok-p">():</span>
+    <span class="tok-k">with</span> <span class="tok-n">wrap</span><span class="tok-p">()</span> <span class="tok-k">as</span> <span class="tok-n">wrapper</span><span class="tok-p">:</span>
+        <span class="tok-n">yaml</span> <span class="tok-o">=</span> <span class="tok-s">"""</span>
+<span class="tok-s">        - test.sh|sh:</span>
+<span class="tok-s">            # Generate a pygments stylesheet.</span>
+<span class="tok-s">            - pygments.css|pyg:</span>
+<span class="tok-s">                - contents: ""</span>
+<span class="tok-s">                - pyg: { 'ext' : '.css' }</span>
+<span class="tok-s">            - script.py|pyg</span>
+<span class="tok-s">            - script.py|pyg|pn</span>
+
+<span class="tok-s">        """</span>
+        <span class="tok-n">populate</span><span class="tok-p">(</span><span class="tok-n">yaml</span><span class="tok-p">)</span>
+        <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">run_from_new</span><span class="tok-p">()</span>
+        <span class="tok-n">ls_wd</span> <span class="tok-o">=</span> <span class="tok-n">read_result</span><span class="tok-p">(</span><span class="tok-n">wrapper</span><span class="tok-p">)</span>
+        <span class="tok-k">assert</span> <span class="tok-s">"pygments.css"</span> <span class="tok-ow">in</span> <span class="tok-n">ls_wd</span>
+        <span class="tok-k">assert</span> <span class="tok-ow">not</span> <span class="tok-s">"script.py.html"</span> <span class="tok-ow">in</span> <span class="tok-n">ls_wd</span>
+        <span class="tok-k">assert</span> <span class="tok-s">"script.py.png"</span> <span class="tok-ow">in</span> <span class="tok-n">ls_wd</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_making_extra_directories">Making Extra Directories</h4>
+<div class="paragraph">
+<p>Sometimes a tool expects a certain directory structure to exist when it runs,
+but this may not correspond to the directory structure of your project.</p>
+</div>
+<div class="paragraph">
+<p>The mkdir and mkdirs settings let you specify extra directories which will be
+created in the working directory before the filter is run.</p>
+</div>
+<div class="paragraph">
+<p>The <code>mkdir</code> setting creates a single directory based on a string.
+<span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of Mkdir Creates Extra Directory In Work Dir"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">def</span> <span class="tok-nf">mkdir_creates_extra_directory_in_work_dir__test</span><span class="tok-p">():</span>
+    <span class="tok-k">with</span> <span class="tok-n">wrap</span><span class="tok-p">()</span> <span class="tok-k">as</span> <span class="tok-n">wrapper</span><span class="tok-p">:</span>
+        <span class="tok-n">doc</span> <span class="tok-o">=</span> <span class="tok-n">Doc</span><span class="tok-p">(</span><span class="tok-s">"test.sh|shint"</span><span class="tok-p">,</span>
+                <span class="tok-n">wrapper</span><span class="tok-p">,</span>
+                <span class="tok-p">[],</span>
+                <span class="tok-n">contents</span> <span class="tok-o">=</span> <span class="tok-s">"ls -l"</span><span class="tok-p">,</span>
+                <span class="tok-n">shint</span> <span class="tok-o">=</span> <span class="tok-p">{</span> <span class="tok-s">'mkdir'</span> <span class="tok-p">:</span> <span class="tok-s">"foo"</span> <span class="tok-p">}</span>
+                <span class="tok-p">)</span>
+
+        <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">run_docs</span><span class="tok-p">(</span><span class="tok-n">doc</span><span class="tok-p">)</span>
+        <span class="tok-n">foo_line</span> <span class="tok-o">=</span> <span class="tok-nb">str</span><span class="tok-p">(</span><span class="tok-n">doc</span><span class="tok-o">.</span><span class="tok-n">output_data</span><span class="tok-p">())</span><span class="tok-o">.</span><span class="tok-n">splitlines</span><span class="tok-p">()[</span><span class="tok-mi">2</span><span class="tok-p">]</span>
+        <span class="tok-k">assert</span> <span class="tok-n">foo_line</span><span class="tok-o">.</span><span class="tok-n">endswith</span><span class="tok-p">(</span><span class="tok-s">"foo"</span><span class="tok-p">)</span>
+        <span class="tok-k">assert</span> <span class="tok-n">foo_line</span><span class="tok-o">.</span><span class="tok-n">startswith</span><span class="tok-p">(</span><span class="tok-s">"drw"</span><span class="tok-p">)</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>mkdirs</code> setting creates multiple directories based on a list.
+<span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of Mkdirs Creates Extra Directories In Work Dir"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">def</span> <span class="tok-nf">mkdirs_creates_extra_directories_in_work_dir__test</span><span class="tok-p">():</span>
+    <span class="tok-k">with</span> <span class="tok-n">wrap</span><span class="tok-p">()</span> <span class="tok-k">as</span> <span class="tok-n">wrapper</span><span class="tok-p">:</span>
+        <span class="tok-n">doc</span> <span class="tok-o">=</span> <span class="tok-n">Doc</span><span class="tok-p">(</span><span class="tok-s">"test.sh|shint"</span><span class="tok-p">,</span>
+                <span class="tok-n">wrapper</span><span class="tok-p">,</span>
+                <span class="tok-p">[],</span>
+                <span class="tok-n">contents</span> <span class="tok-o">=</span> <span class="tok-s">"ls -l"</span><span class="tok-p">,</span>
+                <span class="tok-n">shint</span> <span class="tok-o">=</span> <span class="tok-p">{</span> <span class="tok-s">'mkdirs'</span> <span class="tok-p">:</span> <span class="tok-p">[</span><span class="tok-s">"foo"</span><span class="tok-p">,</span> <span class="tok-s">"bar"</span><span class="tok-p">]}</span>
+                <span class="tok-p">)</span>
+
+        <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">run_docs</span><span class="tok-p">(</span><span class="tok-n">doc</span><span class="tok-p">)</span>
+        <span class="tok-n">bar_line</span> <span class="tok-o">=</span> <span class="tok-nb">str</span><span class="tok-p">(</span><span class="tok-n">doc</span><span class="tok-o">.</span><span class="tok-n">output_data</span><span class="tok-p">())</span><span class="tok-o">.</span><span class="tok-n">splitlines</span><span class="tok-p">()[</span><span class="tok-mi">2</span><span class="tok-p">]</span>
+        <span class="tok-n">foo_line</span> <span class="tok-o">=</span> <span class="tok-nb">str</span><span class="tok-p">(</span><span class="tok-n">doc</span><span class="tok-o">.</span><span class="tok-n">output_data</span><span class="tok-p">())</span><span class="tok-o">.</span><span class="tok-n">splitlines</span><span class="tok-p">()[</span><span class="tok-mi">3</span><span class="tok-p">]</span>
+        <span class="tok-k">assert</span> <span class="tok-n">foo_line</span><span class="tok-o">.</span><span class="tok-n">endswith</span><span class="tok-p">(</span><span class="tok-s">"foo"</span><span class="tok-p">)</span>
+        <span class="tok-k">assert</span> <span class="tok-n">foo_line</span><span class="tok-o">.</span><span class="tok-n">startswith</span><span class="tok-p">(</span><span class="tok-s">"drw"</span><span class="tok-p">)</span>
+        <span class="tok-k">assert</span> <span class="tok-n">bar_line</span><span class="tok-o">.</span><span class="tok-n">endswith</span><span class="tok-p">(</span><span class="tok-s">"bar"</span><span class="tok-p">)</span>
+        <span class="tok-k">assert</span> <span class="tok-n">bar_line</span><span class="tok-o">.</span><span class="tok-n">startswith</span><span class="tok-p">(</span><span class="tok-s">"drw"</span><span class="tok-p">)</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_adding_new_files">Adding New Files</h4>
+<div class="paragraph">
+<p>One of the reasons we tend to run scripts in their own working directories is
+because they generate extra files. LaTeX is notorious for generating <code>.log</code>,
+<code>.aux</code>, <code>.bbl</code> and a host of other files you usually aren’t interested in
+unless you need to debug somtehing. So by default Dexy just ignores any extra
+files which are created in working directories. If you need to do debugging,
+you can look in the working directory.</p>
+</div>
+<div class="paragraph">
+<p>Sometimes, though, these extra files are useful and may even be the whole point
+of running a script. We may be generating a PNG file containing a graph, or a
+JSON or CSV file containing data.</p>
+</div>
+<div class="paragraph">
+<p>The <code>add-new-files</code> setting controls how dexy treats these additional files.
+<span class="icon"><a class="image" href="#"><i class="icon-code"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python">    <span class="tok-k">def</span> <span class="tok-nf">add_new_files</span><span class="tok-p">(</span><span class="tok-bp">self</span><span class="tok-p">):</span>
+        <span class="tok-sd">"""</span>
+<span class="tok-sd">        Walk working directory and add a new dexy document for every newly</span>
+<span class="tok-sd">        created file found.</span>
+<span class="tok-sd">        """</span>
+        <span class="tok-n">wd</span> <span class="tok-o">=</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">workspace</span><span class="tok-p">()</span>
+        <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">log_debug</span><span class="tok-p">(</span><span class="tok-s">"adding new files found in </span><span class="tok-si">%s</span><span class="tok-s"> for </span><span class="tok-si">%s</span><span class="tok-s">"</span> <span class="tok-o">%</span> <span class="tok-p">(</span><span class="tok-n">wd</span><span class="tok-p">,</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">key</span><span class="tok-p">))</span>
+
+        <span class="tok-n">add_new_files</span> <span class="tok-o">=</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">setting</span><span class="tok-p">(</span><span class="tok-s">'add-new-files'</span><span class="tok-p">)</span>
+        <span class="tok-n">exclude</span> <span class="tok-o">=</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">setting</span><span class="tok-p">(</span><span class="tok-s">'exclude-add-new-files'</span><span class="tok-p">)</span>
+
+        <span class="tok-k">if</span> <span class="tok-nb">isinstance</span><span class="tok-p">(</span><span class="tok-n">exclude</span><span class="tok-p">,</span> <span class="tok-nb">basestring</span><span class="tok-p">):</span>
+            <span class="tok-k">raise</span> <span class="tok-n">dexy</span><span class="tok-o">.</span><span class="tok-n">exceptions</span><span class="tok-o">.</span><span class="tok-n">UserFeedback</span><span class="tok-p">(</span><span class="tok-s">"exclude-add-new-files should be a list, not a string"</span><span class="tok-p">)</span>
+
+        <span class="tok-n">new_files_added</span> <span class="tok-o">=</span> <span class="tok-mi">0</span>
+        <span class="tok-k">for</span> <span class="tok-n">dirpath</span><span class="tok-p">,</span> <span class="tok-n">subdirs</span><span class="tok-p">,</span> <span class="tok-n">filenames</span> <span class="tok-ow">in</span> <span class="tok-n">os</span><span class="tok-o">.</span><span class="tok-n">walk</span><span class="tok-p">(</span><span class="tok-n">wd</span><span class="tok-p">):</span>
+            <span class="tok-c"># Prune subdirs which match exclude.</span>
+            <span class="tok-n">subdirs</span><span class="tok-p">[:]</span> <span class="tok-o">=</span> <span class="tok-p">[</span><span class="tok-n">d</span> <span class="tok-k">for</span> <span class="tok-n">d</span> <span class="tok-ow">in</span> <span class="tok-n">subdirs</span> <span class="tok-k">if</span> <span class="tok-n">d</span> <span class="tok-ow">not</span> <span class="tok-ow">in</span> <span class="tok-n">exclude</span><span class="tok-p">]</span>
+
+            <span class="tok-c"># Iterate over files in directory.</span>
+            <span class="tok-k">for</span> <span class="tok-n">filename</span> <span class="tok-ow">in</span> <span class="tok-n">filenames</span><span class="tok-p">:</span>
+                <span class="tok-n">filepath</span> <span class="tok-o">=</span> <span class="tok-n">os</span><span class="tok-o">.</span><span class="tok-n">path</span><span class="tok-o">.</span><span class="tok-n">normpath</span><span class="tok-p">(</span><span class="tok-n">os</span><span class="tok-o">.</span><span class="tok-n">path</span><span class="tok-o">.</span><span class="tok-n">join</span><span class="tok-p">(</span><span class="tok-n">dirpath</span><span class="tok-p">,</span> <span class="tok-n">filename</span><span class="tok-p">))</span>
+                <span class="tok-n">relpath</span> <span class="tok-o">=</span> <span class="tok-n">os</span><span class="tok-o">.</span><span class="tok-n">path</span><span class="tok-o">.</span><span class="tok-n">relpath</span><span class="tok-p">(</span><span class="tok-n">filepath</span><span class="tok-p">,</span> <span class="tok-n">wd</span><span class="tok-p">)</span>
+                <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">log_debug</span><span class="tok-p">(</span><span class="tok-s">"Processing </span><span class="tok-si">%s</span><span class="tok-s">"</span> <span class="tok-o">%</span> <span class="tok-n">filepath</span><span class="tok-p">)</span>
+
+                <span class="tok-k">if</span> <span class="tok-n">relpath</span> <span class="tok-ow">in</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">_files_workspace_populated_with</span><span class="tok-p">:</span>
+                    <span class="tok-c"># already have this file</span>
+                    <span class="tok-k">continue</span>
+
+                <span class="tok-k">if</span> <span class="tok-nb">isinstance</span><span class="tok-p">(</span><span class="tok-n">add_new_files</span><span class="tok-p">,</span> <span class="tok-nb">list</span><span class="tok-p">):</span>
+                    <span class="tok-n">is_valid_file_extension</span> <span class="tok-o">=</span> <span class="tok-bp">False</span>
+                    <span class="tok-k">for</span> <span class="tok-n">pattern</span> <span class="tok-ow">in</span> <span class="tok-n">add_new_files</span><span class="tok-p">:</span>
+                        <span class="tok-k">if</span> <span class="tok-s">"*"</span> <span class="tok-ow">in</span> <span class="tok-n">pattern</span><span class="tok-p">:</span>
+                            <span class="tok-k">if</span> <span class="tok-n">fnmatch</span><span class="tok-o">.</span><span class="tok-n">fnmatch</span><span class="tok-p">(</span><span class="tok-n">relpath</span><span class="tok-p">,</span> <span class="tok-n">pattern</span><span class="tok-p">):</span>
+                                <span class="tok-n">is_valid_file_extension</span> <span class="tok-o">=</span> <span class="tok-bp">True</span>
+                                <span class="tok-k">continue</span>
+                        <span class="tok-k">else</span><span class="tok-p">:</span>
+                            <span class="tok-k">if</span> <span class="tok-n">filename</span><span class="tok-o">.</span><span class="tok-n">endswith</span><span class="tok-p">(</span><span class="tok-n">pattern</span><span class="tok-p">):</span>
+                                <span class="tok-n">is_valid_file_extension</span> <span class="tok-o">=</span> <span class="tok-bp">True</span>
+                                <span class="tok-k">continue</span>
+
+                    <span class="tok-k">if</span> <span class="tok-ow">not</span> <span class="tok-n">is_valid_file_extension</span><span class="tok-p">:</span>
+                        <span class="tok-n">msg</span> <span class="tok-o">=</span> <span class="tok-s">"Not adding filename </span><span class="tok-si">%s</span><span class="tok-s">, does not match patterns: </span><span class="tok-si">%s</span><span class="tok-s">"</span>
+                        <span class="tok-n">args</span> <span class="tok-o">=</span> <span class="tok-p">(</span><span class="tok-n">filepath</span><span class="tok-p">,</span> <span class="tok-s">", "</span><span class="tok-o">.</span><span class="tok-n">join</span><span class="tok-p">(</span><span class="tok-n">add_new_files</span><span class="tok-p">))</span>
+                        <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">log_debug</span><span class="tok-p">(</span><span class="tok-n">msg</span> <span class="tok-o">%</span> <span class="tok-n">args</span><span class="tok-p">)</span>
+                        <span class="tok-k">continue</span>
+
+                <span class="tok-k">elif</span> <span class="tok-nb">isinstance</span><span class="tok-p">(</span><span class="tok-n">add_new_files</span><span class="tok-p">,</span> <span class="tok-nb">bool</span><span class="tok-p">):</span>
+                    <span class="tok-k">if</span> <span class="tok-ow">not</span> <span class="tok-n">add_new_files</span><span class="tok-p">:</span>
+                        <span class="tok-n">msg</span> <span class="tok-o">=</span> <span class="tok-s">"add_new_files method should not be called if setting is False"</span>
+                        <span class="tok-k">raise</span> <span class="tok-n">dexy</span><span class="tok-o">.</span><span class="tok-n">exceptions</span><span class="tok-o">.</span><span class="tok-n">InternalDexyProblem</span><span class="tok-p">(</span><span class="tok-n">msg</span><span class="tok-p">)</span>
+                    <span class="tok-n">is_valid_file_extension</span> <span class="tok-o">=</span> <span class="tok-bp">True</span>
+
+                <span class="tok-k">else</span><span class="tok-p">:</span>
+                    <span class="tok-n">msg</span> <span class="tok-o">=</span> <span class="tok-s">"add-new-files setting should be list or boolean. Type is </span><span class="tok-si">%s</span><span class="tok-s"> value is </span><span class="tok-si">%s</span><span class="tok-s">"</span>
+                    <span class="tok-n">args</span> <span class="tok-o">=</span> <span class="tok-p">(</span><span class="tok-n">add_new_files</span><span class="tok-o">.</span><span class="tok-n">__class__</span><span class="tok-p">,</span> <span class="tok-n">add_new_files</span><span class="tok-p">,)</span>
+                    <span class="tok-k">raise</span> <span class="tok-n">dexy</span><span class="tok-o">.</span><span class="tok-n">exceptions</span><span class="tok-o">.</span><span class="tok-n">InternalDexyProblem</span><span class="tok-p">(</span><span class="tok-n">msg</span> <span class="tok-o">%</span> <span class="tok-n">args</span><span class="tok-p">)</span>
+
+                <span class="tok-c"># Check if should be excluded.</span>
+                <span class="tok-n">skip_because_excluded</span> <span class="tok-o">=</span> <span class="tok-bp">False</span>
+                <span class="tok-k">for</span> <span class="tok-n">skip_pattern</span> <span class="tok-ow">in</span> <span class="tok-n">exclude</span><span class="tok-p">:</span>
+                    <span class="tok-k">if</span> <span class="tok-n">skip_pattern</span> <span class="tok-ow">in</span> <span class="tok-n">filepath</span><span class="tok-p">:</span>
+                        <span class="tok-n">msg</span> <span class="tok-o">=</span> <span class="tok-s">"skipping adding new file </span><span class="tok-si">%s</span><span class="tok-s"> because it matches exclude </span><span class="tok-si">%s</span><span class="tok-s">"</span>
+                        <span class="tok-n">args</span> <span class="tok-o">=</span> <span class="tok-p">(</span><span class="tok-n">filepath</span><span class="tok-p">,</span> <span class="tok-n">skip_pattern</span><span class="tok-p">,)</span>
+                        <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">log_debug</span><span class="tok-p">(</span><span class="tok-n">msg</span> <span class="tok-o">%</span> <span class="tok-n">args</span><span class="tok-p">)</span>
+                        <span class="tok-n">skip_because_excluded</span> <span class="tok-o">=</span> <span class="tok-bp">True</span>
+                        <span class="tok-k">continue</span>
+
+                <span class="tok-k">if</span> <span class="tok-n">skip_because_excluded</span><span class="tok-p">:</span>
+                    <span class="tok-k">continue</span>
+
+                <span class="tok-k">if</span> <span class="tok-ow">not</span> <span class="tok-n">is_valid_file_extension</span><span class="tok-p">:</span>
+                    <span class="tok-k">raise</span> <span class="tok-ne">Exception</span><span class="tok-p">(</span><span class="tok-s">"Should not get here unless is_valid_file_extension"</span><span class="tok-p">)</span>
+
+                <span class="tok-k">with</span> <span class="tok-nb">open</span><span class="tok-p">(</span><span class="tok-n">filepath</span><span class="tok-p">,</span> <span class="tok-s">'rb'</span><span class="tok-p">)</span> <span class="tok-k">as</span> <span class="tok-n">f</span><span class="tok-p">:</span>
+                    <span class="tok-n">contents</span> <span class="tok-o">=</span> <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">read</span><span class="tok-p">()</span>
+                <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">add_doc</span><span class="tok-p">(</span><span class="tok-n">relpath</span><span class="tok-p">,</span> <span class="tok-n">contents</span><span class="tok-p">)</span>
+                <span class="tok-n">new_files_added</span> <span class="tok-o">+=</span> <span class="tok-mi">1</span>
+
+        <span class="tok-k">if</span> <span class="tok-n">new_files_added</span> <span class="tok-o">&gt;</span> <span class="tok-mi">10</span><span class="tok-p">:</span>
+            <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">log_warn</span><span class="tok-p">(</span><span class="tok-s">"</span><span class="tok-si">%s</span><span class="tok-s"> additional files added"</span> <span class="tok-o">%</span> <span class="tok-p">(</span><span class="tok-n">new_files_added</span><span class="tok-p">))</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>By default, <code>add-new-files</code> is False so Dexy ignores any new files which appear
+in the working directory.
+<span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of Process Filters Have Add New Files False By Default"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">def</span> <span class="tok-nf">process_filters_have_add_new_files_false_by_default__test</span><span class="tok-p">():</span>
+    <span class="tok-n">f</span> <span class="tok-o">=</span> <span class="tok-n">Filter</span><span class="tok-o">.</span><span class="tok-n">create_instance</span><span class="tok-p">(</span><span class="tok-s">'process'</span><span class="tok-p">)</span>
+    <span class="tok-k">assert</span> <span class="tok-ow">not</span> <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">setting</span><span class="tok-p">(</span><span class="tok-s">'add-new-files'</span><span class="tok-p">)</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Some filters like <code>casperjs</code> which are almost always invoked for side effects
+will have <code>add-new-files</code> be True by default, so check the individual filter
+documentation.
+<span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of Casperjs Has Add New Files True By Default"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">def</span> <span class="tok-nf">casperjs_has_add_new_files_true_by_default__test</span><span class="tok-p">():</span>
+    <span class="tok-n">f</span> <span class="tok-o">=</span> <span class="tok-n">Filter</span><span class="tok-o">.</span><span class="tok-n">create_instance</span><span class="tok-p">(</span><span class="tok-s">'casperjs'</span><span class="tok-p">)</span>
+    <span class="tok-k">assert</span> <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">setting</span><span class="tok-p">(</span><span class="tok-s">'add-new-files'</span><span class="tok-p">)</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>When <code>add-new-files</code> is False, no new files are added to dexy.
+<span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of If Add New Files False New Files Not Added"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">def</span> <span class="tok-nf">if_add_new_files_false_new_files_not_added__test</span><span class="tok-p">():</span>
+    <span class="tok-k">with</span> <span class="tok-n">wrap</span><span class="tok-p">()</span> <span class="tok-k">as</span> <span class="tok-n">wrapper</span><span class="tok-p">:</span>
+        <span class="tok-k">with</span> <span class="tok-nb">open</span><span class="tok-p">(</span><span class="tok-s">"test.sh"</span><span class="tok-p">,</span> <span class="tok-s">'w'</span><span class="tok-p">)</span> <span class="tok-k">as</span> <span class="tok-n">f</span><span class="tok-p">:</span>
+            <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">write</span><span class="tok-p">(</span><span class="tok-s">"touch foo.txt"</span><span class="tok-p">)</span>
+
+        <span class="tok-k">with</span> <span class="tok-nb">open</span><span class="tok-p">(</span><span class="tok-s">"dexy.yaml"</span><span class="tok-p">,</span> <span class="tok-s">'w'</span><span class="tok-p">)</span> <span class="tok-k">as</span> <span class="tok-n">f</span><span class="tok-p">:</span>
+            <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">write</span><span class="tok-p">(</span><span class="tok-n">trim</span><span class="tok-p">(</span><span class="tok-s">"""</span>
+<span class="tok-s">            - test.sh|sh</span>
+
+<span class="tok-s">            """</span><span class="tok-p">))</span>
+
+        <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">run_from_new</span><span class="tok-p">()</span>
+        <span class="tok-k">assert</span> <span class="tok-ow">not</span> <span class="tok-s">"doc:foo.txt"</span> <span class="tok-ow">in</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-o">.</span><span class="tok-n">keys</span><span class="tok-p">()</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>When <code>add-new-files</code> is True, new files are added to dexy.
+<span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of If Add New Files True New Files Are Added"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">def</span> <span class="tok-nf">if_add_new_files_true_new_files_are_added__test</span><span class="tok-p">():</span>
+    <span class="tok-k">with</span> <span class="tok-n">wrap</span><span class="tok-p">()</span> <span class="tok-k">as</span> <span class="tok-n">wrapper</span><span class="tok-p">:</span>
+        <span class="tok-k">with</span> <span class="tok-nb">open</span><span class="tok-p">(</span><span class="tok-s">"test.sh"</span><span class="tok-p">,</span> <span class="tok-s">'w'</span><span class="tok-p">)</span> <span class="tok-k">as</span> <span class="tok-n">f</span><span class="tok-p">:</span>
+            <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">write</span><span class="tok-p">(</span><span class="tok-s">"touch foo.txt"</span><span class="tok-p">)</span>
+
+        <span class="tok-k">with</span> <span class="tok-nb">open</span><span class="tok-p">(</span><span class="tok-s">"dexy.yaml"</span><span class="tok-p">,</span> <span class="tok-s">'w'</span><span class="tok-p">)</span> <span class="tok-k">as</span> <span class="tok-n">f</span><span class="tok-p">:</span>
+            <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">write</span><span class="tok-p">(</span><span class="tok-n">trim</span><span class="tok-p">(</span><span class="tok-s">"""</span>
+<span class="tok-s">            - test.sh|sh:</span>
+<span class="tok-s">                - sh: { add-new-files: True }</span>
+
+<span class="tok-s">            """</span><span class="tok-p">))</span>
+
+        <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">run_from_new</span><span class="tok-p">()</span>
+        <span class="tok-k">assert</span> <span class="tok-s">"doc:foo.txt"</span> <span class="tok-ow">in</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-o">.</span><span class="tok-n">keys</span><span class="tok-p">()</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>add-new-files</code> setting can also be a list of expressions to match.</p>
+</div>
+<div class="paragraph">
+<p>Entries in the list can be file extensions which should be added.
+<span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of Add New Files List"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">def</span> <span class="tok-nf">add_new_files_list__test</span><span class="tok-p">():</span>
+    <span class="tok-k">with</span> <span class="tok-n">wrap</span><span class="tok-p">()</span> <span class="tok-k">as</span> <span class="tok-n">wrapper</span><span class="tok-p">:</span>
+        <span class="tok-k">with</span> <span class="tok-nb">open</span><span class="tok-p">(</span><span class="tok-s">"test.sh"</span><span class="tok-p">,</span> <span class="tok-s">'w'</span><span class="tok-p">)</span> <span class="tok-k">as</span> <span class="tok-n">f</span><span class="tok-p">:</span>
+            <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">write</span><span class="tok-p">(</span><span class="tok-s">"touch foo.txt</span><span class="tok-se">\n</span><span class="tok-s">touch bar.log</span><span class="tok-se">\n</span><span class="tok-s">ls -l</span><span class="tok-se">\n</span><span class="tok-s">"</span><span class="tok-p">)</span>
+
+        <span class="tok-k">with</span> <span class="tok-nb">open</span><span class="tok-p">(</span><span class="tok-s">"dexy.yaml"</span><span class="tok-p">,</span> <span class="tok-s">'w'</span><span class="tok-p">)</span> <span class="tok-k">as</span> <span class="tok-n">f</span><span class="tok-p">:</span>
+            <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">write</span><span class="tok-p">(</span><span class="tok-n">trim</span><span class="tok-p">(</span><span class="tok-s">"""</span>
+<span class="tok-s">            - test.sh|sh:</span>
+<span class="tok-s">                - sh: { add-new-files: [.txt] }</span>
+
+<span class="tok-s">            """</span><span class="tok-p">))</span>
+
+        <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">run_from_new</span><span class="tok-p">()</span>
+
+        <span class="tok-n">ls_wd</span> <span class="tok-o">=</span> <span class="tok-nb">str</span><span class="tok-p">(</span><span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-p">[</span><span class="tok-s">'doc:test.sh|sh'</span><span class="tok-p">]</span><span class="tok-o">.</span><span class="tok-n">output_data</span><span class="tok-p">())</span>
+        <span class="tok-k">assert</span> <span class="tok-s">"bar.log"</span> <span class="tok-ow">in</span> <span class="tok-n">ls_wd</span>
+        <span class="tok-k">assert</span> <span class="tok-s">"foo.txt"</span> <span class="tok-ow">in</span> <span class="tok-n">ls_wd</span>
+
+        <span class="tok-k">assert</span> <span class="tok-s">"doc:foo.txt"</span> <span class="tok-ow">in</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-o">.</span><span class="tok-n">keys</span><span class="tok-p">()</span>
+        <span class="tok-k">assert</span> <span class="tok-ow">not</span> <span class="tok-s">"doc:bar.log"</span> <span class="tok-ow">in</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-o">.</span><span class="tok-n">keys</span><span class="tok-p">()</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>They can also be glob-style file patterns to match.
+<span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of Add New Files Pattern"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">def</span> <span class="tok-nf">add_new_files_pattern__test</span><span class="tok-p">():</span>
+    <span class="tok-k">with</span> <span class="tok-n">wrap</span><span class="tok-p">()</span> <span class="tok-k">as</span> <span class="tok-n">wrapper</span><span class="tok-p">:</span>
+        <span class="tok-k">with</span> <span class="tok-nb">open</span><span class="tok-p">(</span><span class="tok-s">"test.sh"</span><span class="tok-p">,</span> <span class="tok-s">'w'</span><span class="tok-p">)</span> <span class="tok-k">as</span> <span class="tok-n">f</span><span class="tok-p">:</span>
+            <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">write</span><span class="tok-p">(</span><span class="tok-s">"touch foo.txt</span><span class="tok-se">\n</span><span class="tok-s">touch bar.log</span><span class="tok-se">\n</span><span class="tok-s">touch other.log</span><span class="tok-se">\n</span><span class="tok-s">ls -l</span><span class="tok-se">\n</span><span class="tok-s">"</span><span class="tok-p">)</span>
+
+        <span class="tok-k">with</span> <span class="tok-nb">open</span><span class="tok-p">(</span><span class="tok-s">"dexy.yaml"</span><span class="tok-p">,</span> <span class="tok-s">'w'</span><span class="tok-p">)</span> <span class="tok-k">as</span> <span class="tok-n">f</span><span class="tok-p">:</span>
+            <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">write</span><span class="tok-p">(</span><span class="tok-n">trim</span><span class="tok-p">(</span><span class="tok-s">"""</span>
+<span class="tok-s">            - test.sh|sh:</span>
+<span class="tok-s">                - sh: { add-new-files: ["b*.log"] }</span>
+
+<span class="tok-s">            """</span><span class="tok-p">))</span>
+
+        <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">run_from_new</span><span class="tok-p">()</span>
+
+        <span class="tok-n">ls_wd</span> <span class="tok-o">=</span> <span class="tok-nb">str</span><span class="tok-p">(</span><span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-p">[</span><span class="tok-s">'doc:test.sh|sh'</span><span class="tok-p">]</span><span class="tok-o">.</span><span class="tok-n">output_data</span><span class="tok-p">())</span>
+        <span class="tok-k">assert</span> <span class="tok-s">"foo.txt"</span> <span class="tok-ow">in</span> <span class="tok-n">ls_wd</span>
+        <span class="tok-k">assert</span> <span class="tok-s">"bar.log"</span> <span class="tok-ow">in</span> <span class="tok-n">ls_wd</span>
+        <span class="tok-k">assert</span> <span class="tok-s">"other.log"</span> <span class="tok-ow">in</span> <span class="tok-n">ls_wd</span>
+
+        <span class="tok-k">assert</span> <span class="tok-ow">not</span> <span class="tok-s">"doc:foo.txt"</span> <span class="tok-ow">in</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-o">.</span><span class="tok-n">keys</span><span class="tok-p">()</span>
+        <span class="tok-k">assert</span> <span class="tok-s">"doc:bar.log"</span> <span class="tok-ow">in</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-o">.</span><span class="tok-n">keys</span><span class="tok-p">()</span>
+        <span class="tok-k">assert</span> <span class="tok-ow">not</span> <span class="tok-s">"doc:other.log"</span> <span class="tok-ow">in</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-o">.</span><span class="tok-n">keys</span><span class="tok-p">()</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>There is also an <code>exclude-add-new-files</code> setting which lets you list
+exceptions so you can skip directories, file names or patterns which otherwise
+would be included.
+<span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of Exclude Add New Files"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">def</span> <span class="tok-nf">exclude_add_new_files__test</span><span class="tok-p">():</span>
+    <span class="tok-k">with</span> <span class="tok-n">wrap</span><span class="tok-p">()</span> <span class="tok-k">as</span> <span class="tok-n">wrapper</span><span class="tok-p">:</span>
+        <span class="tok-k">with</span> <span class="tok-nb">open</span><span class="tok-p">(</span><span class="tok-s">"test.sh"</span><span class="tok-p">,</span> <span class="tok-s">'w'</span><span class="tok-p">)</span> <span class="tok-k">as</span> <span class="tok-n">f</span><span class="tok-p">:</span>
+            <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">write</span><span class="tok-p">(</span><span class="tok-n">trim</span><span class="tok-p">(</span><span class="tok-s">"""</span><span class="tok-se">\</span>
+<span class="tok-s">                 touch foo.txt</span>
+<span class="tok-s">                 touch bar.log</span>
+<span class="tok-s">                 touch foo/hello.txt</span>
+<span class="tok-s">                 ls -l"""</span><span class="tok-p">))</span>
+
+        <span class="tok-k">with</span> <span class="tok-nb">open</span><span class="tok-p">(</span><span class="tok-s">"dexy.yaml"</span><span class="tok-p">,</span> <span class="tok-s">'w'</span><span class="tok-p">)</span> <span class="tok-k">as</span> <span class="tok-n">f</span><span class="tok-p">:</span>
+            <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">write</span><span class="tok-p">(</span><span class="tok-n">trim</span><span class="tok-p">(</span><span class="tok-s">"""</span>
+<span class="tok-s">            - test.sh|sh:</span>
+<span class="tok-s">                - sh: {</span>
+<span class="tok-s">                    add-new-files: True,</span>
+<span class="tok-s">                    exclude-add-new-files: ["foo"]</span>
+<span class="tok-s">                    }</span>
+
+<span class="tok-s">            """</span><span class="tok-p">))</span>
+
+        <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">run_from_new</span><span class="tok-p">()</span>
+
+        <span class="tok-n">ls_wd</span> <span class="tok-o">=</span> <span class="tok-nb">str</span><span class="tok-p">(</span><span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-p">[</span><span class="tok-s">'doc:test.sh|sh'</span><span class="tok-p">]</span><span class="tok-o">.</span><span class="tok-n">output_data</span><span class="tok-p">())</span>
+        <span class="tok-k">assert</span> <span class="tok-s">"foo.txt"</span> <span class="tok-ow">in</span> <span class="tok-n">ls_wd</span>
+        <span class="tok-k">assert</span> <span class="tok-s">"bar.log"</span> <span class="tok-ow">in</span> <span class="tok-n">ls_wd</span>
+
+        <span class="tok-k">assert</span> <span class="tok-ow">not</span> <span class="tok-s">"doc:foo.txt"</span> <span class="tok-ow">in</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-o">.</span><span class="tok-n">keys</span><span class="tok-p">()</span>
+        <span class="tok-k">assert</span> <span class="tok-s">"doc:bar.log"</span> <span class="tok-ow">in</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-o">.</span><span class="tok-n">keys</span><span class="tok-p">()</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_additional_documents">Additional Documents</h4>
+<div class="paragraph">
+<p>Sometimes running a filter will cause extra documents to be added to the Dexy
+run. The <code>split</code> filter, for example, takes a HTML file and splits it into
+multiple files, each of which becomes an extra independent document. Extra
+documents may also be added as a result of the <code>add-new-files</code> setting (see the
+<a href="#_adding_new_files">Adding New Files</a> section).</p>
+</div>
+<div class="paragraph">
+<p>When new documents are added, you may wish to customize some of their settings
+or specify additional filters which should be applied to the new documents.
+You can do this via <code>additional-doc-filters</code> and <code>additional-doc-settings</code>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>additional-doc-filters</code> setting can be a string listing a single filter or
+single filter chain (a sequence of filters separated with pipes just as you
+would write in a dexy file) in which case every new document has these
+additional filters applied.
+<span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of Additional Doc Filters"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">def</span> <span class="tok-nf">additional_doc_filters__test</span><span class="tok-p">():</span>
+    <span class="tok-k">with</span> <span class="tok-n">wrap</span><span class="tok-p">()</span> <span class="tok-k">as</span> <span class="tok-n">wrapper</span><span class="tok-p">:</span>
+        <span class="tok-k">with</span> <span class="tok-nb">open</span><span class="tok-p">(</span><span class="tok-s">"test.sh"</span><span class="tok-p">,</span> <span class="tok-s">'w'</span><span class="tok-p">)</span> <span class="tok-k">as</span> <span class="tok-n">f</span><span class="tok-p">:</span>
+            <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">write</span><span class="tok-p">(</span><span class="tok-n">trim</span><span class="tok-p">(</span><span class="tok-s">"""</span><span class="tok-se">\</span>
+<span class="tok-s">                 echo "1 + 1 = {{ 1+1 }}" &gt; hello.txt</span>
+<span class="tok-s">                 ls -l"""</span><span class="tok-p">))</span>
+
+        <span class="tok-k">with</span> <span class="tok-nb">open</span><span class="tok-p">(</span><span class="tok-s">"dexy.yaml"</span><span class="tok-p">,</span> <span class="tok-s">'w'</span><span class="tok-p">)</span> <span class="tok-k">as</span> <span class="tok-n">f</span><span class="tok-p">:</span>
+            <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">write</span><span class="tok-p">(</span><span class="tok-n">trim</span><span class="tok-p">(</span><span class="tok-s">"""</span>
+<span class="tok-s">            - test.sh|sh:</span>
+<span class="tok-s">                - sh: {</span>
+<span class="tok-s">                    add-new-files: True,</span>
+<span class="tok-s">                    additional-doc-filters: "jinja|ch"</span>
+<span class="tok-s">                    }</span>
+
+<span class="tok-s">            """</span><span class="tok-p">))</span>
+
+        <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">run_from_new</span><span class="tok-p">()</span>
+
+        <span class="tok-k">assert</span> <span class="tok-ow">not</span> <span class="tok-s">"doc:hello.txt"</span> <span class="tok-ow">in</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span>
+        <span class="tok-n">hello_txt</span> <span class="tok-o">=</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-p">[</span><span class="tok-s">"doc:hello.txt|jinja|ch"</span><span class="tok-p">]</span>
+        <span class="tok-k">assert</span> <span class="tok-nb">str</span><span class="tok-p">(</span><span class="tok-n">hello_txt</span><span class="tok-o">.</span><span class="tok-n">output_data</span><span class="tok-p">())</span> <span class="tok-o">==</span> <span class="tok-s">"1 + 1 = 2"</span>
+        <span class="tok-k">assert</span> <span class="tok-n">hello_txt</span><span class="tok-o">.</span><span class="tok-n">output_data</span><span class="tok-p">()</span><span class="tok-o">.</span><span class="tok-n">ext</span> <span class="tok-o">==</span> <span class="tok-s">".html"</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>If <code>additional-doc-filters</code> is a list, then separate new documents are created
+for each filter combination in the list.
+<span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of Additional Doc Filters List"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">def</span> <span class="tok-nf">additional_doc_filters_list__test</span><span class="tok-p">():</span>
+    <span class="tok-k">with</span> <span class="tok-n">wrap</span><span class="tok-p">()</span> <span class="tok-k">as</span> <span class="tok-n">wrapper</span><span class="tok-p">:</span>
+        <span class="tok-k">with</span> <span class="tok-nb">open</span><span class="tok-p">(</span><span class="tok-s">"test.sh"</span><span class="tok-p">,</span> <span class="tok-s">'w'</span><span class="tok-p">)</span> <span class="tok-k">as</span> <span class="tok-n">f</span><span class="tok-p">:</span>
+            <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">write</span><span class="tok-p">(</span><span class="tok-n">trim</span><span class="tok-p">(</span><span class="tok-s">"""</span><span class="tok-se">\</span>
+<span class="tok-s">                 echo "1 + 1 = {{ 1+1 }}" &gt; hello.txt</span>
+<span class="tok-s">                 ls -l"""</span><span class="tok-p">))</span>
+
+        <span class="tok-k">with</span> <span class="tok-nb">open</span><span class="tok-p">(</span><span class="tok-s">"dexy.yaml"</span><span class="tok-p">,</span> <span class="tok-s">'w'</span><span class="tok-p">)</span> <span class="tok-k">as</span> <span class="tok-n">f</span><span class="tok-p">:</span>
+            <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">write</span><span class="tok-p">(</span><span class="tok-n">trim</span><span class="tok-p">(</span><span class="tok-s">"""</span>
+<span class="tok-s">            - test.sh|sh:</span>
+<span class="tok-s">                - sh: {</span>
+<span class="tok-s">                    add-new-files: True,</span>
+<span class="tok-s">                    additional-doc-filters: ["jinja|markdown", "jinja"]</span>
+<span class="tok-s">                    }</span>
+
+<span class="tok-s">            """</span><span class="tok-p">))</span>
+
+        <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">run_from_new</span><span class="tok-p">()</span>
+
+        <span class="tok-k">assert</span> <span class="tok-ow">not</span> <span class="tok-s">"doc:hello.txt"</span> <span class="tok-ow">in</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span>
+
+        <span class="tok-n">hello_txt</span> <span class="tok-o">=</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-p">[</span><span class="tok-s">"doc:hello.txt|jinja"</span><span class="tok-p">]</span>
+        <span class="tok-k">assert</span> <span class="tok-nb">str</span><span class="tok-p">(</span><span class="tok-n">hello_txt</span><span class="tok-o">.</span><span class="tok-n">output_data</span><span class="tok-p">())</span> <span class="tok-o">==</span> <span class="tok-s">"1 + 1 = 2"</span>
+
+        <span class="tok-n">hello_html</span> <span class="tok-o">=</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-p">[</span><span class="tok-s">"doc:hello.txt|jinja|markdown"</span><span class="tok-p">]</span>
+        <span class="tok-k">assert</span> <span class="tok-nb">str</span><span class="tok-p">(</span><span class="tok-n">hello_html</span><span class="tok-o">.</span><span class="tok-n">output_data</span><span class="tok-p">())</span> <span class="tok-o">==</span> <span class="tok-s">"&lt;p&gt;1 + 1 = 2&lt;/p&gt;"</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><code>additional-doc-filters</code> can also be a dictionary which maps file extensions to
+the filters which should be applied to those file extensions. If a file is
+found whose extension is not in the dictionary, then that file is added without
+any extra filters being applied.
+<span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of Additional Doc Filters Dict"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">def</span> <span class="tok-nf">additional_doc_filters_dict__test</span><span class="tok-p">():</span>
+    <span class="tok-k">with</span> <span class="tok-n">wrap</span><span class="tok-p">()</span> <span class="tok-k">as</span> <span class="tok-n">wrapper</span><span class="tok-p">:</span>
+        <span class="tok-k">with</span> <span class="tok-nb">open</span><span class="tok-p">(</span><span class="tok-s">"test.sh"</span><span class="tok-p">,</span> <span class="tok-s">'w'</span><span class="tok-p">)</span> <span class="tok-k">as</span> <span class="tok-n">f</span><span class="tok-p">:</span>
+            <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">write</span><span class="tok-p">(</span><span class="tok-n">trim</span><span class="tok-p">(</span><span class="tok-s">"""</span><span class="tok-se">\</span>
+<span class="tok-s">                 echo "1 + 1 = {{ 1+1 }}" &gt; hello.txt</span>
+<span class="tok-s">                 echo "print 'hello'</span><span class="tok-se">\n</span><span class="tok-s">" &gt; example.py</span>
+<span class="tok-s">                 touch "foo.rb"</span>
+<span class="tok-s">                 ls -l"""</span><span class="tok-p">))</span>
+
+        <span class="tok-k">with</span> <span class="tok-nb">open</span><span class="tok-p">(</span><span class="tok-s">"dexy.yaml"</span><span class="tok-p">,</span> <span class="tok-s">'w'</span><span class="tok-p">)</span> <span class="tok-k">as</span> <span class="tok-n">f</span><span class="tok-p">:</span>
+            <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">write</span><span class="tok-p">(</span><span class="tok-n">trim</span><span class="tok-p">(</span><span class="tok-s">"""</span>
+<span class="tok-s">            - test.sh|sh:</span>
+<span class="tok-s">                - sh: {</span>
+<span class="tok-s">                    add-new-files: True,</span>
+<span class="tok-s">                    additional-doc-filters: {</span>
+<span class="tok-s">                        '.txt' : 'jinja',</span>
+<span class="tok-s">                        '.py' : ['py', 'pycon|pyg', 'pyg']</span>
+<span class="tok-s">                    }</span>
+<span class="tok-s">                    }</span>
+
+<span class="tok-s">            """</span><span class="tok-p">))</span>
+
+        <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">run_from_new</span><span class="tok-p">()</span>
+
+        <span class="tok-k">assert</span> <span class="tok-ow">not</span> <span class="tok-s">"doc:hello.txt"</span> <span class="tok-ow">in</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span>
+        <span class="tok-k">assert</span> <span class="tok-s">"doc:foo.rb"</span> <span class="tok-ow">in</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span>
+
+        <span class="tok-k">assert</span> <span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-p">)</span> <span class="tok-o">==</span> <span class="tok-mi">6</span>
+
+        <span class="tok-n">hello_txt</span> <span class="tok-o">=</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-p">[</span><span class="tok-s">"doc:hello.txt|jinja"</span><span class="tok-p">]</span>
+        <span class="tok-k">assert</span> <span class="tok-nb">str</span><span class="tok-p">(</span><span class="tok-n">hello_txt</span><span class="tok-o">.</span><span class="tok-n">output_data</span><span class="tok-p">())</span> <span class="tok-o">==</span> <span class="tok-s">"1 + 1 = 2"</span>
+
+        <span class="tok-n">example_py_out</span> <span class="tok-o">=</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-p">[</span><span class="tok-s">"doc:example.py|py"</span><span class="tok-p">]</span>
+        <span class="tok-k">assert</span> <span class="tok-nb">str</span><span class="tok-p">(</span><span class="tok-n">example_py_out</span><span class="tok-o">.</span><span class="tok-n">output_data</span><span class="tok-p">())</span> <span class="tok-o">==</span> <span class="tok-s">"hello</span><span class="tok-se">\n</span><span class="tok-s">"</span>
+
+        <span class="tok-n">example_pycon</span> <span class="tok-o">=</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-p">[</span><span class="tok-s">"doc:example.py|pycon|pyg"</span><span class="tok-p">]</span>
+        <span class="tok-k">assert</span> <span class="tok-s">"&amp;gt;&amp;gt;&amp;gt;"</span> <span class="tok-ow">in</span> <span class="tok-nb">str</span><span class="tok-p">(</span><span class="tok-n">example_pycon</span><span class="tok-o">.</span><span class="tok-n">output_data</span><span class="tok-p">())</span>
+        <span class="tok-k">assert</span> <span class="tok-s">"&amp;#39;hello&amp;#39;"</span> <span class="tok-ow">in</span> <span class="tok-nb">str</span><span class="tok-p">(</span><span class="tok-n">example_pycon</span><span class="tok-o">.</span><span class="tok-n">output_data</span><span class="tok-p">())</span>
+
+        <span class="tok-n">example_pyg</span> <span class="tok-o">=</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-p">[</span><span class="tok-s">"doc:example.py|pyg"</span><span class="tok-p">]</span>
+        <span class="tok-k">assert</span> <span class="tok-s">"&amp;#39;hello&amp;#39;"</span> <span class="tok-ow">in</span> <span class="tok-nb">str</span><span class="tok-p">(</span><span class="tok-n">example_pyg</span><span class="tok-o">.</span><span class="tok-n">output_data</span><span class="tok-p">())</span>
+        <span class="tok-k">assert</span> <span class="tok-ow">not</span> <span class="tok-s">"&amp;gt;&amp;gt;&amp;gt;"</span> <span class="tok-ow">in</span> <span class="tok-nb">str</span><span class="tok-p">(</span><span class="tok-n">example_pyg</span><span class="tok-o">.</span><span class="tok-n">output_data</span><span class="tok-p">())</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>keep-originals</code> boolean setting can be combined with
+<code>additional-doc-filters</code> and it instructs Dexy to also add the original files
+without any extra filters applied.
+<span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of Additional Doc Filters Keep Originals"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">def</span> <span class="tok-nf">additional_doc_filters_keep_originals__test</span><span class="tok-p">():</span>
+    <span class="tok-k">with</span> <span class="tok-n">wrap</span><span class="tok-p">()</span> <span class="tok-k">as</span> <span class="tok-n">wrapper</span><span class="tok-p">:</span>
+        <span class="tok-k">with</span> <span class="tok-nb">open</span><span class="tok-p">(</span><span class="tok-s">"test.sh"</span><span class="tok-p">,</span> <span class="tok-s">'w'</span><span class="tok-p">)</span> <span class="tok-k">as</span> <span class="tok-n">f</span><span class="tok-p">:</span>
+            <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">write</span><span class="tok-p">(</span><span class="tok-n">trim</span><span class="tok-p">(</span><span class="tok-s">"""</span><span class="tok-se">\</span>
+<span class="tok-s">                 echo "1 + 1 = {{ 1+1 }}" &gt; hello.txt</span>
+<span class="tok-s">                 ls -l"""</span><span class="tok-p">))</span>
+
+        <span class="tok-k">with</span> <span class="tok-nb">open</span><span class="tok-p">(</span><span class="tok-s">"dexy.yaml"</span><span class="tok-p">,</span> <span class="tok-s">'w'</span><span class="tok-p">)</span> <span class="tok-k">as</span> <span class="tok-n">f</span><span class="tok-p">:</span>
+            <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">write</span><span class="tok-p">(</span><span class="tok-n">trim</span><span class="tok-p">(</span><span class="tok-s">"""</span>
+<span class="tok-s">            - test.sh|sh:</span>
+<span class="tok-s">                - sh: {</span>
+<span class="tok-s">                    add-new-files: True,</span>
+<span class="tok-s">                    keep-originals: True,</span>
+<span class="tok-s">                    additional-doc-filters: "jinja"</span>
+<span class="tok-s">                    }</span>
+
+<span class="tok-s">            """</span><span class="tok-p">))</span>
+
+        <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">run_from_new</span><span class="tok-p">()</span>
+
+        <span class="tok-k">assert</span> <span class="tok-s">"doc:hello.txt"</span> <span class="tok-ow">in</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span>
+
+        <span class="tok-n">hello_txt</span> <span class="tok-o">=</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-p">[</span><span class="tok-s">"doc:hello.txt|jinja"</span><span class="tok-p">]</span>
+        <span class="tok-k">assert</span> <span class="tok-nb">str</span><span class="tok-p">(</span><span class="tok-n">hello_txt</span><span class="tok-o">.</span><span class="tok-n">output_data</span><span class="tok-p">())</span> <span class="tok-o">==</span> <span class="tok-s">"1 + 1 = 2"</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>additional-doc-settings</code> will apply extra settings to new documents. If
+this is a dictionary, then the entries in the dictionary are assumed to be
+setting names and values, and these will be applied to all new documents.
+<span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of Additional Doc Settings"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">def</span> <span class="tok-nf">additional_doc_settings__test</span><span class="tok-p">():</span>
+    <span class="tok-k">with</span> <span class="tok-n">wrap</span><span class="tok-p">()</span> <span class="tok-k">as</span> <span class="tok-n">wrapper</span><span class="tok-p">:</span>
+        <span class="tok-k">with</span> <span class="tok-nb">open</span><span class="tok-p">(</span><span class="tok-s">"test.sh"</span><span class="tok-p">,</span> <span class="tok-s">'w'</span><span class="tok-p">)</span> <span class="tok-k">as</span> <span class="tok-n">f</span><span class="tok-p">:</span>
+            <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">write</span><span class="tok-p">(</span><span class="tok-n">trim</span><span class="tok-p">(</span><span class="tok-s">"""</span><span class="tok-se">\</span>
+<span class="tok-s">                 touch hello.txt</span>
+<span class="tok-s">                 ls -l"""</span><span class="tok-p">))</span>
+
+        <span class="tok-k">with</span> <span class="tok-nb">open</span><span class="tok-p">(</span><span class="tok-s">"dexy.yaml"</span><span class="tok-p">,</span> <span class="tok-s">'w'</span><span class="tok-p">)</span> <span class="tok-k">as</span> <span class="tok-n">f</span><span class="tok-p">:</span>
+            <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">write</span><span class="tok-p">(</span><span class="tok-n">trim</span><span class="tok-p">(</span><span class="tok-s">"""</span>
+<span class="tok-s">            - test.sh|sh:</span>
+<span class="tok-s">                - sh: {</span>
+<span class="tok-s">                    add-new-files: True,</span>
+<span class="tok-s">                    additional-doc-settings: {</span>
+<span class="tok-s">                        'output' : True,</span>
+<span class="tok-s">                        'ws-template' : "custom_template.html"</span>
+<span class="tok-s">                        }</span>
+<span class="tok-s">                    }</span>
+
+<span class="tok-s">            """</span><span class="tok-p">))</span>
+
+        <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">run_from_new</span><span class="tok-p">()</span>
+
+        <span class="tok-n">doc</span> <span class="tok-o">=</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-p">[</span><span class="tok-s">"doc:hello.txt"</span><span class="tok-p">]</span>
+        <span class="tok-k">assert</span> <span class="tok-n">doc</span><span class="tok-o">.</span><span class="tok-n">setting</span><span class="tok-p">(</span><span class="tok-s">'output'</span><span class="tok-p">)</span> <span class="tok-o">==</span> <span class="tok-bp">True</span>
+        <span class="tok-k">assert</span> <span class="tok-n">doc</span><span class="tok-o">.</span><span class="tok-n">setting</span><span class="tok-p">(</span><span class="tok-s">'ws-template'</span><span class="tok-p">)</span> <span class="tok-o">==</span> <span class="tok-s">"custom_template.html"</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><code>additional-doc-settings</code> can also be a list of lists where each element is a
+file extension and a dictionary of settings which will be applied to all files
+matching the extension. The ".*" extension can be used to provide default
+settings.
+<span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of Additional Doc Settings List"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">def</span> <span class="tok-nf">additional_doc_settings_list__test</span><span class="tok-p">():</span>
+    <span class="tok-k">with</span> <span class="tok-n">wrap</span><span class="tok-p">()</span> <span class="tok-k">as</span> <span class="tok-n">wrapper</span><span class="tok-p">:</span>
+        <span class="tok-k">with</span> <span class="tok-nb">open</span><span class="tok-p">(</span><span class="tok-s">"test.sh"</span><span class="tok-p">,</span> <span class="tok-s">'w'</span><span class="tok-p">)</span> <span class="tok-k">as</span> <span class="tok-n">f</span><span class="tok-p">:</span>
+            <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">write</span><span class="tok-p">(</span><span class="tok-n">trim</span><span class="tok-p">(</span><span class="tok-s">"""</span><span class="tok-se">\</span>
+<span class="tok-s">                 touch hello.html</span>
+<span class="tok-s">                 touch hello.py</span>
+<span class="tok-s">                 touch hello.rb</span>
+<span class="tok-s">                 ls -l"""</span><span class="tok-p">))</span>
+
+        <span class="tok-k">with</span> <span class="tok-nb">open</span><span class="tok-p">(</span><span class="tok-s">"dexy.yaml"</span><span class="tok-p">,</span> <span class="tok-s">'w'</span><span class="tok-p">)</span> <span class="tok-k">as</span> <span class="tok-n">f</span><span class="tok-p">:</span>
+            <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">write</span><span class="tok-p">(</span><span class="tok-n">trim</span><span class="tok-p">(</span><span class="tok-s">"""</span>
+<span class="tok-s">            - test.sh|sh:</span>
+<span class="tok-s">                - sh: {</span>
+<span class="tok-s">                    add-new-files: True,</span>
+<span class="tok-s">                    additional-doc-filters: {</span>
+<span class="tok-s">                        ".py" : "pyg",</span>
+<span class="tok-s">                        ".rb" : "pyg"</span>
+<span class="tok-s">                    },</span>
+<span class="tok-s">                    additional-doc-settings: [</span>
+<span class="tok-s">                        [".html", { "data-class" : "bs4" }],</span>
+<span class="tok-s">                        [".*", { "ws-template" : "code-template.html" }],</span>
+<span class="tok-s">                        ]</span>
+<span class="tok-s">                    }</span>
+
+<span class="tok-s">            """</span><span class="tok-p">))</span>
+
+        <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">run_from_new</span><span class="tok-p">()</span>
+
+        <span class="tok-k">assert</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-p">[</span><span class="tok-s">"doc:hello.html"</span><span class="tok-p">]</span><span class="tok-o">.</span><span class="tok-n">output_data</span><span class="tok-p">()</span><span class="tok-o">.</span><span class="tok-n">alias</span> <span class="tok-o">==</span> <span class="tok-s">'bs4'</span>
+        <span class="tok-k">assert</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-p">[</span><span class="tok-s">"doc:hello.rb|pyg"</span><span class="tok-p">]</span><span class="tok-o">.</span><span class="tok-n">setting</span><span class="tok-p">(</span><span class="tok-s">'ws-template'</span><span class="tok-p">)</span> <span class="tok-o">==</span> <span class="tok-s">"code-template.html"</span>
+        <span class="tok-k">assert</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-p">[</span><span class="tok-s">"doc:hello.py|pyg"</span><span class="tok-p">]</span><span class="tok-o">.</span><span class="tok-n">setting</span><span class="tok-p">(</span><span class="tok-s">'ws-template'</span><span class="tok-p">)</span> <span class="tok-o">==</span> <span class="tok-s">"code-template.html"</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_templating_filters">Templating Filters</h3>
+<div class="paragraph">
+<p>One of the most common things you will probably want do in dexy is to insert
+snippets of code into other documents using tags like
+<code>{{ d['foo.py|pyg'] }}</code> using the <code>jinja</code> filter. The jinja filter is
+an example of a templating filter, and this chapter describes how these filters
+work and what elements are available for you to use in your documents.</p>
+</div>
+<div class="paragraph">
+<p>A templating tool lets you insert content into a document template.  Templating
+tools typically evaluate template tags like <code>{{ foo }}</code> against an
+environment.  An environment can be thought of as a hashmap like <code>{ "foo" : 123
+}</code>. The values in the hashmap can be simple values like <code>123</code>, or they can be
+any type of object which is supported by the templating tool. Jinja2, for
+example, supports almost any kind of Python object including functions.</p>
+</div>
+<div class="paragraph">
+<p>The <code>TemplateFilter</code> base class in Dexy prepares a giant hashmap containing
+various elements you might want to be able to refer to in your documents. It
+does so by running several Template Plugins, each of which returns a hashmap.</p>
+</div>
+<div class="paragraph">
+<p>For example, the DexyVersion template plugin returns a hashmap with one entry,
+to let you refer to <code>DEXY_VERSION</code> in your documents (Here, I’m using it to say
+that this document was generated with dexy version: 0.9.9.7d).
+<span class="icon"><a class="image" href="#"><i class="icon-code"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">class</span> <span class="tok-nc">DexyVersion</span><span class="tok-p">(</span><span class="tok-n">TemplatePlugin</span><span class="tok-p">):</span>
+    <span class="tok-sd">"""</span>
+<span class="tok-sd">    Exposes the current dexy version</span>
+<span class="tok-sd">    """</span>
+    <span class="tok-n">aliases</span> <span class="tok-o">=</span> <span class="tok-p">[</span><span class="tok-s">'dexyversion'</span><span class="tok-p">]</span>
+    <span class="tok-k">def</span> <span class="tok-nf">run</span><span class="tok-p">(</span><span class="tok-bp">self</span><span class="tok-p">):</span>
+        <span class="tok-k">return</span> <span class="tok-p">{</span> <span class="tok-s">"DEXY_VERSION"</span> <span class="tok-p">:</span> <span class="tok-p">(</span><span class="tok-s">"The active dexy version. Currently </span><span class="tok-si">%s</span><span class="tok-s">."</span> <span class="tok-o">%</span> <span class="tok-n">DEXY_VERSION</span><span class="tok-p">,</span> <span class="tok-n">DEXY_VERSION</span><span class="tok-p">)</span> <span class="tok-p">}</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>All these individual hashmaps are combined together to generate the full
+environment.</p>
+</div>
+<div class="paragraph">
+<p>Subclasses of TemplateFilter take this full environment and pass it to the
+templating system so it can be used to evalute template tags.</p>
+</div>
+<div class="sect3">
+<h4 id="_choosing_which_template_plugins_to_use">Choosing Which Template Plugins to Use</h4>
+<div class="paragraph">
+<p>By default, Dexy’s TemplateFilter includes all registered template plugins when
+it generates the template environment. (See the <a href="http://dexy.github.io/cashew/">Cashew docs</a>
+for details about how plugin registration works.)
+<span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of By Default Dexy Runs All Template Plugins"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">def</span> <span class="tok-nf">by_default_dexy_runs_all_template_plugins__test</span><span class="tok-p">():</span>
+        <span class="tok-n">f</span> <span class="tok-o">=</span> <span class="tok-n">Filter</span><span class="tok-o">.</span><span class="tok-n">create_instance</span><span class="tok-p">(</span><span class="tok-s">'template'</span><span class="tok-p">)</span>
+        <span class="tok-n">n_plugins</span> <span class="tok-o">=</span> <span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-nb">list</span><span class="tok-p">(</span><span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">template_plugins</span><span class="tok-p">()))</span>
+        <span class="tok-n">expected_plugins</span> <span class="tok-o">=</span> <span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-nb">list</span><span class="tok-p">(</span><span class="tok-n">instance</span> <span class="tok-k">for</span> <span class="tok-n">instance</span> <span class="tok-ow">in</span> <span class="tok-n">TemplatePlugin</span><span class="tok-p">))</span>
+        <span class="tok-k">assert</span> <span class="tok-n">n_plugins</span> <span class="tok-o">==</span> <span class="tok-n">expected_plugins</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>If, instead, you want to specify which plugins to run, then you can use the
+<code>plugins</code> attribute to specify a list of template plugin aliases to use.
+<span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of Use Plugins Attribute To Specify Whitelist"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">def</span> <span class="tok-nf">use_plugins_attribute_to_specify_whitelist__test</span><span class="tok-p">():</span>
+        <span class="tok-n">f</span> <span class="tok-o">=</span> <span class="tok-n">Filter</span><span class="tok-o">.</span><span class="tok-n">create_instance</span><span class="tok-p">(</span><span class="tok-s">'template'</span><span class="tok-p">)</span>
+        <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">update_settings</span><span class="tok-p">({</span><span class="tok-s">'plugins'</span> <span class="tok-p">:</span> <span class="tok-p">[</span><span class="tok-s">'dexyversion'</span><span class="tok-p">]})</span>
+        <span class="tok-n">n_plugins</span> <span class="tok-o">=</span> <span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-nb">list</span><span class="tok-p">(</span><span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">template_plugins</span><span class="tok-p">()))</span>
+        <span class="tok-k">assert</span> <span class="tok-n">n_plugins</span> <span class="tok-o">==</span> <span class="tok-mi">1</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>If you just want to exclude a few plugins, then you can use the <code>skip-plugins</code>
+attribute to list template aliases you don’t want to be used.
+<span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of Use Skip Plugins Attribute To Specify Blacklist"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">def</span> <span class="tok-nf">use_skip_plugins_attribute_to_specify_blacklist__test</span><span class="tok-p">():</span>
+        <span class="tok-n">f</span> <span class="tok-o">=</span> <span class="tok-n">Filter</span><span class="tok-o">.</span><span class="tok-n">create_instance</span><span class="tok-p">(</span><span class="tok-s">'template'</span><span class="tok-p">)</span>
+        <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">update_settings</span><span class="tok-p">({</span><span class="tok-s">'plugins'</span> <span class="tok-p">:</span> <span class="tok-p">[</span><span class="tok-s">'dexyversion'</span><span class="tok-p">]})</span>
+        <span class="tok-n">n_plugins</span> <span class="tok-o">=</span> <span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-nb">list</span><span class="tok-p">(</span><span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">template_plugins</span><span class="tok-p">()))</span>
+        <span class="tok-k">assert</span> <span class="tok-n">n_plugins</span> <span class="tok-o">==</span> <span class="tok-mi">1</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>dexy env</code> command prints all the environment elements which are available
+from running all the template plugins.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_the_jinja_filter">The Jinja Filter</h4>
+<div class="paragraph">
+<p>The <code>jinja</code> filter is the recommended templating filter to use. It is the most
+widely tested and used.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_alternative_templating_filters">Alternative Templating Filters</h4>
+<div class="paragraph">
+<p>There are other subclasses of <code>TemplateFilter</code> available, although many of
+these are proofs of concept.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_stubbing_out_dynamic_content">Stubbing Out Dynamic Content</h4>
+<div class="paragraph">
+<p>#cookbook #dummyfilter</p>
+</div>
+<div class="paragraph">
+<p>Occasionally you may want to work on the prose of a document without worrying
+about the automation. For example, a technical writer may wish to
+concentrate on writing explanations which a developer will later help pair with
+examples. Or you may be working on a machine which doesn’t have everything
+configured for generating screenshots, which aren’t important to your work
+anyway. You want to be able to run subsequent filters like a markdown to HTML
+filter without having jinja crud get in the way.</p>
+</div>
+<div class="paragraph">
+<p>This can be accomplished by adding an alternative configuration target which
+calls the <code>dummyjinja</code> filter instead of the <code>jinja</code> filter. The <code>dummyjinja</code>
+filter evaluates jinja tags but instead of using a real dexy environment, it
+just inserts an insert stub which allows subsequent filters to run without
+choking on curly braces.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2013-11-10 17:16:11 PST
+</div>
+</div>
+</body>
+</html>
