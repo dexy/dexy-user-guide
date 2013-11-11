@@ -57,6 +57,15 @@ def config_txt_single_file__test():
 
         assert sorted(wrapper.nodes) == ['doc:foo.txt']
 
+def config_txt_single_file_in_subdir__test():
+    with wrap() as wrapper:
+        write_text_files()
+        with open("dexy.yaml", 'w') as f:
+            f.write("bar/foo.txt")
+        wrapper.run_from_new()
+
+        assert sorted(wrapper.nodes) == ['doc:bar/foo.txt']
+
 def config_txt_wildcard__test():
     with wrap() as wrapper:
         write_text_files()

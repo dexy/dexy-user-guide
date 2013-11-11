@@ -17,7 +17,10 @@ assets:
 
 github-issues:
     - github.py|py:
-        - py: { add-new-files: True }
+        - py: {
+            add-new-files: True,
+            additional-doc-settings: { output: False }
+        }
 
 dexy-source:
     - modules.txt|pydoc:

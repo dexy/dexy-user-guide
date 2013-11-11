@@ -4,6 +4,22 @@
 :toc: right
 :toclevels: 5
 
+{% macro docsissue(issue_number) %}
+{% set issue_info = d['docs-issues.json'].from_json()[str(issue_number)] -%}
+{% if issue_info['state'] == "closed" -%}
+WARN: Issue {{ issue_number }} has been closed. Replace issue block with test.
+{{ debug("Issue %s has been closed but is still referenced in user-guide.adoc." % issue_number) }}
+{% endif -%}
+
+====
+{{ issue_info.body }}
+
+icon:github[size=3x,link="{{ issue_info.html_url }}"] TODO: {{ issue_info.title }}
+
+Please feel free to ask questions or add comments about this issue {{ issue_info.html_url }}[on github].
+
+====
+{% endmacro %}
 
 {% macro issue(issue_number) %}
 {% set issue_info = d['issues.json'].from_json()[str(issue_number)] -%}
@@ -13,14 +29,13 @@ WARN: Issue {{ issue_number }} has been closed. Replace issue block with test.
 {% endif -%}
 
 ====
-icon:github[size=3x,link="{{ issue_info.html_url }}"] {{ issue_info.title }} 
+icon:github[size=3x,link="{{ issue_info.html_url }}"] Desired Feature: {{ issue_info.title }} 
 
 {{ issue_info.body }}
 
 - Updated at: {{ issue_info.updated_at }}
 - Assigned to: {{ issue_info.assignee }}
 - Milestone: {{ issue_info.milestone }}
-
 ====
 {% endmacro %}
 
@@ -54,11 +69,16 @@ icon:shield[link="#",title="Test of {{ titleize(test_name) }}"]
 
 {% set exs = "Clicking this won't do anything, it's just an example of what the icon looks like." -%}
 
+This is the User Guide for dexy. It is intended to be a thorough guide to dexy
+features, but not an introductory tutorial or complete reference documentation.
+For links to other dexy documentation, please visit http://dexy.it/docs/
+
 You don't have to know Python, write Python or be a programmer in order to use
 Dexy. There is some Python code in this document if you are interested. Source
-code blocks are indicated by icon:code[title="{{ exs }}"] and tests are
-indicated by icon:shield[title="{{ exs }}"], click the icons to toggle viewing
-any of these individual blocks.
+code blocks are indicated by icon:code[title="{{ exs }}"] and tests (which
+verify the statements made in this document) are indicated by
+icon:shield[title="{{ exs }}"], clicking on these icons will toggle visibility
+of these code blocks.
 
 === Colophon
 
@@ -76,8 +96,14 @@ Here is the `dexy.yaml` file for this document:
 
 == Telling Dexy What To Do
 
-You give Dexy instructions about how to run your project using configuration
-files written using YAML synax.
+Dexy is an automation tool which will follow your instructions for what
+automated operations you would like done on your project. You give Dexy
+instructions about how to run your project using configuration files written
+using YAML syntax.
+
+Configuration files should be named `dexy.yaml`.
+
+{{ docsissue(1) }}
 
 The basic elements you can specify are:
 
@@ -90,44 +116,50 @@ Here's a simple YAML config file demonstrating each of these:
 
 {{ d['examples/basic.yaml|asciisyn'] }}
 
+The format for a document specification is a file name or file pattern followed
+by zero or more filters. Here are a few examples:
+
+{{ d['examples/list-dict.yaml|idio|asciisyn']['document-specifications'] }}
+
+You can leave off the initial asterisk if your file pattern starts with a dot,
+i.e. if you are matching all files with a given file extension. This is done
+for convenience and because if you want to start a string with an asterisk in
+YAML you need to wrap it in quotes.
 
 === File Names and Patterns
 
-The basic format for a document specification is a file name or file pattern
-followed by zero or more filters.
-
-`foo.txt` instructs dexy to add foo.txt as a document, but not to apply any
-filters to it. The original contents of foo.txt will be available to other
-documents (if foo.txt is specified as an input to these other documents) and
-foo.txt will appear in Dexy's final output (unless it has been configured not
-to be).
+`foo.txt` instructs dexy to create a document named `foo.txt` where the source
+is a file named `foo.txt` in the project root.
 {{ example("configuration_test:config_txt_single_file") }}
 
+`bar/foo.txt` instructs dexy to create a document named `bar/foo.txt` where the
+source is a file named `foo.txt` in the `bar` directory under the project root.
+{{ example("configuration_test:config_txt_single_file_in_subdir") }}
+
 `.txt` instructs dexy to add all available files with ".txt" extension. You
-could also write this as `"*.txt"` but dexy assumes entries starting with a dot
-are wildcard expressions and adds the asterisk for you.
+could also write this as `"*.txt"` (note the quotes) but dexy assumes entries
+starting with a dot are wildcard expressions and adds the asterisk for you.
 {{ example("configuration_test:config_txt_ext") }}
 
 `"*foo.txt"` instructs dexy to add all files named foo.txt in any directory.
+Note that we need to wrap the expression in quotes because we are starting with
+an asterisk and can't use the usual shortcut because we are matching a file
+name, not just an extension.
 {{ example("configuration_test:config_txt_wildcard") }}
 
-In YAML, you don't usually need to put quotes around strings (which saves a lot
-of typing). But you can put quotes around strings for clarity. And one
-situation when you need to is when an entry starts with an asterisk, since this
-has a special meaning in YAML.
+{{ docsissue(2) }}
 
-=== Filters
+=== Virtual Files
 
-To specify filters, follow the file specification with a pipe symbol `|` and a
-filter alias. You can chain as many filters as you want, in order, by adding
-more pipes and aliases. The first filter operates on the original contents of
-the source file, subsequent filters operate on the output from the previous
-filter in order.
+You can make dexy process a file which doesn't really exist on the file system
+by using the `contents` setting:
+{{ example("configuration_test:virtual_file_contents") }}
 
-You can run a source file through multiple different filters, and each will be
-a separate document in dexy.
+{{ d['examples/list-dict.yaml|idio|asciisyn']['contents'] }}
 
-{{ d['examples/list-dict.yaml|idio|asciisyn']['different-filters'] }}
+{{ docsissue(3) }}
+
+`contents` is one of the available <<_document_settings>>.
 
 === Document Settings
 
@@ -138,12 +170,34 @@ To see available document settings, you can use the `dexy nodes` command.
 
 {{ d['examples/filters.sh|idio|shint|asciisyn']['node-doc'] }}
 
-==== Contents
+=== Files Without Filters
 
-You can make dexy process a file which doesn't really exist on the file system
-by specifying `contents` as a document setting.
+When no filters are specified for a document, the original contents of the file
+are made available to other documents, and the document will appear in Dexy's
+final output unless the `output` setting has been set to False.
 
-{{ d['examples/list-dict.yaml|idio|asciisyn']['contents'] }}
+=== Filters
+
+To specify filters, follow the filename/pattern with a pipe symbol `|` and a
+filter alias. You can chain as many filters as you want, in order, by adding
+more pipes and aliases. The first filter operates on the original contents of
+the source file, subsequent filters operate on the output from the previous
+filter.
+
+You can run a source file through different filter combinations, and each will
+be a separate document in dexy.
+
+{{ d['examples/list-dict.yaml|idio|asciisyn']['different-filters'] }}
+
+=== Filter Settings
+
+To customize filter settings, you need to first give the filter alias, and then
+a dictionary of the desired settings for that filter alias.
+
+{{ d['examples/list-dict.yaml|idio|asciisyn']['filter-settings'] }}
+
+To see available settings for a filter, you can use the `dexy filters` command
+with the `-alias` option. See <<_filter_documentation>>.
 
 === Aliases
 
@@ -153,11 +207,13 @@ same filters with different combinations of settings.
 
 {{ d['examples/list-dict.yaml|idio|asciisyn']['without-aliases'] }}
 
-To differentiate, you can place an `alias` filter at the end of your document
+To differentiate, you can place an alias filter at the end of your document
 key. This just needs to start with a hyphen, and then can optionally have some
 descriptive text.
 
 {{ d['examples/list-dict.yaml|idio|asciisyn']['with-aliases'] }}
+
+{{ issue(104) }}
 
 === Lists vs. Dicts
 
@@ -171,19 +227,21 @@ This makes it more clear to read and also prevents compiler errors.
 
 {{ d['examples/list-dict.yaml|idio|asciisyn']['with-braces'] }}
 
-You can also try to reduce the amount of nesting by using named blocks.
+You can also try to reduce the amount of nesting by using named bundles.
 
 === Bundles
 
-You can gather bundles of documents together in named blocks and then refer to
-these blocks in other locations. This is helpful to reduce deep nesting and to
-re-use bundles of dependencies in different places.
+You can gather collections of documents together in named bundles and then
+refer to these bundles in other locations. This is helpful to make a more
+readable config file, reduce deep nesting and to re-use bundles of dependencies
+in different places.
 
 {{ d['examples/list-dict.yaml|idio|asciisyn']['bundles'] }}
 
-The bundle names can also be used as target names, and using the `-target`
-command line option you can tell dexy to just run a single target rather than
-your entire project.
+{{ docsissue(4) }}
+
+You can use the `dexy nodes` command to view more information about the
+`bundle` node type:
 
 {{ d['examples/filters.sh|idio|shint|asciisyn']['node-bundle'] }}
 
@@ -199,7 +257,12 @@ by placing them in a bundle whose name is preceded by the `script:` prefix.
 The `script:` prefix instructs Dexy to construct a special kind of node which
 ensures its children are run in sequential order.
 
+You can use the `dexy nodes` command to view more information about the
+`script` node type:
+
 {{ d['examples/filters.sh|idio|shint|asciisyn']['node-script'] }}
+
+{{ docsissue(5) }}
 
 == Running Dexy
 

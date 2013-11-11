@@ -1,6 +1,16 @@
+### "document-specifications"
+- foo.txt # no filters
+- .py|pyg # 1 filter
+- docs/*.md|jinja|markdown # 2 filters
+
 ### "different-filters"
-- example.py|pyg
-- example.py|py
+- example.py|pyg # html file with syntax highlighted python
+- example.py|py # txt file with STDOUT from executing script
+
+### "filter-settings"
+- example.py|idio|pycon|pyg
+    - pycon: { add-new-files: True}
+    - pyg: { linenos: True}
 
 ### "without-aliases"
 - .py|pyg
