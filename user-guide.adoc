@@ -70,6 +70,10 @@ you have feedback or suggestions about this document please fell free to email
 info@dexy.it or https://github.com/dexy/dexy-user-guide/issues[open a github
 issue].
 
+Here is the `dexy.yaml` file for this document:
+
+{{ d['dexy.yaml|asciisyn'] }}
+
 == Telling Dexy What To Do
 
 You give Dexy instructions about how to run your project using configuration

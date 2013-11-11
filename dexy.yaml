@@ -1,20 +1,41 @@
-- user-guide.adoc|jinja|asciidoctor|customize:
+user-guide.adoc|jinja|asciidoctor|customize:
+    # document settings
     - output-name: index.html
+
+    # filter settings
     - customize: { scripts: ['jquery.js', 'view-result.js'] }
+
+    # inputs
+    - assets
+    - dexy-source
+    - tests
+    - examples 
+    - github-issues
+
+assets:
+    - .js
+
+github-issues:
+    - github.py|py:
+        - py: { add-new-files: True }
+
+dexy-source:
     - modules.txt|pydoc:
         - contents: "dexy"
+
+tests:
     - tests/*.py|pydoc:
-        - tests/utils.py
-    - .js
+        - tests/utils.py:
+            - output: False
+
+examples:
+    - examples/*.py|idio|pycon|asciisyn
+    - examples/*.sh|idio|shint|asciisyn:
+        - except: "run"
+    - examples/run.sh|idio|shint|asciisyn:
+        - examples/run-example.yaml
     - .yaml|asciisyn
     - .yaml|idio|asciisyn:
         - idio: { ext : '.txt' }
     - .yaml|idio:
         - idio: { ext : '.txt' }
-    - github.py|py:
-        - py: { add-new-files: True }
-    - examples/*.sh|idio|shint|asciisyn:
-        - except: "run"
-    - examples/run.sh|idio|shint|asciisyn:
-        - examples/run-example.yaml
-    - examples/*.py|idio|pycon|asciisyn
