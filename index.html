@@ -503,11 +503,17 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <h2 id="_introduction">Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>This is the User Guide for dexy. It is intended to be a thorough guide to dexy
+features, but not an introductory tutorial or complete reference documentation.
+For links to other dexy documentation, please visit <a href="http://dexy.it/docs/">http://dexy.it/docs/</a></p>
+</div>
+<div class="paragraph">
 <p>You don’t have to know Python, write Python or be a programmer in order to use
 Dexy. There is some Python code in this document if you are interested. Source
-code blocks are indicated by <span class="icon"><i class="icon-code" title="Clicking this won’t do anything, it’s just an example of what the icon looks like."></i></span> and tests are
-indicated by <span class="icon"><i class="icon-shield" title="Clicking this won’t do anything, it’s just an example of what the icon looks like."></i></span>, click the icons to toggle viewing
-any of these individual blocks.</p>
+code blocks are indicated by <span class="icon"><i class="icon-code" title="Clicking this won’t do anything, it’s just an example of what the icon looks like."></i></span> and tests (which
+verify the statements made in this document) are indicated by
+<span class="icon"><i class="icon-shield" title="Clicking this won’t do anything, it’s just an example of what the icon looks like."></i></span>, clicking on these icons will toggle visibility
+of these code blocks.</p>
 </div>
 <div class="sect2">
 <h3 id="_colophon">Colophon</h3>
@@ -545,7 +551,10 @@ issue</a>.</p>
 
 <span class="tok-l-Scalar-Plain">github-issues</span><span class="tok-p-Indicator">:</span>
     <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">github.py|py</span><span class="tok-p-Indicator">:</span>
-        <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">py</span><span class="tok-p-Indicator">:</span> <span class="tok-p-Indicator">{</span> <span class="tok-nv">add-new-files</span><span class="tok-p-Indicator">:</span> <span class="tok-nv">True</span> <span class="tok-p-Indicator">}</span>
+        <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">py</span><span class="tok-p-Indicator">:</span> <span class="tok-p-Indicator">{</span>
+            <span class="tok-nv">add-new-files</span><span class="tok-p-Indicator">:</span> <span class="tok-nv">True</span><span class="tok-p-Indicator">,</span>
+            <span class="tok-nv">additional-doc-settings</span><span class="tok-p-Indicator">:</span> <span class="tok-p-Indicator">{</span> <span class="tok-nv">output</span><span class="tok-p-Indicator">:</span> <span class="tok-nv">False</span> <span class="tok-p-Indicator">}</span>
+        <span class="tok-p-Indicator">}</span>
 
 <span class="tok-l-Scalar-Plain">dexy-source</span><span class="tok-p-Indicator">:</span>
     <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">modules.txt|pydoc</span><span class="tok-p-Indicator">:</span>
@@ -577,8 +586,23 @@ issue</a>.</p>
 <h2 id="_telling_dexy_what_to_do">Telling Dexy What To Do</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You give Dexy instructions about how to run your project using configuration
-files written using YAML synax.</p>
+<p>Dexy is an automation tool which will follow your instructions for what
+automated operations you would like done on your project. You give Dexy
+instructions about how to run your project using configuration files written
+using YAML syntax.</p>
+</div>
+<div class="paragraph">
+<p>Configuration files should be named <code>dexy.yaml</code>.</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>You probably only need one <code>dexy.yaml</code> file in your project root, but you can place <code>dexy.yaml</code> files in subdirectories where they will apply only to that subdirectory and its children. The <code>recurse</code> option to the dexy command must be set in order for <code>dexy.yaml</code> files in subdirectories to be loaded.</p>
+</div>
+<div class="paragraph">
+<p><span class="icon"><a class="image" href="https://github.com/dexy/dexy-user-guide/issues/1"><i class="icon-github icon-3x"></i></a></span> TODO: Test that dexy.yaml files work as described.</p>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p>The basic elements you can specify are:</p>
@@ -1751,7 +1775,7 @@ up the main project space.</p>
 <div class="exampleblock">
 <div class="content">
 <div class="paragraph">
-<p><span class="icon"><a class="image" href="https://github.com/dexy/dexy/issues/103"><i class="icon-github icon-3x"></i></a></span> Provide a <em>chroot</em> option for process filters.</p>
+<p><span class="icon"><a class="image" href="https://github.com/dexy/dexy/issues/103"><i class="icon-github icon-3x"></i></a></span> Desired Feature: Provide a <em>chroot</em> option for process filters.</p>
 </div>
 <div class="paragraph">
 <p>Provide a way to limit potential side effects by chroot-locking processes spawned by dexy filters by default.</p>
@@ -2864,7 +2888,7 @@ choking on curly braces.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2013-11-10 21:35:27 PST
+Last updated 2013-11-10 22:02:46 PST
 </div>
 </div>
 </body>
