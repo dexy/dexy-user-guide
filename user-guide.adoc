@@ -1,0 +1,389 @@
+= Dexy User Guide
+:icons: font
+:source-highlighter: pygments
+:toc: right
+:toclevels: 5
+
+
+{% macro issue(issue_number) %}
+{% set issue_info = d['issues.json'].from_json()[str(issue_number)] -%}
+{% if issue_info['state'] == "closed" -%}
+WARN: Issue {{ issue_number }} has been closed. Replace issue block with test.
+{{ debug("Issue %s has been closed but is still referenced in user-guide.adoc." % issue_number) }}
+{% endif -%}
+
+====
+icon:github[size=3x,link="{{ issue_info.html_url }}"] {{ issue_info.title }} 
+
+{{ issue_info.body }}
+
+- Updated at: {{ issue_info.updated_at }}
+- Assigned to: {{ issue_info.assignee }}
+- Milestone: {{ issue_info.milestone }}
+
+====
+{% endmacro %}
+
+{% macro source(qualified_name) -%}
+icon:code[link="#"]
+
+[.result]
+====
+[source,python]
+----
+{{ d['modules.txt'][qualified_name + ':source'] }}
+----
+====
+{% endmacro %}
+
+{% macro example(qualified_test_name) -%}
+{% set file_name, test_name = qualified_test_name.split(":") -%}
+icon:shield[link="#",title="Test of {{ titleize(test_name) }}"]
+
+[.result]
+====
+[source,python]
+----
+{{ d['tests/' + file_name + '.py|pydoc'][test_name + '__test:source'] }}
+----
+====
+{% endmacro %}
+
+
+== Introduction
+
+{% set exs = "Clicking this won't do anything, it's just an example of what the icon looks like." -%}
+
+You don't have to know Python, write Python or be a programmer in order to use
+Dexy. There is some Python code in this document if you are interested. Source
+code blocks are indicated by icon:code[title="{{ exs }}"] and tests are
+indicated by icon:shield[title="{{ exs }}"], click the icons to toggle viewing
+any of these individual blocks.
+
+== Telling Dexy What To Do
+
+Configuring your dexy projects.
+
+== Running Dexy
+
+=== Command Line Help
+
+Dexy's command-line interface uses https://pypi.python.org/pypi/python-modargs[python-modargs]
+to process commands and arguments. All arguments can take any number of dashes,
+so `-r` and `--r` and `---r` all do the same thing.
+
+The `dexy help` command gives you access to information about dexy commands:
+
+{{ d['examples/help.sh|idio|shint|asciisyn']['dexy-help'] }}
+
+The `--all` flag will print out all the available dexy commands:
+
+{{ d['examples/help.sh|idio|shint|asciisyn']['dexy-help-all'] }}
+
+You can get help on a particular command using the `-on` flag:
+
+{{ d['examples/help.sh|idio|shint|asciisyn']['dexy-help-on'] }}
+
+=== Setting Up and Running Dexy
+
+It can be inconvenient if you accidentally run the `dexy` command somewhere you
+didn't mean to, like in your home directory, so `dexy` won't run unless it
+finds a `.dexy` directory in the current working directory. If you try to run
+dexy by accident, you'll see a message like this:
+
+{{ d['examples/run.sh|idio|shint|asciisyn']['dexy-without-setup'] }}
+
+Running `dexy setup` creates the `.dexy` directory:
+
+{{ d['examples/run.sh|idio|shint|asciisyn']['setup'] }}
+
+And now you can run dexy:
+
+{{ d['examples/run.sh|idio|shint|asciisyn']['dexy'] }}
+
+The `.dexy` directory is used to store working files, cached files, the
+`dexy.log` and some dexy reports:
+
+{{ d['examples/run.sh|idio|shint|asciisyn']['show-hidden-files'] }}
+
+=== Cache Management
+
+Dexy stores cached files in the `.dexy` directory to help speed up subsequent
+runs. You shouldn't have to manage this manually, but if you want to force dexy
+to re-run everything you can empty the cache by running dexy with the `-r`
+option or running the `dexy reset` command.
+
+Dexy might also create a `.trash` directory although it should remove this
+automatically.
+
+=== Filter Documentation
+
+The `filters` command lets you list all available dexy filters:
+
+{{ d['examples/filters.sh|idio|shint|asciisyn']['list-filters'] }}
+
+To print the full docstring and available settings for particular filter, use
+the `-alias` option:
+
+{{ d['examples/filters.sh|idio|shint|asciisyn']['filter-detail'] }}
+
+== Filters
+
+This section deals with important concepts and features which are shared by all
+filters or groups of similar filters.
+
+=== Workspaces
+
+Many filters create a temporary workspace within the `.dexy` directory when
+they run. This workspace will mimic the directory structure of the main project
+and will be populated with the desired input files in their correct states
+(i.e. run through any applicable filters).
+
+This provides a limited amount of isolation, in that processes are not changing
+files in the main project repository (unless there is a malicious or
+poorly-designed script), and any files generated as side effects do not clutter
+up the main project space.
+
+{{ issue(103) }}
+
+In this example, a bash script is being run through the `shint` filter, and
+running the `pwd` command allows us to see the working directory where the code
+is being executed:
+
+{{ d['examples/workspaces.sh|idio|shint|asciisyn']['pwd'] }}
+
+Check the filter documentation for each filter to see which of these
+workspace-related options are supported.
+
+==== Using Working Directories
+
+The `use-wd` boolean setting controls whether or not to create and populate a
+working directory and to set the process's `cwd` to the working directory. The
+setting defaults to True.
+{{ example("process_filters_test:use_wd_option_defaults_to_true") }}
+
+When `use-wd` is True (the default case), then a working directory is created
+within the `.dexy/work` directory.
+{{ example("process_filters_test:if_use_wd_true_code_runs_in_work_dir") }}
+
+When `use-wd` is set to False, the code runs directly in the project root.
+{{ example("process_filters_test:if_use_wd_false_code_runs_in_project_home") }}
+
+==== Including and Excluding Inputs
+
+Working directories can be populated with the documents specified as
+dependencies or inputs. This can end up being a lot of files, and sometimes we
+want to control more precisely which files are copied.  Several settings help
+to manage which files are copied.
+{{ source('dexy.filter.Filter.include_input_in_workspace') }}
+
+- `workspace-exclude-filters` A list of filter aliases. Input files which had
+  these filters applied will be excluded.
+- `override-workspace-exclude-filters` A boolean specified on an input file.
+  This input file will be included in working directories regardless of the
+  parent's workspace-exclude-filters setting.
+- `workspace-include` A list of filenames or wildcard patterns. These and only
+  these will be written to the workspace.  When this is set,
+  workspace-exclude-filters and override-workspace-exclude-filters are
+  ignored.
+
+The `workspace-exclude-filters` setting takes a list of filter aliases and it
+doesn't populate the working directory with any documents which include any of
+these filter aliases. So if `jinja` is in `workspace-exclude-filters` then a
+document named `hello.txt|jinja` will not be written to the working directory.
+{{ example("process_filters_test:workspace_exclude_filters_excluding_jinja") }}
+
+To include all input files, set `workspace-exclude-filters` to an empty list.
+{{ example("process_filters_test:workspace_exclude_filters_no_excludes") }}
+
+The `workspace-exclude-filters` setting defaults to `['pyg']` since usually
+syntax highlighted content is included in documents via templating, not via the
+file system. When `pyg` outputs image files or stylesheets, these have
+`override-workspace-exclude-filters` set to True by the filter.
+{{ example("process_filters_test:workspace_exclude_filters_pyg_defaults") }}
+
+==== Making Extra Directories
+
+Sometimes a tool expects a certain directory structure to exist when it runs,
+but this may not correspond to the directory structure of your project.
+
+The mkdir and mkdirs settings let you specify extra directories which will be
+created in the working directory before the filter is run.
+
+The `mkdir` setting creates a single directory based on a string.
+{{ example("process_filters_test:mkdir_creates_extra_directory_in_work_dir") }}
+
+The `mkdirs` setting creates multiple directories based on a list.
+{{ example("process_filters_test:mkdirs_creates_extra_directories_in_work_dir") }}
+
+==== Adding New Files
+
+One of the reasons we tend to run scripts in their own working directories is
+because they generate extra files. LaTeX is notorious for generating `.log`,
+`.aux`, `.bbl` and a host of other files you usually aren't interested in
+unless you need to debug somtehing. So by default Dexy just ignores any extra
+files which are created in working directories. If you need to do debugging,
+you can look in the working directory.
+
+Sometimes, though, these extra files are useful and may even be the whole point
+of running a script. We may be generating a PNG file containing a graph, or a
+JSON or CSV file containing data.
+
+The `add-new-files` setting controls how dexy treats these additional files.
+{{ source('dexy.filters.process.SubprocessFilter.add_new_files') }}
+
+By default, `add-new-files` is False so Dexy ignores any new files which appear
+in the working directory.
+{{ example("process_filters_test:process_filters_have_add_new_files_false_by_default") }}
+
+Some filters like `casperjs` which are almost always invoked for side effects
+will have `add-new-files` be True by default, so check the individual filter
+documentation.
+{{ example("process_filters_test:casperjs_has_add_new_files_true_by_default") }}
+
+When `add-new-files` is False, no new files are added to dexy.
+{{ example("process_filters_test:if_add_new_files_false_new_files_not_added") }}
+
+When `add-new-files` is True, new files are added to dexy.
+{{ example("process_filters_test:if_add_new_files_true_new_files_are_added") }}
+
+The `add-new-files` setting can also be a list of expressions to match.
+
+Entries in the list can be file extensions which should be added.
+{{ example("process_filters_test:add_new_files_list") }}
+
+They can also be glob-style file patterns to match.
+{{ example("process_filters_test:add_new_files_pattern") }}
+
+There is also an `exclude-add-new-files` setting which lets you list
+exceptions so you can skip directories, file names or patterns which otherwise
+would be included.
+{{ example("process_filters_test:exclude_add_new_files") }}
+
+==== Additional Documents
+
+Sometimes running a filter will cause extra documents to be added to the Dexy
+run. The `split` filter, for example, takes a HTML file and splits it into
+multiple files, each of which becomes an extra independent document. Extra
+documents may also be added as a result of the `add-new-files` setting (see the
+<<_adding_new_files>> section).
+
+When new documents are added, you may wish to customize some of their settings
+or specify additional filters which should be applied to the new documents.
+You can do this via `additional-doc-filters` and `additional-doc-settings`.
+
+The `additional-doc-filters` setting can be a string listing a single filter or
+single filter chain (a sequence of filters separated with pipes just as you
+would write in a dexy file) in which case every new document has these
+additional filters applied.
+{{ example("process_filters_test:additional_doc_filters") }}
+
+If `additional-doc-filters` is a list, then separate new documents are created
+for each filter combination in the list.
+{{ example("process_filters_test:additional_doc_filters_list") }}
+
+`additional-doc-filters` can also be a dictionary which maps file extensions to
+the filters which should be applied to those file extensions. If a file is
+found whose extension is not in the dictionary, then that file is added without
+any extra filters being applied.
+{{ example("process_filters_test:additional_doc_filters_dict") }}
+
+The `keep-originals` boolean setting can be combined with
+`additional-doc-filters` and it instructs Dexy to also add the original files
+without any extra filters applied.
+{{ example("process_filters_test:additional_doc_filters_keep_originals") }}
+
+The `additional-doc-settings` will apply extra settings to new documents. If
+this is a dictionary, then the entries in the dictionary are assumed to be
+setting names and values, and these will be applied to all new documents.
+{{ example("process_filters_test:additional_doc_settings") }}
+
+`additional-doc-settings` can also be a list of lists where each element is a
+file extension and a dictionary of settings which will be applied to all files
+matching the extension. The ".*" extension can be used to provide default
+settings.
+{{ example("process_filters_test:additional_doc_settings_list") }}
+
+
+
+=== Templating Filters
+
+One of the most common things you will probably want do in dexy is to insert
+snippets of code into other documents using tags like
+`{{ "{{ d['foo.py|pyg'] }}" }}` using the `jinja` filter. The jinja filter is
+an example of a templating filter, and this chapter describes how these filters
+work and what elements are available for you to use in your documents.
+
+A templating tool lets you insert content into a document template.  Templating
+tools typically evaluate template tags like `{{ "{{ foo }}" }}` against an
+environment.  An environment can be thought of as a hashmap like `{ "foo" : 123
+}`. The values in the hashmap can be simple values like `123`, or they can be
+any type of object which is supported by the templating tool. Jinja2, for
+example, supports almost any kind of Python object including functions.
+
+The `TemplateFilter` base class in Dexy prepares a giant hashmap containing
+various elements you might want to be able to refer to in your documents. It
+does so by running several Template Plugins, each of which returns a hashmap.
+
+For example, the DexyVersion template plugin returns a hashmap with one entry,
+to let you refer to `DEXY_VERSION` in your documents (Here, I'm using it to say
+that this document was generated with dexy version: {{ DEXY_VERSION }}).
+{{ source('dexy.filters.templating_plugins.DexyVersion') }}
+
+All these individual hashmaps are combined together to generate the full
+environment.
+
+Subclasses of TemplateFilter take this full environment and pass it to the
+templating system so it can be used to evalute template tags.
+
+==== Choosing Which Template Plugins to Use
+
+By default, Dexy's TemplateFilter includes all registered template plugins when
+it generates the template environment. (See the http://dexy.github.io/cashew/[Cashew docs]
+for details about how plugin registration works.)
+{{ example("template_plugins_test:by_default_dexy_runs_all_template_plugins") }}
+
+If, instead, you want to specify which plugins to run, then you can use the
+`plugins` attribute to specify a list of template plugin aliases to use.
+{{ example("template_plugins_test:use_plugins_attribute_to_specify_whitelist") }}
+
+If you just want to exclude a few plugins, then you can use the `skip-plugins`
+attribute to list template aliases you don't want to be used.
+{{ example("template_plugins_test:use_skip_plugins_attribute_to_specify_blacklist") }}
+
+The `dexy env` command prints all the environment elements which are available
+from running all the template plugins.
+
+
+==== The Jinja Filter
+
+The `jinja` filter is the recommended templating filter to use. It is the most
+widely tested and used.
+
+
+==== Alternative Templating Filters
+
+There are other subclasses of `TemplateFilter` available, although many of
+these are proofs of concept.
+
+
+
+==== Stubbing Out Dynamic Content
+
+#cookbook #dummyfilter
+
+Occasionally you may want to work on the prose of a document without worrying
+about the automation. For example, a technical writer may wish to
+concentrate on writing explanations which a developer will later help pair with
+examples. Or you may be working on a machine which doesn't have everything
+configured for generating screenshots, which aren't important to your work
+anyway. You want to be able to run subsequent filters like a markdown to HTML
+filter without having jinja crud get in the way.
+
+This can be accomplished by adding an alternative configuration target which
+calls the `dummyjinja` filter instead of the `jinja` filter. The `dummyjinja`
+filter evaluates jinja tags but instead of using a real dexy environment, it
+just inserts an insert stub which allows subsequent filters to run without
+choking on curly braces.
+
+
