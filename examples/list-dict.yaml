@@ -1,0 +1,57 @@
+### "different-filters"
+- example.py|pyg
+- example.py|py
+
+### "without-aliases"
+- .py|pyg
+- .py|pyg:
+    - pyg: { noclasses: True }
+- .py|pyg:
+    - pyg: { linenos: True }
+
+### "with-aliases"
+- .py|pyg
+- .py|pyg|-:
+    - pyg: { noclasses: True }
+- .py|pyg|-with-linenos:
+    - pyg: { linenos: True }
+
+### "contents"
+hello.txt|jinja:
+    - contents: "1 + 1 = {{ 1+1 }}"
+
+### "nested"
+- foo.md|jinja|markdown:
+    - example.py|py:
+        - py:
+            - add-new-files: True
+            - additional-doc-filters:
+                - .py: pyg
+                - .rb: pyg
+
+### "with-braces"
+- foo.md|jinja|markdown:
+    - example.py|py:
+        - py: {
+            add-new-files: True,
+            additional-doc-filters: {.py: pyg, .rb: pyg}
+          }
+
+### "bundles"
+docs:
+    - user-guide.md|jinja|markdown:
+        - title: "Dexy User Guide"
+        - sources
+    - developer-guide.md|jinja|markdown:
+        - title: "Dexy Developer Guide"
+        - sources
+
+sources:
+    - .py|pyg
+    - .rb|pyg
+
+### "script-bundles"
+script:screenshots:
+    - setup_script.sh|shint
+    - screenshots.js|casperjs
+    - teardown_script.sh|shint

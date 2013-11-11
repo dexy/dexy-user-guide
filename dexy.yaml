@@ -1,9 +1,16 @@
 - user-guide.adoc|jinja|asciidoctor|customize:
+    - output-name: index.html
     - customize: { scripts: ['jquery.js', 'view-result.js'] }
     - modules.txt|pydoc:
         - contents: "dexy"
-    - tests/*.py|pydoc
+    - tests/*.py|pydoc:
+        - tests/utils.py
     - .js
+    - .yaml|asciisyn
+    - .yaml|idio|asciisyn:
+        - idio: { ext : '.txt' }
+    - .yaml|idio:
+        - idio: { ext : '.txt' }
     - github.py|py:
         - py: { add-new-files: True }
     - examples/*.sh|idio|shint|asciisyn:

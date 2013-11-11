@@ -1,0 +1,4 @@
+foo.md|jinja|markdown:
+    - output: True # this is a document setting for foo.md|jinja|markdown
+    - .py|pyg: # indentation means this document is an input to foo.md|jinja|markdown
+        - pyg: { linenos: True } # this is a pyg filter setting for the .py|pyg document

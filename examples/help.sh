@@ -9,3 +9,6 @@ dexy help --on setup
 
 ### "dexy-help-on-reset"
 dexy help --on reset
+
+### "env"
+dexy env
