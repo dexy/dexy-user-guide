@@ -440,13 +440,11 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <li>
 <ul class="sectlevel2">
 <li><a href="#_file_names_and_patterns">File Names and Patterns</a></li>
-<li><a href="#_filters">Filters</a></li>
+<li><a href="#_virtual_files">Virtual Files</a></li>
 <li><a href="#_document_settings">Document Settings</a></li>
-<li>
-<ul class="sectlevel3">
-<li><a href="#_contents">Contents</a></li>
-</ul>
-</li>
+<li><a href="#_files_without_filters">Files Without Filters</a></li>
+<li><a href="#_filters">Filters</a></li>
+<li><a href="#_filter_settings">Filter Settings</a></li>
 <li><a href="#_aliases">Aliases</a></li>
 <li><a href="#_lists_vs_dicts">Lists vs. Dicts</a></li>
 <li><a href="#_bundles">Bundles</a></li>
@@ -602,6 +600,9 @@ using YAML syntax.</p>
 <div class="paragraph">
 <p><span class="icon"><a class="image" href="https://github.com/dexy/dexy-user-guide/issues/1"><i class="icon-github icon-3x"></i></a></span> TODO: Test that dexy.yaml files work as described.</p>
 </div>
+<div class="paragraph">
+<p>Please feel free to ask questions or add comments about this issue <a href="https://github.com/dexy/dexy-user-guide/issues/1">on github</a>.</p>
+</div>
 </div>
 </div>
 <div class="paragraph">
@@ -665,18 +666,29 @@ using YAML syntax.</p>
 </code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>The format for a document specification is a file name or file pattern followed
+by zero or more filters. Here are a few examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="yaml language-yaml"><span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">foo.txt</span> <span class="tok-c1"># no filters</span>
+<span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">.py|pyg</span> <span class="tok-c1"># 1 filter</span>
+<span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">docs/*.md|jinja|markdown</span> <span class="tok-c1"># 2 filters</span>
+</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can leave off the initial asterisk if your file pattern starts with a dot,
+i.e. if you are matching all files with a given file extension. This is done
+for convenience and because if you want to start a string with an asterisk in
+YAML you need to wrap it in quotes.</p>
+</div>
 <div class="sect2">
 <h3 id="_file_names_and_patterns">File Names and Patterns</h3>
 <div class="paragraph">
-<p>The basic format for a document specification is a file name or file pattern
-followed by zero or more filters.</p>
-</div>
-<div class="paragraph">
-<p><code>foo.txt</code> instructs dexy to add foo.txt as a document, but not to apply any
-filters to it. The original contents of foo.txt will be available to other
-documents (if foo.txt is specified as an input to these other documents) and
-foo.txt will appear in Dexy’s final output (unless it has been configured not
-to be).
+<p><code>foo.txt</code> instructs dexy to create a document named <code>foo.txt</code> where the source
+is a file named <code>foo.txt</code> in the project root.
 <span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of Config Txt Single File"></i></a></span></p>
 </div>
 <div class="exampleblock result">
@@ -697,9 +709,31 @@ to be).
 </div>
 </div>
 <div class="paragraph">
+<p><code>bar/foo.txt</code> instructs dexy to create a document named <code>bar/foo.txt</code> where the
+source is a file named <code>foo.txt</code> in the <code>bar</code> directory under the project root.
+<span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of Config Txt Single File In Subdir"></i></a></span></p>
+</div>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">def</span> <span class="tok-nf">config_txt_single_file_in_subdir__test</span><span class="tok-p">():</span>
+    <span class="tok-k">with</span> <span class="tok-n">wrap</span><span class="tok-p">()</span> <span class="tok-k">as</span> <span class="tok-n">wrapper</span><span class="tok-p">:</span>
+        <span class="tok-n">write_text_files</span><span class="tok-p">()</span>
+        <span class="tok-k">with</span> <span class="tok-nb">open</span><span class="tok-p">(</span><span class="tok-s">"dexy.yaml"</span><span class="tok-p">,</span> <span class="tok-s">'w'</span><span class="tok-p">)</span> <span class="tok-k">as</span> <span class="tok-n">f</span><span class="tok-p">:</span>
+            <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">write</span><span class="tok-p">(</span><span class="tok-s">"bar/foo.txt"</span><span class="tok-p">)</span>
+        <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">run_from_new</span><span class="tok-p">()</span>
+
+        <span class="tok-k">assert</span> <span class="tok-nb">sorted</span><span class="tok-p">(</span><span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-p">)</span> <span class="tok-o">==</span> <span class="tok-p">[</span><span class="tok-s">'doc:bar/foo.txt'</span><span class="tok-p">]</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
 <p><code>.txt</code> instructs dexy to add all available files with ".txt" extension. You
-could also write this as <code>"*.txt"</code> but dexy assumes entries starting with a dot
-are wildcard expressions and adds the asterisk for you.
+could also write this as <code>"*.txt"</code> (note the quotes) but dexy assumes entries
+starting with a dot are wildcard expressions and adds the asterisk for you.
 <span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of Config Txt Ext"></i></a></span></p>
 </div>
 <div class="exampleblock result">
@@ -727,6 +761,9 @@ are wildcard expressions and adds the asterisk for you.
 </div>
 <div class="paragraph">
 <p><code>"*foo.txt"</code> instructs dexy to add all files named foo.txt in any directory.
+Note that we need to wrap the expression in quotes because we are starting with
+an asterisk and can’t use the usual shortcut because we are matching a file
+name, not just an extension.
 <span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of Config Txt Wildcard"></i></a></span></p>
 </div>
 <div class="exampleblock result">
@@ -750,32 +787,66 @@ are wildcard expressions and adds the asterisk for you.
 </div>
 </div>
 </div>
+<div class="exampleblock">
+<div class="content">
 <div class="paragraph">
-<p>In YAML, you don’t usually need to put quotes around strings (which saves a lot
-of typing). But you can put quotes around strings for clarity. And one
-situation when you need to is when an entry starts with an asterisk, since this
-has a special meaning in YAML.</p>
+<p>Dexy won’t complain if a wildcard expression doesn’t match any files. However, if you specify a filename, there either must be a corresponding file on the file system, or you need to specify the file’s contents using the <code>contents</code> setting.</p>
+</div>
+<div class="paragraph">
+<p><span class="icon"><a class="image" href="https://github.com/dexy/dexy-user-guide/issues/2"><i class="icon-github icon-3x"></i></a></span> TODO: Demonstrate error when no file contents available.</p>
+</div>
+<div class="paragraph">
+<p>Please feel free to ask questions or add comments about this issue <a href="https://github.com/dexy/dexy-user-guide/issues/2">on github</a>.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_filters">Filters</h3>
+<h3 id="_virtual_files">Virtual Files</h3>
 <div class="paragraph">
-<p>To specify filters, follow the file specification with a pipe symbol <code>|</code> and a
-filter alias. You can chain as many filters as you want, in order, by adding
-more pipes and aliases. The first filter operates on the original contents of
-the source file, subsequent filters operate on the output from the previous
-filter in order.</p>
+<p>You can make dexy process a file which doesn’t really exist on the file system
+by using the <code>contents</code> setting:
+<span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of Virtual File Contents"></i></a></span></p>
 </div>
-<div class="paragraph">
-<p>You can run a source file through multiple different filters, and each will be
-a separate document in dexy.</p>
+<div class="exampleblock result">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="python language-python"><span class="tok-k">def</span> <span class="tok-nf">virtual_file_contents__test</span><span class="tok-p">():</span>
+    <span class="tok-k">with</span> <span class="tok-n">wrap</span><span class="tok-p">()</span> <span class="tok-k">as</span> <span class="tok-n">wrapper</span><span class="tok-p">:</span>
+        <span class="tok-k">with</span> <span class="tok-nb">open</span><span class="tok-p">(</span><span class="tok-s">"dexy.yaml"</span><span class="tok-p">,</span> <span class="tok-s">'w'</span><span class="tok-p">)</span> <span class="tok-k">as</span> <span class="tok-n">f</span><span class="tok-p">:</span>
+            <span class="tok-n">f</span><span class="tok-o">.</span><span class="tok-n">write</span><span class="tok-p">(</span><span class="tok-n">trim</span><span class="tok-p">(</span><span class="tok-s">"""</span><span class="tok-se">\</span>
+<span class="tok-s">            hello.txt|jinja:</span>
+<span class="tok-s">                - contents: "1 + 1 = {{ 1+1 }}"</span>
+<span class="tok-s">            """</span><span class="tok-p">))</span>
+
+        <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">run_from_new</span><span class="tok-p">()</span>
+        <span class="tok-n">doc</span> <span class="tok-o">=</span> <span class="tok-n">wrapper</span><span class="tok-o">.</span><span class="tok-n">nodes</span><span class="tok-p">[</span><span class="tok-s">'doc:hello.txt|jinja'</span><span class="tok-p">]</span>
+        <span class="tok-k">assert</span> <span class="tok-nb">str</span><span class="tok-p">(</span><span class="tok-n">doc</span><span class="tok-o">.</span><span class="tok-n">output_data</span><span class="tok-p">())</span> <span class="tok-o">==</span> <span class="tok-s">"1 + 1 = 2"</span>
+</code></pre>
+</div>
+</div>
+</div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code class="yaml language-yaml"><span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">example.py|pyg</span>
-<span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">example.py|py</span>
+<pre class="pygments highlight"><code class="yaml language-yaml"><span class="tok-l-Scalar-Plain">hello.txt|jinja</span><span class="tok-p-Indicator">:</span>
+    <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">contents</span><span class="tok-p-Indicator">:</span> <span class="tok-s">"1</span><span class="tok-nv"> </span><span class="tok-s">+</span><span class="tok-nv"> </span><span class="tok-s">1</span><span class="tok-nv"> </span><span class="tok-s">=</span><span class="tok-nv"> </span><span class="tok-s">{{</span><span class="tok-nv"> </span><span class="tok-s">1+1</span><span class="tok-nv"> </span><span class="tok-s">}}"</span>
 </code></pre>
 </div>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><span class="icon"><a class="image" href="https://github.com/dexy/dexy-user-guide/issues/3"><i class="icon-github icon-3x"></i></a></span> TODO: Document what happens when both file exists and <code>contents</code> are set.</p>
+</div>
+<div class="paragraph">
+<p>Please feel free to ask questions or add comments about this issue <a href="https://github.com/dexy/dexy-user-guide/issues/3">on github</a>.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><code>contents</code> is one of the available <a href="#_document_settings">Document Settings</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -802,15 +873,11 @@ setting. For example, <code>output: True</code>.</p>
 <span class="tok-go">        default value: False</span>
 
 <span class="tok-go">    apply-ws-to-content-var-end-string</span>
-<span class="tok-go">        If you want to put website-related content (like the link()</span>
-<span class="tok-go">        function) in your content, set this to True so your content</span>
-<span class="tok-go">        gets put through the jinja filter for the website reporter.</span>
+<span class="tok-go">        Provide a custom jinja var-end-string to avoid clashes.</span>
 <span class="tok-go">        default value: None</span>
 
 <span class="tok-go">    apply-ws-to-content-var-start-string</span>
-<span class="tok-go">        If you want to put website-related content (like the link()</span>
-<span class="tok-go">        function) in your content, set this to True so your content</span>
-<span class="tok-go">        gets put through the jinja filter for the website reporter.</span>
+<span class="tok-go">        Provide a custom jinja var-start-string to avoid clashes.</span>
 <span class="tok-go">        default value: None</span>
 
 <span class="tok-go">    contents</span>
@@ -838,26 +905,60 @@ setting. For example, <code>output: True</code>.</p>
 <span class="tok-go">        default value: None</span>
 
 <span class="tok-go">    ws-template</span>
-<span class="tok-go">        Key of template to apply for rendering in website.  Setting of</span>
-<span class="tok-go">        'None' will use default template, 'False' will force no</span>
-<span class="tok-go">        template to be used.</span>
+<span class="tok-go">        Key of the template to apply for rendering in website.</span>
+<span class="tok-go">        Setting of 'None' will use default template, 'False' will</span>
+<span class="tok-go">        force no template to be used.</span>
 <span class="tok-go">        default value: None</span>
 </code></pre>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_contents">Contents</h4>
+</div>
+<div class="sect2">
+<h3 id="_files_without_filters">Files Without Filters</h3>
 <div class="paragraph">
-<p>You can make dexy process a file which doesn’t really exist on the file system
-by specifying <code>contents</code> as a document setting.</p>
+<p>When no filters are specified for a document, the original contents of the file
+are made available to other documents, and the document will appear in Dexy’s
+final output unless the <code>output</code> setting has been set to False.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_filters">Filters</h3>
+<div class="paragraph">
+<p>To specify filters, follow the filename/pattern with a pipe symbol <code>|</code> and a
+filter alias. You can chain as many filters as you want, in order, by adding
+more pipes and aliases. The first filter operates on the original contents of
+the source file, subsequent filters operate on the output from the previous
+filter.</p>
+</div>
+<div class="paragraph">
+<p>You can run a source file through different filter combinations, and each will
+be a separate document in dexy.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code class="yaml language-yaml"><span class="tok-l-Scalar-Plain">hello.txt|jinja</span><span class="tok-p-Indicator">:</span>
-    <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">contents</span><span class="tok-p-Indicator">:</span> <span class="tok-s">"1</span><span class="tok-nv"> </span><span class="tok-s">+</span><span class="tok-nv"> </span><span class="tok-s">1</span><span class="tok-nv"> </span><span class="tok-s">=</span><span class="tok-nv"> </span><span class="tok-s">{{</span><span class="tok-nv"> </span><span class="tok-s">1+1</span><span class="tok-nv"> </span><span class="tok-s">}}"</span>
+<pre class="pygments highlight"><code class="yaml language-yaml"><span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">example.py|pyg</span> <span class="tok-c1"># html file with syntax highlighted python</span>
+<span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">example.py|py</span> <span class="tok-c1"># txt file with STDOUT from executing script</span>
 </code></pre>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_filter_settings">Filter Settings</h3>
+<div class="paragraph">
+<p>To customize filter settings, you need to first give the filter alias, and then
+a dictionary of the desired settings for that filter alias.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="yaml language-yaml"><span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">example.py|idio|pycon|pyg</span>
+    <span class="tok-l-Scalar-Plain">- pycon</span><span class="tok-p-Indicator">:</span> <span class="tok-p-Indicator">{</span> <span class="tok-nv">add-new-files</span><span class="tok-p-Indicator">:</span> <span class="tok-nv">True</span><span class="tok-p-Indicator">}</span>
+    <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">pyg</span><span class="tok-p-Indicator">:</span> <span class="tok-p-Indicator">{</span> <span class="tok-nv">linenos</span><span class="tok-p-Indicator">:</span> <span class="tok-nv">True</span><span class="tok-p-Indicator">}</span>
+</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To see available settings for a filter, you can use the <code>dexy filters</code> command
+with the <code>-alias</code> option. See <a href="#_filter_documentation">Filter Documentation</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -878,7 +979,7 @@ same filters with different combinations of settings.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>To differentiate, you can place an <code>alias</code> filter at the end of your document
+<p>To differentiate, you can place an alias filter at the end of your document
 key. This just needs to start with a hyphen, and then can optionally have some
 descriptive text.</p>
 </div>
@@ -890,6 +991,41 @@ descriptive text.</p>
 <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">.py|pyg|-with-linenos</span><span class="tok-p-Indicator">:</span>
     <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">pyg</span><span class="tok-p-Indicator">:</span> <span class="tok-p-Indicator">{</span> <span class="tok-nv">linenos</span><span class="tok-p-Indicator">:</span> <span class="tok-nv">True</span> <span class="tok-p-Indicator">}</span>
 </code></pre>
+</div>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><span class="icon"><a class="image" href="https://github.com/dexy/dexy/issues/104"><i class="icon-github icon-3x"></i></a></span> Desired Feature: Try to warn when multiple documents have same key</p>
+</div>
+<div class="paragraph">
+<p>A situation like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    - .py|pyg
+    - .py|pyg:
+        - pyg: { noclasses: True }
+    - .py|pyg:
+        - pyg: { linenos: True }</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Results in one dexy document, not the 3 that are expected. See if it’s possible to detect this and provide a warning to user.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Updated at: 2013-11-11T06:50:55Z</p>
+</li>
+<li>
+<p>Assigned to: None</p>
+</li>
+<li>
+<p>Milestone: None</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -927,15 +1063,16 @@ This makes it more clear to read and also prevents compiler errors.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>You can also try to reduce the amount of nesting by using named blocks.</p>
+<p>You can also try to reduce the amount of nesting by using named bundles.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_bundles">Bundles</h3>
 <div class="paragraph">
-<p>You can gather bundles of documents together in named blocks and then refer to
-these blocks in other locations. This is helpful to reduce deep nesting and to
-re-use bundles of dependencies in different places.</p>
+<p>You can gather collections of documents together in named bundles and then
+refer to these bundles in other locations. This is helpful to make a more
+readable config file, reduce deep nesting and to re-use bundles of dependencies
+in different places.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -953,10 +1090,22 @@ re-use bundles of dependencies in different places.</p>
 </code></pre>
 </div>
 </div>
+<div class="exampleblock">
+<div class="content">
 <div class="paragraph">
-<p>The bundle names can also be used as target names, and using the <code>-target</code>
-command line option you can tell dexy to just run a single target rather than
-your entire project.</p>
+<p>Bundle names can also be used as target names, and using the <code>-target</code> command line option you can tell dexy to just run a single target rather than your entire project.</p>
+</div>
+<div class="paragraph">
+<p><span class="icon"><a class="image" href="https://github.com/dexy/dexy-user-guide/issues/4"><i class="icon-github icon-3x"></i></a></span> TODO: Document using bundle names with -target option.</p>
+</div>
+<div class="paragraph">
+<p>Please feel free to ask questions or add comments about this issue <a href="https://github.com/dexy/dexy-user-guide/issues/4">on github</a>.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>You can use the <code>dexy nodes</code> command to view more information about the
+<code>bundle</code> node type:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -989,6 +1138,10 @@ by placing them in a bundle whose name is preceded by the <code>script:</code> p
 <p>The <code>script:</code> prefix instructs Dexy to construct a special kind of node which
 ensures its children are run in sequential order.</p>
 </div>
+<div class="paragraph">
+<p>You can use the <code>dexy nodes</code> command to view more information about the
+<code>script</code> node type:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> dexy nodes -alias script
@@ -998,6 +1151,29 @@ ensures its children are run in sequential order.</p>
 
 <span class="tok-go">If any of the bundle siblings change, the whole bundle should be re-run.</span>
 </code></pre>
+</div>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Test that:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>script bundles run code in order</p>
+</li>
+<li>
+<p>change to any sibling triggers full rebuild</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="icon"><a class="image" href="https://github.com/dexy/dexy-user-guide/issues/5"><i class="icon-github icon-3x"></i></a></span> TODO: Test that script bundles work as described.</p>
+</div>
+<div class="paragraph">
+<p>Please feel free to ask questions or add comments about this issue <a href="https://github.com/dexy/dexy-user-guide/issues/5">on github</a>.</p>
+</div>
 </div>
 </div>
 </div>
@@ -1603,15 +1779,11 @@ the <code>-alias</code> option:</p>
 <span class="tok-go">        default value: False</span>
 
 <span class="tok-go">    apply-ws-to-content-var-end-string</span>
-<span class="tok-go">        If you want to put website-related content (like the link()</span>
-<span class="tok-go">        function) in your content, set this to True so your content</span>
-<span class="tok-go">        gets put through the jinja filter for the website reporter.</span>
+<span class="tok-go">        Provide a custom jinja var-end-string to avoid clashes.</span>
 <span class="tok-go">        default value: None</span>
 
 <span class="tok-go">    apply-ws-to-content-var-start-string</span>
-<span class="tok-go">        If you want to put website-related content (like the link()</span>
-<span class="tok-go">        function) in your content, set this to True so your content</span>
-<span class="tok-go">        gets put through the jinja filter for the website reporter.</span>
+<span class="tok-go">        Provide a custom jinja var-start-string to avoid clashes.</span>
 <span class="tok-go">        default value: None</span>
 
 <span class="tok-go">    contents</span>
@@ -1639,9 +1811,9 @@ the <code>-alias</code> option:</p>
 <span class="tok-go">        default value: None</span>
 
 <span class="tok-go">    ws-template</span>
-<span class="tok-go">        Key of template to apply for rendering in website.  Setting of</span>
-<span class="tok-go">        'None' will use default template, 'False' will force no</span>
-<span class="tok-go">        template to be used.</span>
+<span class="tok-go">        Key of the template to apply for rendering in website.</span>
+<span class="tok-go">        Setting of 'None' will use default template, 'False' will</span>
+<span class="tok-go">        force no template to be used.</span>
 <span class="tok-go">        default value: None</span>
 </code></pre>
 </div>
@@ -2888,7 +3060,7 @@ choking on curly braces.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2013-11-10 22:02:46 PST
+Last updated 2013-11-10 23:30:05 PST
 </div>
 </div>
 </body>
