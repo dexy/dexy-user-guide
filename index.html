@@ -1211,9 +1211,10 @@ so <code>-r</code> and <code>--r</code> and <code>---r</code> all do the same th
 
 <span class="tok-go">Commands which print lists of dexy features:</span>
 <span class="tok-go">  `dexy filters` filters like |jinja |py |javac</span>
-<span class="tok-go">  `dexy env` elements available in document templates</span>
 <span class="tok-go">  `dexy reports` reporters like `output` and `run`</span>
 <span class="tok-go">  `dexy nodes` node types and their document settings</span>
+<span class="tok-go">  `dexy datas` data types and available methods</span>
+<span class="tok-go">  `dexy env` elements available in document templates</span>
 
 <span class="tok-go">Commands which print information about your project:</span>
 <span class="tok-go">  (you need to be in the project dir and have run dexy already)</span>
@@ -1239,6 +1240,7 @@ so <code>-r</code> and <code>--r</code> and <code>---r</code> all do the same th
 <span class="tok-go">   cite</span>
 <span class="tok-go">   cleanup</span>
 <span class="tok-go">   conf</span>
+<span class="tok-go">   datas</span>
 <span class="tok-go">   dexy</span>
 <span class="tok-go">   env</span>
 <span class="tok-go">   fcmd</span>
@@ -1315,8 +1317,8 @@ dexy by accident, you’ll see a message like this:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> dexy
-<span class="tok-go">dexy run finished in 0.191</span>
-<span class="tok-go">dexy reports finished in 0.133</span>
+<span class="tok-go">dexy run finished in 0.050</span>
+<span class="tok-go">dexy reports finished in 0.034</span>
 </code></pre>
 </div>
 </div>
@@ -1737,7 +1739,7 @@ the <code>-alias</code> option:</p>
 <span class="tok-go">        default value: ['.jinja']</span>
 
 
-<span class="tok-go">For online docs see http://dexy.it/docs/filters/jinja</span>
+<span class="tok-go">For online docs see http://dexy.it/ref/filters/jinja</span>
 
 <span class="tok-go">If you have suggestions or feedback about this filter,</span>
 <span class="tok-go">please contact info@dexy.it</span>
@@ -1975,7 +1977,8 @@ the <code>dexy info</code> command.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>When you</p>
+<p>You can then get more information about methods defined on the data type by
+running the <code>dexy datas</code> command, as suggested in the output of <code>dexy info</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2003,7 +2006,8 @@ the <code>dexy info</code> command.</p>
 
 <span class="tok-go">    from_json</span>
 
-<span class="tok-go">        Attempts to load data using a JSON parser, returning whatever objects are defined in the JSON.</span>
+<span class="tok-go">        Attempts to load data using a JSON parser, returning whatever objects</span>
+<span class="tok-go">        are defined in the JSON.</span>
 
 
 <span class="tok-go">    is_canonical_output</span>
@@ -2084,6 +2088,10 @@ the <code>dexy info</code> command.</p>
 <span class="tok-go">        Returns a web-friendly version of the key.</span>
 </code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Custom data types are a way of exposing custom methods on data. For example the
+<code>bs4</code> data type lets you run BeautifulSoup queries on HTML content of a document.</p>
 </div>
 </div>
 </div>
@@ -2494,6 +2502,9 @@ JSON or CSV file containing data.</p>
         <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">log_debug</span><span class="tok-p">(</span><span class="tok-s">"adding new files found in </span><span class="tok-si">%s</span><span class="tok-s"> for </span><span class="tok-si">%s</span><span class="tok-s">"</span> <span class="tok-o">%</span> <span class="tok-p">(</span><span class="tok-n">wd</span><span class="tok-p">,</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">key</span><span class="tok-p">))</span>
 
         <span class="tok-n">add_new_files</span> <span class="tok-o">=</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">setting</span><span class="tok-p">(</span><span class="tok-s">'add-new-files'</span><span class="tok-p">)</span>
+        <span class="tok-k">if</span> <span class="tok-nb">isinstance</span><span class="tok-p">(</span><span class="tok-n">add_new_files</span><span class="tok-p">,</span> <span class="tok-nb">basestring</span><span class="tok-p">):</span>
+            <span class="tok-n">add_new_files</span> <span class="tok-o">=</span> <span class="tok-p">[</span><span class="tok-n">add_new_files</span><span class="tok-p">]</span>
+
         <span class="tok-n">exclude</span> <span class="tok-o">=</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">setting</span><span class="tok-p">(</span><span class="tok-s">'exclude-add-new-files'</span><span class="tok-p">)</span>
 
         <span class="tok-k">if</span> <span class="tok-nb">isinstance</span><span class="tok-p">(</span><span class="tok-n">exclude</span><span class="tok-p">,</span> <span class="tok-nb">basestring</span><span class="tok-p">):</span>
@@ -3225,7 +3236,7 @@ choking on curly braces.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2013-11-11 23:12:32 PST
+Last updated 2013-11-11 23:19:18 PST
 </div>
 </div>
 </body>
