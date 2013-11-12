@@ -329,6 +329,13 @@ the `-alias` option:
 
 === Node Documentation
 
+You use nodes (often without knowing it) when you write `dexy.yaml` files. Dexy
+guesses the node type you want, for example a PatternNode when you use a
+wildcard or implicit wildcard, a Doc when you specify an individual file. You
+can force a node to be of particular type by prefixing its name with the node
+type alias and a colon, as when you create a script node via
+`script:screenshots`.
+
 The `nodes` command lets you list available node types:
 
 {{ d['examples/filters.sh|idio|shint|asciisyn']['nodes'] }}
@@ -340,7 +347,31 @@ the `-alias` option:
 
 === Template Env Documentation
 
+The `dexy env` command gives you information about the template environment
+elements present. See the <<_templating_filters>> section.
+
 {{ d['examples/help.sh|idio|shint|asciisyn']['env'] }}
+
+=== Data Types Documentation
+
+When Dexy processes a file and applies filters, each stage of processing is
+stored in a Data instance. There are different types of Data based on what sort
+of information you are storing. By default, documents start out using the
+Generic data type and subsequent filters may change this depending on how the
+filters alter the data.
+
+You can see which data type is being used for a particular document by running
+the `dexy info` command.
+
+{{ d['examples/run.sh|idio|shint|asciisyn']['info'] }}
+
+You can then get more information about methods defined on the data type by
+running the `dexy datas` command, as suggested in the output of `dexy info`.
+
+{{ d['examples/run.sh|idio|shint|asciisyn']['data-info'] }}
+
+Custom data types are a way of exposing custom methods on data. For example the
+`bs4` data type lets you run BeautifulSoup queries on HTML content of a document.
 
 == Filters
 
