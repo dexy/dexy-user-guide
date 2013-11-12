@@ -18,3 +18,6 @@ dexy info -expr hello
 
 ### "data-info"
 dexy datas -alias generic
+
+### "datas"
+dexy datas
