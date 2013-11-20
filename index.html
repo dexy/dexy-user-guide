@@ -440,7 +440,12 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <li>
 <ul class="sectlevel2">
 <li><a href="#_file_names_and_patterns">File Names and Patterns</a></li>
+<li>
+<ul class="sectlevel3">
 <li><a href="#_virtual_files">Virtual Files</a></li>
+<li><a href="#_custom_name_settings">Custom Name Settings</a></li>
+</ul>
+</li>
 <li><a href="#_document_settings">Document Settings</a></li>
 <li><a href="#_files_without_filters">Files Without Filters</a></li>
 <li><a href="#_filters">Filters</a></li>
@@ -568,6 +573,10 @@ issue</a>.</p>
     <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">examples/*.py|idio|pycon|asciisyn</span>
     <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">examples/*.sh|idio|shint|asciisyn</span><span class="tok-p-Indicator">:</span>
         <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">except</span><span class="tok-p-Indicator">:</span> <span class="tok-s">"run"</span>
+        <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">shint</span><span class="tok-p-Indicator">:</span> <span class="tok-p-Indicator">{</span>
+            <span class="tok-nv">add-new-files</span><span class="tok-p-Indicator">:</span> <span class="tok-nv">True</span><span class="tok-p-Indicator">,</span>
+            <span class="tok-nv">additional-doc-filters</span><span class="tok-p-Indicator">:</span> <span class="tok-nv">idio|t</span>
+            <span class="tok-p-Indicator">}</span>
     <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">examples/run.sh|idio|shint|asciisyn</span><span class="tok-p-Indicator">:</span>
         <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">examples/run-example.yaml</span>
     <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">.yaml|asciisyn</span>
@@ -801,9 +810,8 @@ name, not just an extension.
 </div>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_virtual_files">Virtual Files</h3>
+<div class="sect3">
+<h4 id="_virtual_files">Virtual Files</h4>
 <div class="paragraph">
 <p>You can make dexy process a file which doesn’t really exist on the file system
 by using the <code>contents</code> setting:
@@ -850,6 +858,108 @@ by using the <code>contents</code> setting:
 <p><code>contents</code> is one of the available <a href="#_document_settings">Document Settings</a>.</p>
 </div>
 </div>
+<div class="sect3">
+<h4 id="_custom_name_settings">Custom Name Settings</h4>
+<div class="paragraph">
+<p>You can change the name with which a file will be output by specifying the
+<code>output-name</code> document setting.</p>
+</div>
+<div class="paragraph">
+<p>If the name starts with a slash <code>/</code> or contains any slashes it is assumed to be
+a full local (within the project) path to the desired destination of the file.
+If the name doesn’t contain a slash it is assumed you want to rename a file but
+keep it in its original directory.</p>
+</div>
+<div class="paragraph">
+<p>Dexy will automatically apply
+<a href="http://docs.python.org/2/library/stdtypes.html#string-formatting-operations">string
+interpolation</a> or
+<a href="http://docs.python.org/2/library/string.html#format-examples">string formatting</a>
+to the name if it sees a <code>%</code> or <code>{</code> character. The environment for formatting
+will be populated with:
+    - all document settings
+    - <code>name</code> corresponding to the original document name
+    - <code>dirname</code> corresponding to the original document directory
+    - any local environment variables poopulated from a dexy-env.json file</p>
+</div>
+<div class="paragraph">
+<p>Available variables are written to the dexy log at <code>DEBUG</code> level.</p>
+</div>
+<div class="paragraph">
+<p>This example was run with these environment variables defined:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="json language-json"><span class="tok-p">{</span>
+    <span class="tok-nt">"client"</span> <span class="tok-p">:</span> <span class="tok-s2">"Acme INC"</span><span class="tok-p">,</span>
+    <span class="tok-nt">"year"</span> <span class="tok-p">:</span> <span class="tok-mi">2013</span>
+<span class="tok-p">}</span>
+</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is the <code>dexy.yaml</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="yaml language-yaml"><span class="tok-l-Scalar-Plain">baz/*.txt</span><span class="tok-p-Indicator">:</span>
+    <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">output-name</span><span class="tok-p-Indicator">:</span> <span class="tok-s">"%(name)s-file.abc"</span>
+
+<span class="tok-l-Scalar-Plain">bar/baz.txt</span><span class="tok-p-Indicator">:</span>
+    <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">output-name</span><span class="tok-p-Indicator">:</span> <span class="tok-l-Scalar-Plain">foo-{year}-baz.txt</span>
+
+<span class="tok-l-Scalar-Plain">bar/bell.txt</span><span class="tok-p-Indicator">:</span>
+    <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">output-name</span><span class="tok-p-Indicator">:</span> <span class="tok-s">"/bell2.txt"</span>
+
+<span class="tok-l-Scalar-Plain">foo.txt</span><span class="tok-p-Indicator">:</span>
+    <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">output-name</span><span class="tok-p-Indicator">:</span> <span class="tok-l-Scalar-Plain">foo-%(year)s.txt</span>
+</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And here are the input and output files:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> find .
+<span class="tok-go">.</span>
+<span class="tok-go">./bar</span>
+<span class="tok-go">./bar/bell.txt</span>
+<span class="tok-go">./bar/baz.txt</span>
+<span class="tok-go">./baz</span>
+<span class="tok-go">./baz/1.txt</span>
+<span class="tok-go">./baz/2.txt</span>
+<span class="tok-go">./baz/3.txt</span>
+<span class="tok-go">./foo.txt</span>
+<span class="tok-go">./.dexy</span>
+<span class="tok-go">./.dexy/.dexy-generated</span>
+<span class="tok-go">./dexy-env.json</span>
+<span class="tok-go">./dexy.yaml</span>
+<span class="tok-go">./dexy.conf</span>
+</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> <span class="tok-nb">cd </span>output/
+<span class="tok-gp">$</span> find .
+<span class="tok-go">.</span>
+<span class="tok-go">./.dexy-generated</span>
+<span class="tok-go">./foo-2013.txt</span>
+<span class="tok-go">./bar</span>
+<span class="tok-go">./bar/foo-2013-baz.txt</span>
+<span class="tok-go">./baz</span>
+<span class="tok-go">./baz/baz</span>
+<span class="tok-go">./baz/baz/1.txt-file.abc</span>
+<span class="tok-go">./baz/baz/3.txt-file.abc</span>
+<span class="tok-go">./baz/baz/2.txt-file.abc</span>
+<span class="tok-go">./bell2.txt</span>
+<span class="tok-go">./README</span>
+</code></pre>
+</div>
+</div>
+</div>
+</div>
 <div class="sect2">
 <h3 id="_document_settings">Document Settings</h3>
 <div class="paragraph">
@@ -885,8 +995,8 @@ setting. For example, <code>output: True</code>.</p>
 <span class="tok-go">        Custom contents for a virtual document.</span>
 <span class="tok-go">        default value: None</span>
 
-<span class="tok-go">    data-class</span>
-<span class="tok-go">        Alias of custom data class to use.</span>
+<span class="tok-go">    data-type</span>
+<span class="tok-go">        Alias of custom data class to use to store document content.</span>
 <span class="tok-go">        default value: None</span>
 
 <span class="tok-go">    output</span>
@@ -1253,6 +1363,8 @@ so <code>-r</code> and <code>--r</code> and <code>---r</code> all do the same th
 <span class="tok-go">   info</span>
 <span class="tok-go">   it</span>
 <span class="tok-go">   nodes</span>
+<span class="tok-go">   parsers</span>
+<span class="tok-go">   plugins</span>
 <span class="tok-go">   reporters</span>
 <span class="tok-go">   reports</span>
 <span class="tok-go">   reset</span>
@@ -1317,8 +1429,8 @@ dexy by accident, you’ll see a message like this:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> dexy
-<span class="tok-go">dexy run finished in 0.061</span>
-<span class="tok-go">dexy reports finished in 0.042</span>
+<span class="tok-go">dexy run finished in 0.195</span>
+<span class="tok-go">dexy reports finished in 0.132</span>
 </code></pre>
 </div>
 </div>
@@ -1435,10 +1547,6 @@ automatically.</p>
 <span class="tok-go">  html2pdf : Deprecated, use casper.js instead.</span>
 <span class="tok-go">  htmlsections : Splits files into sections based on comments like ### "foo"</span>
 <span class="tok-go">  htmltidy : Uses tidy to clean and validate HTML.</span>
-<span class="tok-go">  ipynb : Get data out of an IPython notebook.</span>
-<span class="tok-go">  ipynbcasper : Launch IPython notebook and run a casperjs script against the server.</span>
-<span class="tok-go">  ipynbx : Generates a static file based on an IPython notebook.</span>
-<span class="tok-go">  ipython : Runs python code in the IPython console.</span>
 <span class="tok-go">  irb : Runs ruby code in irb.</span>
 <span class="tok-go">  irbout : Runs ruby scripts in irb.</span>
 <span class="tok-go">  j : Forces previous filter to output .json extension.</span>
@@ -1544,6 +1652,7 @@ automatically.</p>
 <span class="tok-go">  scala : Compiles and runs .scala files.</span>
 <span class="tok-go">  scalac : Compiles .scala code to .class files.</span>
 <span class="tok-go">  scalai : Runs scala code in the REPL.</span>
+<span class="tok-go">  sectionsbywhitespace : Del</span>
 <span class="tok-go">  sed : Runs a sed script.</span>
 <span class="tok-go">  sh : Runs bash scripts using 'sh' and returns stdout.</span>
 <span class="tok-go">  shint : Runs bash. use to run bash scripts.</span>
@@ -1642,6 +1751,10 @@ the <code>-alias</code> option:</p>
 <span class="tok-go">        Tag to indicate the start of a comment.</span>
 <span class="tok-go">        default value: {#</span>
 
+<span class="tok-go">    data-type</span>
+<span class="tok-go">        Alias of custom data class to use to store filter output.</span>
+<span class="tok-go">        default value: generic</span>
+
 <span class="tok-go">    examples</span>
 <span class="tok-go">        Templates which should be used as examples for this filter.</span>
 <span class="tok-go">        default value: []</span>
@@ -1683,10 +1796,6 @@ the <code>-alias</code> option:</p>
 <span class="tok-go">        Whether to output results of this filter by default by</span>
 <span class="tok-go">        reporters such as 'output' or 'website'.</span>
 <span class="tok-go">        default value: True</span>
-
-<span class="tok-go">    output-data-type</span>
-<span class="tok-go">        Alias of data type to use to store filter output.</span>
-<span class="tok-go">        default value: generic</span>
 
 <span class="tok-go">    output-extensions</span>
 <span class="tok-go">        List of extensions which this filter can produce as output.</span>
@@ -1801,8 +1910,8 @@ the <code>-alias</code> option:</p>
 <span class="tok-go">        Custom contents for a virtual document.</span>
 <span class="tok-go">        default value: None</span>
 
-<span class="tok-go">    data-class</span>
-<span class="tok-go">        Alias of custom data class to use.</span>
+<span class="tok-go">    data-type</span>
+<span class="tok-go">        Alias of custom data class to use to store document content.</span>
 <span class="tok-go">        default value: None</span>
 
 <span class="tok-go">    output</span>
@@ -1839,7 +1948,9 @@ elements present. See the <a href="#_templating_filters">Templating Filters</a> 
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> dexy env
+<span class="tok-go">BeautifulSoup: The BeautifulSoup module.</span>
 <span class="tok-go">DEXY_VERSION: The active dexy version. Currently 0.9.9.7d.</span>
+<span class="tok-go">ET: The xml.etree.ElementTree module.</span>
 <span class="tok-go">a: Another way to reference 'd'. Deprecated.</span>
 <span class="tok-go">abs: The python builtin function abs</span>
 <span class="tok-go">all: The python builtin function all</span>
@@ -1847,6 +1958,7 @@ elements present. See the <a href="#_templating_filters">Templating Filters</a> 
 <span class="tok-go">any: The python builtin function any</span>
 <span class="tok-go">args: The document args.</span>
 <span class="tok-go">attrgetter: The attrgetter method from Python's operator module.</span>
+<span class="tok-go">basestring: The python builtin function basestring</span>
 <span class="tok-go">bin: The python builtin function bin</span>
 <span class="tok-go">bool: The python builtin function bool</span>
 <span class="tok-go">bytearray: The python builtin function bytearray</span>
@@ -1902,11 +2014,11 @@ elements present. See the <a href="#_templating_filters">Templating Filters</a> 
 <span class="tok-go">pow: The python builtin function pow</span>
 <span class="tok-go">ppjson: Pretty prints valid JSON.</span>
 <span class="tok-go">pprint: Pretty prints Python objects.</span>
+<span class="tok-go">prettify_html: Pretty-print HTML using BeautifulSoup</span>
 <span class="tok-go">pygments: Dictionary of pygments stylesheets.</span>
 <span class="tok-go">raise: Alias for `throw`.</span>
 <span class="tok-go">range: The python builtin function range</span>
-<span class="tok-go">re_match: The `match` method from Python re module.</span>
-<span class="tok-go">re_search: The `search` method from Python re module.</span>
+<span class="tok-go">re: The Python re module.</span>
 <span class="tok-go">reduce: The python builtin function reduce</span>
 <span class="tok-go">repr: The python builtin function repr</span>
 <span class="tok-go">reversed: The python builtin function reversed</span>
@@ -1951,6 +2063,7 @@ of information you are storing.</p>
 <pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> dexy datas
 
 <span class="tok-go">bs4</span>
+<span class="tok-go">etree</span>
 <span class="tok-go">generic</span>
 <span class="tok-go">keyvalue</span>
 <span class="tok-go">sectioned</span>
@@ -1971,15 +2084,24 @@ see which data type is being used for a particular document by running the
 <pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> dexy info -expr hello
 <span class="tok-go">search expr: hello</span>
 
-<span class="tok-go">  doc key: hello.txt|jinja</span>
-<span class="tok-go">  data type: generic</span>
+<span class="tok-go">  Info for Document 'hello.txt|jinja'</span>
 
-<span class="tok-go">    data attributes:</span>
+<span class="tok-go">  document output data type: generic</span>
+
+<span class="tok-go">    settings:</span>
+<span class="tok-go">      canonical-name: hello.txt</span>
+<span class="tok-go">      canonical-output: True</span>
+<span class="tok-go">      output-name: None</span>
+<span class="tok-go">      shortcut: None</span>
+<span class="tok-go">      storage-type: generic</span>
+<span class="tok-go">      title: None</span>
+
+<span class="tok-go">    attributes:</span>
 <span class="tok-go">      ext: .txt</span>
 <span class="tok-go">      key: hello.txt|jinja</span>
 <span class="tok-go">      name: hello.txt</span>
 
-<span class="tok-go">    data methods:</span>
+<span class="tok-go">    methods:</span>
 <span class="tok-go">      basename(): hello.txt</span>
 <span class="tok-go">      baserootname(): hello</span>
 <span class="tok-go">      filesize(): 7</span>
@@ -2039,6 +2161,21 @@ running the <code>dexy datas</code> command, as suggested in the output of <code
 <span class="tok-go">        Is this a website index page, i.e. named `index.html`.</span>
 
 
+<span class="tok-go">    items</span>
+
+<span class="tok-go">        List of sections in document.</span>
+
+
+<span class="tok-go">    iteritems</span>
+
+<span class="tok-go">        Iterable list of sections in document.</span>
+
+
+<span class="tok-go">    keys</span>
+
+<span class="tok-go">        List of keys (section names) in document.</span>
+
+
 <span class="tok-go">    long_name</span>
 
 <span class="tok-go">        A unique, but less canonical, name for the document.</span>
@@ -2046,9 +2183,15 @@ running the <code>dexy datas</code> command, as suggested in the output of <code
 
 <span class="tok-go">    output_name</span>
 
-<span class="tok-go">        Canonical name to output to, relative to output root. Returns 'none' if</span>
+<span class="tok-go">        Canonical name to output to, relative to output root. Returns None if</span>
 <span class="tok-go">        artifact not in output_root.</span>
 
+
+<span class="tok-go">    output_to_file</span>
+
+<span class="tok-go">        Write canonical output to a file. Parent directory must exist already.</span>
+
+<span class="tok-go">        Takes arguments. Run with -source option to see source code.</span>
 
 <span class="tok-go">    parent_dir</span>
 
@@ -2073,6 +2216,35 @@ running the <code>dexy datas</code> command, as suggested in the output of <code
 <span class="tok-go">        Returns the file name, including path, without extension.</span>
 
 
+<span class="tok-go">    safe_setting</span>
+
+<span class="tok-go">        Retrieves the setting value, but returns a default value rather than</span>
+<span class="tok-go">        raising an error if the setting does not exist.</span>
+
+<span class="tok-go">        Takes arguments. Run with -source option to see source code.</span>
+
+<span class="tok-go">    set_data</span>
+
+<span class="tok-go">        Shortcut to set and save data.</span>
+
+<span class="tok-go">        Takes arguments. Run with -source option to see source code.</span>
+
+<span class="tok-go">    setting</span>
+
+<span class="tok-go">        Retrieves the setting value whose name is indicated by name_hyphen.</span>
+
+<span class="tok-go">        Values starting with $ are assumed to reference environment variables,</span>
+<span class="tok-go">        and the value stored in environment variables is retrieved. It's an</span>
+<span class="tok-go">        error if thes corresponding environment variable it not set.</span>
+
+<span class="tok-go">        Takes arguments. Run with -source option to see source code.</span>
+
+<span class="tok-go">    setting_values</span>
+
+<span class="tok-go">        Returns dict of all setting values (removes the helpstrings).</span>
+
+<span class="tok-go">        Takes arguments. Run with -source option to see source code.</span>
+
 <span class="tok-go">    splitlines</span>
 
 <span class="tok-go">        Returns a list of lines split at newlines or custom split.</span>
@@ -2090,6 +2262,15 @@ running the <code>dexy datas</code> command, as suggested in the output of <code
 
 <span class="tok-go">        Tries to guess from document name if `title` setting not provided.</span>
 
+
+<span class="tok-go">    update_settings</span>
+
+<span class="tok-go">        Update settings for this instance based on the provided dictionary of</span>
+<span class="tok-go">        setting keys: setting values. Values should be a tuple of (helpstring,</span>
+<span class="tok-go">        value,) unless the setting has already been defined in a parent class,</span>
+<span class="tok-go">        in which case just pass the desired value.</span>
+
+<span class="tok-go">        Takes arguments. Run with -source option to see source code.</span>
 
 <span class="tok-go">    url_quoted_name</span>
 
@@ -3157,7 +3338,7 @@ for details about how plugin registration works.)
 </div>
 <div class="paragraph">
 <p>If, instead, you want to specify which plugins to run, then you can use the
-<code>plugins</code> attribute to specify a list of template plugin aliases to use.
+<code>plugins</code> setting to specify a list of template plugin aliases to use.
 <span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of Use Plugins Attribute To Specify Whitelist"></i></a></span></p>
 </div>
 <div class="exampleblock result">
@@ -3176,7 +3357,7 @@ for details about how plugin registration works.)
 </div>
 <div class="paragraph">
 <p>If you just want to exclude a few plugins, then you can use the <code>skip-plugins</code>
-attribute to list template aliases you don’t want to be used.
+filter setting to list template aliases you don’t want to be used.
 <span class="icon"><a class="image" href="#"><i class="icon-shield" title="Test of Use Skip Plugins Attribute To Specify Blacklist"></i></a></span></p>
 </div>
 <div class="exampleblock result">
@@ -3254,7 +3435,7 @@ choking on curly braces.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2013-11-11 23:24:39 PST
+Last updated 2013-11-20 00:42:31 EST
 </div>
 </div>
 </body>
