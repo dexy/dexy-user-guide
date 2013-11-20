@@ -149,7 +149,7 @@ name, not just an extension.
 
 {{ docsissue(2) }}
 
-=== Virtual Files
+==== Virtual Files
 
 You can make dexy process a file which doesn't really exist on the file system
 by using the `contents` setting:
@@ -160,6 +160,50 @@ by using the `contents` setting:
 {{ docsissue(3) }}
 
 `contents` is one of the available <<_document_settings>>.
+
+==== Custom Name Settings
+
+You can change the name with which a file will be output by specifying the
+`output-name` document setting.
+
+If the name starts with a slash `/` or contains any slashes it is assumed to be
+a full local (within the project) path to the desired destination of the file.
+If the name doesn't contain a slash it is assumed you want to rename a file but
+keep it in its original directory.
+
+Dexy will automatically apply
+http://docs.python.org/2/library/stdtypes.html#string-formatting-operations[string
+interpolation] or
+http://docs.python.org/2/library/string.html#format-examples[string formatting]
+to the name if it sees a `%` or `{` character. The environment for formatting
+will be populated with:
+    - all document settings
+    - `name` corresponding to the original document name
+    - `dirname` corresponding to the original document directory
+    - any local environment variables poopulated from a dexy-env.json file
+
+Available variables are written to the dexy log at `DEBUG` level.
+
+This example was run with these environment variables defined:
+
+[source,json]
+----
+{{ d['examples/custom-names/dexy-env.json|idio|t'] }}
+----
+
+Here is the `dexy.yaml`:
+
+[source,yaml]
+----
+{{ d['examples/custom-names/dexy.yaml|idio|t'] }}
+----
+
+And here are the input and output files:
+
+{{ d['examples/templates.sh|idio|shint|asciisyn']['input-files'] }}
+
+{{ d['examples/templates.sh|idio|shint|asciisyn']['output-files'] }}
+
 
 === Document Settings
 
@@ -592,16 +636,15 @@ for details about how plugin registration works.)
 {{ example("template_plugins_test:by_default_dexy_runs_all_template_plugins") }}
 
 If, instead, you want to specify which plugins to run, then you can use the
-`plugins` attribute to specify a list of template plugin aliases to use.
+`plugins` setting to specify a list of template plugin aliases to use.
 {{ example("template_plugins_test:use_plugins_attribute_to_specify_whitelist") }}
 
 If you just want to exclude a few plugins, then you can use the `skip-plugins`
-attribute to list template aliases you don't want to be used.
+filter setting to list template aliases you don't want to be used.
 {{ example("template_plugins_test:use_skip_plugins_attribute_to_specify_blacklist") }}
 
 The `dexy env` command prints all the environment elements which are available
 from running all the template plugins.
-
 
 ==== The Jinja Filter
 

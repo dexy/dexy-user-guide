@@ -35,6 +35,10 @@ examples:
     - examples/*.py|idio|pycon|asciisyn
     - examples/*.sh|idio|shint|asciisyn:
         - except: "run"
+        - shint: {
+            add-new-files: True,
+            additional-doc-filters: idio|t
+            }
     - examples/run.sh|idio|shint|asciisyn:
         - examples/run-example.yaml
     - .yaml|asciisyn
