@@ -21,3 +21,6 @@ dexy datas -alias generic
 
 ### "datas"
 dexy datas
+
+### "data-info-ws"
+dexy info -expr hello.txt -ws

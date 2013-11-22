@@ -37,10 +37,15 @@ examples:
         - except: "run"
         - shint: {
             add-new-files: True,
-            additional-doc-filters: idio|t
+            exclude-new-files-from-dir: [".dexy"],
+            keep-originals: True,
+            additional-doc-filters: idio|t,
+            additional-doc-settings: [['.html', { 'data-type' : 'bs4' }]]
             }
     - examples/run.sh|idio|shint|asciisyn:
         - examples/run-example.yaml
+    - .conf|asciisyn:
+        - asciisyn: { lexer: yaml }
     - .yaml|asciisyn
     - .yaml|idio|asciisyn:
         - idio: { ext : '.txt' }
