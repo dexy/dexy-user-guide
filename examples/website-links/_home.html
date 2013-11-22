@@ -1,0 +1,14 @@
+<html>
+    <head>
+    <title>{{ page_title }}</title>
+    </head>
+    <body>
+    <div id="links">
+        {{ link("Home") }}
+        {{ link("All About Foo") }}
+        {{ link("All About Foo", section_name = "Welcome") }}
+        {{ section("Welcome") }}
+        {{ section("Foo") }}
+    </div>
+    </body>
+</html>

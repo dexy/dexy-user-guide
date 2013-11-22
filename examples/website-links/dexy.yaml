@@ -1,0 +1,8 @@
+### "home"
+- index.html:
+    - title: Home
+    - ws-template: _home.html
+
+### "soups"
+- foo/*.html|yamlargs|soups:
+    - output: True

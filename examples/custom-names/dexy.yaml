@@ -1,0 +1,11 @@
+baz/*.txt:
+    - output-name: "%(name)s-file.abc"
+    
+bar/baz.txt:
+    - output-name: foo-{year}-baz.txt
+
+bar/bell.txt:
+    - output-name: "/bell2.txt"
+
+foo.txt:
+    - output-name: foo-%(year)s.txt

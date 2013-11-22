@@ -1,0 +1,79 @@
+<html>
+    <head>
+    <title>Welcome</title>
+    </head>
+    <body>
+    <div id="pageinfo">
+        <p>This document name is: foo/bar/index.html</p>
+        <p>This document is in: 'foo/bar'</p>
+        <p>This document's parent dir is: 'foo'</p>
+    </div>
+    <div id="s-object">
+        <p>This document's key is: foo/bar/index.html</p>
+        <p>This document's file size is: 0</p>
+        <p>'s' is an object of type: Generic</p>
+    </div>
+    <div id="root">
+        <p>'root' is an object of type: Node</p>
+        <p>ancestors are [Node(/)]</p>
+        <p>breadcrumbs are <a href="/">Welcome</a></p>
+        <p>children are [Node(/foo)]</p>
+        <p>children with index pages? True</p>
+        <p>docs are [Generic('index.html')]</p>
+        <p>index page is Generic('index.html')</p>
+        <p>level is 0</p>
+        <p>location is '/'</p>
+        <p>parent is None</p>
+    </div>
+    <div id="nav">
+        <p>'nav' is an object of type: Node</p>
+        <p>ancestors are [Node(/), Node(/foo), Node(/foo/bar)]</p>
+        <p>breadcrumbs are <a href="/">Welcome</a> &gt; <a href="/foo">Welcome</a> &gt; <a href="/foo/bar">Welcome</a></p>
+        <p>children are []</p>
+        <p>children with index pages? False</p>
+        <p>docs are [Generic('foo/bar/index.html')]</p>
+        <p>index page is Generic('foo/bar/index.html')</p>
+        <p>level is 2</p>
+        <p>location is '/foo/bar'</p>
+        <p>parent is Node(/foo)</p>
+    </div>
+    <div id="navtree">
+        <p>'navtree' is an object of type: Navigation</p>
+        Nodes: {'/': Node(/), '/foo': Node(/foo), '/foo/bar': Node(/foo/bar)}
+        Root: Node(/)
+
+        Debug Method:
+        
+node: /
+  index-page:
+    index.html
+
+  docs:
+    index.html
+
+  children:
+    /foo
+
+
+node: /foo
+  index-page:
+    foo/index.html
+
+  docs:
+    foo/index.html
+
+  children:
+    /foo/bar
+
+
+node: /foo/bar
+  index-page:
+    foo/bar/index.html
+
+  docs:
+    foo/bar/index.html
+
+
+    </div>
+    </body>
+</html>

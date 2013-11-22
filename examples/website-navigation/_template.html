@@ -1,0 +1,49 @@
+<html>
+    <head>
+    <title>{{ page_title }}</title>
+    </head>
+    <body>
+    <div id="pageinfo">
+        <p>This document name is: {{ source }}</p>
+        <p>This document is in: '{{ current_dir }}'</p>
+        <p>This document's parent dir is: '{{ parent_dir }}'</p>
+    </div>
+    <div id="s-object">
+        <p>This document's key is: {{ s.key }}</p>
+        <p>This document's file size is: {{ s.filesize() }}</p>
+        <p>'s' is an object of type: {{ s.__class__.__name__ }}</p>
+    </div>
+    <div id="root">
+        <p>'root' is an object of type: {{ root.__class__.__name__}}</p>
+        <p>ancestors are {{ root.ancestors }}</p>
+        <p>breadcrumbs are {{ root.breadcrumbs() }}</p>
+        <p>children are {{ root.children }}</p>
+        <p>children with index pages? {{ root.has_children_with_index_pages() }}</p>
+        <p>docs are {{ root.docs }}</p>
+        <p>index page is {{ "%r" % root.index_page }}</p>
+        <p>level is {{ root.level }}</p>
+        <p>location is '{{ root.location }}'</p>
+        <p>parent is {{ root.parent }}</p>
+    </div>
+    <div id="nav">
+        <p>'nav' is an object of type: {{ nav.__class__.__name__ }}</p>
+        <p>ancestors are {{ nav.ancestors }}</p>
+        <p>breadcrumbs are {{ nav.breadcrumbs() }}</p>
+        <p>children are {{ nav.children }}</p>
+        <p>children with index pages? {{ nav.has_children_with_index_pages() }}</p>
+        <p>docs are {{ nav.docs }}</p>
+        <p>index page is {{ "%r" % nav.index_page }}</p>
+        <p>level is {{ nav.level }}</p>
+        <p>location is '{{ nav.location }}'</p>
+        <p>parent is {{ nav.parent }}</p>
+    </div>
+    <div id="navtree">
+        <p>'navtree' is an object of type: {{ navtree.__class__.__name__ }}</p>
+        Nodes: {{ pprint(navtree.nodes) }}
+        Root: {{ pprint(navtree.root) }}
+
+        Debug Method:
+        {{ navtree.debug() }}
+    </div>
+    </body>
+</html>
