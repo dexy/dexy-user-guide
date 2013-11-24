@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<meta content="Asciidoctor 0.1.4" name="generator"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta content="Asciidoctor 0.1.4" name="generator">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Dexy User Guide</title>
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -359,7 +360,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 .literalblock > .content > pre, .listingblock > .content > pre { -webkit-border-radius: 0; border-radius: 0; }
 
 </style>
-<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet"/>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
 <style>
 .highlight .hll { background-color: #ffffcc }
 .highlight  { background: #ffffff; }
@@ -423,7 +424,7 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 .highlight .tok-vi { color: #3333bb } /* Name.Variable.Instance */
 .highlight .tok-il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
 </style>
-<script src="jquery.js" type="text/javascript"></script><script src="view-result.js" type="text/javascript"></script></head>
+</link></meta></meta></meta><script src="jquery.js" type="text/javascript"></script><script src="view-result.js" type="text/javascript"></script></head>
 <body class="article toc2 toc-right">
 <div id="header">
 <h1>Dexy User Guide</h1>
@@ -482,8 +483,9 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <li><a href="#_templating_filters">Templating Filters</a></li>
 <li>
 <ul class="sectlevel3">
-<li><a href="#_choosing_which_template_plugins_to_use">Choosing Which Template Plugins to Use</a></li>
+<li><a href="#_choosing_template_plugins">Choosing Template Plugins</a></li>
 <li><a href="#_the_jinja_filter">The Jinja Filter</a></li>
+<li><a href="#_assertions_in_documents">Assertions in Documents</a></li>
 <li><a href="#_alternative_templating_filters">Alternative Templating Filters</a></li>
 <li><a href="#_stubbing_out_dynamic_content">Stubbing Out Dynamic Content</a></li>
 </ul>
@@ -879,19 +881,19 @@ will be populated with:
 <div class="content">
 <pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> find .
 <span class="tok-go">.</span>
+<span class="tok-go">./.dexy</span>
+<span class="tok-go">./.dexy/.dexy-generated</span>
 <span class="tok-go">./bar</span>
-<span class="tok-go">./bar/bell.txt</span>
 <span class="tok-go">./bar/baz.txt</span>
+<span class="tok-go">./bar/bell.txt</span>
 <span class="tok-go">./baz</span>
 <span class="tok-go">./baz/1.txt</span>
 <span class="tok-go">./baz/2.txt</span>
 <span class="tok-go">./baz/3.txt</span>
-<span class="tok-go">./foo.txt</span>
-<span class="tok-go">./.dexy</span>
-<span class="tok-go">./.dexy/.dexy-generated</span>
 <span class="tok-go">./dexy-env.json</span>
-<span class="tok-go">./dexy.yaml</span>
 <span class="tok-go">./dexy.conf</span>
+<span class="tok-go">./dexy.yaml</span>
+<span class="tok-go">./foo.txt</span>
 </code></pre>
 </div>
 </div>
@@ -901,15 +903,15 @@ will be populated with:
 <span class="tok-gp">$</span> find .
 <span class="tok-go">.</span>
 <span class="tok-go">./.dexy-generated</span>
-<span class="tok-go">./foo-2013.txt</span>
 <span class="tok-go">./bar</span>
 <span class="tok-go">./bar/foo-2013-baz.txt</span>
 <span class="tok-go">./baz</span>
 <span class="tok-go">./baz/baz</span>
 <span class="tok-go">./baz/baz/1.txt-file.abc</span>
-<span class="tok-go">./baz/baz/3.txt-file.abc</span>
 <span class="tok-go">./baz/baz/2.txt-file.abc</span>
+<span class="tok-go">./baz/baz/3.txt-file.abc</span>
 <span class="tok-go">./bell2.txt</span>
+<span class="tok-go">./foo-2013.txt</span>
 <span class="tok-go">./README</span>
 </code></pre>
 </div>
@@ -1387,8 +1389,8 @@ dexy by accident, you’ll see a message like this:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> dexy
-<span class="tok-go">dexy run finished in 0.193</span>
-<span class="tok-go">dexy reports finished in 0.133</span>
+<span class="tok-go">dexy run finished in 0.079</span>
+<span class="tok-go">dexy reports finished in 0.048</span>
 </code></pre>
 </div>
 </div>
@@ -1399,8 +1401,9 @@ dexy by accident, you’ll see a message like this:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> ls .dexy
-<span class="tok-go">batch.args.pickle  dexy.log	 id_parsetab.py  reports</span>
-<span class="tok-go">batches		   id_lextab.py  last		 work</span>
+<span class="tok-go">batch.args.pickle	id_lextab.py		reports</span>
+<span class="tok-go">batches			id_parsetab.py		work</span>
+<span class="tok-go">dexy.log		last</span>
 </code></pre>
 </div>
 </div>
@@ -1470,17 +1473,15 @@ automatically.</p>
 <span class="tok-go">Installed filters:</span>
 <span class="tok-go">  abc : Runs `abcm2ps` on .abc music files.</span>
 <span class="tok-go">  abcm : Runs `abcm2ps` on .abc music files, generating all output formats.</span>
-<span class="tok-go">  ansi2html : Generates HTML from ANSI color codes using ansi2html.</span>
 <span class="tok-go">  apis : Base class for filters which post content to a remote API.</span>
+<span class="tok-go">  applytemplate : Apply template to file. Template should specify %(content)s.</span>
 <span class="tok-go">  archive : Creates a .tgz archive of all input documents.</span>
 <span class="tok-go">  asciidoc : Runs asciidoc command.</span>
 <span class="tok-go">  asciidoctor : Runs `asciidoctor`.</span>
 <span class="tok-go">  asciisyn : Surrounds code with highlighting instructions for Asciidoctor</span>
 <span class="tok-go">  bash : Runs bash scripts using 'bash' and returns stdout.</span>
 <span class="tok-go">  bashint : Runs bash. use to run bash scripts.</span>
-<span class="tok-go">  bleach : Runs the Bleach HTML sanitizer. &lt;https://github.com/jsocol/bleach&gt;</span>
 <span class="tok-go">  bn : Forces previous filter to output .bmp extension.</span>
-<span class="tok-go">  botoup : Uses boto library to upload content to S3, returns the URL.</span>
 <span class="tok-go">  bw : Converts color pdf to black and white.</span>
 <span class="tok-go">  bwconv : Converts color pdf to black and white.</span>
 <span class="tok-go">  c : Compile code using gcc and run.</span>
@@ -1560,8 +1561,7 @@ automatically.</p>
 <span class="tok-go">  js : Runs code through rhino js interpreter.</span>
 <span class="tok-go">  jsint : Runs rhino JavaScript interpeter.</span>
 <span class="tok-go">  julia : Runs julia (.jl) files.</span>
-<span class="tok-go">  jython : jython</span>
-<span class="tok-go">  jythoni : jython in REPL</span>
+<span class="tok-go">The jythoni dexy filter should not be run on MacOS due to a serious bug. This filter is being disabled.</span>
 <span class="tok-go">  keyvalueexample : Example of storing key value data.</span>
 <span class="tok-go">  kshint : Runs ksh. Use to run bash scripts.</span>
 <span class="tok-go">  kv : Creates a new key-value store.</span>
@@ -1626,6 +1626,7 @@ automatically.</p>
 <span class="tok-go">  redcloth : Converts textile to HTML using Redcloth.</span>
 <span class="tok-go">  redclothl : Converts textile to LaTeX using Redcloth.</span>
 <span class="tok-go">  regetron : Filter which loads .regex file into regetron and runs any input text against it.</span>
+<span class="tok-go">  resub : Runs re.sub on each line of input.</span>
 <span class="tok-go">  rhino : Runs code through rhino js interpreter.</span>
 <span class="tok-go">  rhinoint : Runs rhino JavaScript interpeter.</span>
 <span class="tok-go">  rint : Runs R in REPL.</span>
@@ -1685,7 +1686,6 @@ automatically.</p>
 <span class="tok-go">  x : Forces previous filter to output .xml extension.</span>
 <span class="tok-go">  xelatex : Runs .tex files using xelatex.</span>
 <span class="tok-go">  xetex : Runs .tex files using xelatex.</span>
-<span class="tok-go">  xmlsec : Stores all elements in the input XML document which have any of the</span>
 <span class="tok-go">  yamlargs : Specify attributes in YAML at top of file.</span>
 <span class="tok-go">  zip : Creates a .zip archive of all input documents.</span>
 
@@ -1952,12 +1952,11 @@ elements present. See the <a href="#_templating_filters">Templating Filters</a> 
 <div class="content">
 <pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> dexy env
 <span class="tok-go">BeautifulSoup: The BeautifulSoup module.</span>
-<span class="tok-go">DEXY_VERSION: The active dexy version. Currently 0.9.9.7d.</span>
+<span class="tok-go">DEXY_VERSION: The active dexy version. Currently 1.0.0.</span>
 <span class="tok-go">ET: The xml.etree.ElementTree module.</span>
 <span class="tok-go">a: Another way to reference 'd'. Deprecated.</span>
 <span class="tok-go">abs: The python builtin function abs</span>
 <span class="tok-go">all: The python builtin function all</span>
-<span class="tok-go">ansi2html: The convert method from ansi2html module.</span>
 <span class="tok-go">any: The python builtin function any</span>
 <span class="tok-go">args: The document args.</span>
 <span class="tok-go">attrgetter: The attrgetter method from Python's operator module.</span>
@@ -1997,6 +1996,7 @@ elements present. See the <a href="#_templating_filters">Templating Filters</a> 
 <span class="tok-go">iter: The python builtin function iter</span>
 <span class="tok-go">json: The Python json module.</span>
 <span class="tok-go">len: The python builtin function len</span>
+
 <span class="tok-go">list: The python builtin function list</span>
 <span class="tok-go">load_yaml: Safely load YAML from a file.</span>
 <span class="tok-go">locals: The python builtin function locals</span>
@@ -2366,7 +2366,7 @@ is being executed:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> <span class="tok-nb">pwd</span>
-<span class="tok-go">/home/ana/dev/dexy-user-guide/.dexy/work/c8/c863ad8b5cf0ea27fae7b0242812f315-002-idio-shint/examples</span>
+<span class="tok-go">/Users/ana/dev/dexy-user-guide/.dexy/work/c8/c863ad8b5cf0ea27fae7b0242812f315-002-idio-shint/examples</span>
 </code></pre>
 </div>
 </div>
@@ -3306,7 +3306,7 @@ does so by running several Template Plugins, each of which returns a hashmap.</p
 </div>
 <div class="paragraph">
 <p>For example, the DexyVersion template plugin returns a hashmap with one entry,
-to let you refer to <code>DEXY_VERSION</code> (currently 1.0.0d) in your
+to let you refer to <code>DEXY_VERSION</code> (currently 1.0.1d) in your
 documents.
 <span class="icon"><a class="image" href="#"><i class="icon-code"></i></a></span></p>
 </div>
@@ -3335,7 +3335,7 @@ environment.</p>
 templating system so it can be used to evalute template tags.</p>
 </div>
 <div class="sect3">
-<h4 id="_choosing_which_template_plugins_to_use">Choosing Which Template Plugins to Use</h4>
+<h4 id="_choosing_template_plugins">Choosing Template Plugins</h4>
 <div class="paragraph">
 <p>By default, Dexy’s TemplateFilter includes all registered template plugins when
 it generates the template environment. (See the <a href="http://dexy.github.io/cashew/">Cashew docs</a>
@@ -3403,14 +3403,129 @@ from running all the template plugins.</p>
 <h4 id="_the_jinja_filter">The Jinja Filter</h4>
 <div class="paragraph">
 <p>The <code>jinja</code> filter is the recommended templating filter to use. It is the most
-widely tested and used.</p>
+widely tested and used. It uses the <a href="http://jinja.org/">jinja2 templating system</a>.</p>
+</div>
+<div class="paragraph">
+<p>TODO verfiy this URL</p>
+</div>
+<div class="paragraph">
+<p>Jinja has a lot of nice features, and you should familiarize yourself with the
+jinja template documentation.</p>
+</div>
+<div class="paragraph">
+<p>One nice feature is jinja template filters. These are functions which you
+call by placing them after a pipe symbol like {{ <em>foo</em> | indent }}.</p>
+</div>
+<div class="paragraph">
+<p>Yeah, we have a lot of "filters" and pipe symbols happening here, but that’s
+because both dexy and jinja are following similar conventions. Pipes are a
+classic unix concept and indicate that you take the output from one process and
+"pipe" it to the next process in a chain. It’s the same idea as when you write
+a pipe in a <code>dexy.yaml</code> file. I’ll refer to jinja’s implementation of filters
+as "jinja template filters" and dexy’s "jinja filter" as "the jinja dexy
+filter".</p>
+</div>
+<div class="paragraph">
+<p>You can use all of the standard jinja template filters in dexy documents which
+you process through the jinja dexy filter. In addition to the built-in jinja
+template filters, dexy also implements some custom jinja template filters.</p>
+</div>
+<div class="paragraph">
+<p>You can see the additional jinja template filters provided by dexy when you run
+<code>dexy env</code>. They are indicated by an asterisk.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_assertions_in_documents">Assertions in Documents</h4>
+<div class="paragraph">
+<p>The jinja dexy filter allows you to make assertions about content you are
+including via jinja. For example, you may wish to assert that an error message
+does not appear in output, or you may wish to assert that a given HTML element
+is present, or that it contains certain text.</p>
+</div>
+<div class="paragraph">
+<p>Here’s an example of a text file which includes output from a Python script:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="markdown language-markdown">Here is some python code:
+
+    {{ d['broken.py|pycon'] | indent(4) }}
+</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There’s no indication that anything is wrong when we run dexy, but the results
+show that there’s a problem:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="markdown language-markdown">Here is some python code:
+
+    Python 2.7.2 (default, Oct 11 2012, 20:14:37)
+    [GCC 4.2.1 Compatible Apple Clang 4.0 (tags/Apple/clang-418.0.60)] on darwin
+    Type "help", "copyright", "credits" or "license" for more information.
+    &gt;&gt;&gt; printx "foo"
+      File "<stdin>", line 1
+        printx "foo"
+                   ^
+    SyntaxError: invalid syntax</stdin></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>While Dexy does monitor for nonzero exit codes and notifies you (depending on
+the filter setting), not all errors will result in a nonzero exit code (for a
+variety of reasons). Making assertions is an alternative approach to ensuring
+that you are getting the content you expect from your inputs.</p>
+</div>
+<div class="paragraph">
+<p>Now here’s the document with an assertion filter:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="markdown language-markdown">Here is some python code:
+
+    {{ d['broken.py|pycon'] | assert_does_not_contain("SyntaxError") | indent(4) }}
+</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When we run dexy, this is the result:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> dexy
+<span class="tok-go">ERROR while running docs.md|jinja: input text contained 'SyntaxError'</span>
+<span class="tok-go">dexy run finished in 0.343 WITH ERRORS</span>
+<span class="tok-go">dexy reports finished in 0.046</span>
+</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After fixing the file, we can run this again:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="markdown language-markdown">Here is some python code:
+
+    Python 2.7.2 (default, Oct 11 2012, 20:14:37)
+    [GCC 4.2.1 Compatible Apple Clang 4.0 (tags/Apple/clang-418.0.60)] on darwin
+    Type "help", "copyright", "credits" or "license" for more information.
+    &gt;&gt;&gt; print 'foo'
+    foo</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The assertion filters return the original passed content if the assertion
+passes.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_alternative_templating_filters">Alternative Templating Filters</h4>
 <div class="paragraph">
 <p>There are other subclasses of <code>TemplateFilter</code> available, although many of
-these are proofs of concept.</p>
+these are proofs of concept. If you have a reason not to use jinja then please
+get in touch to discuss alternatives.</p>
 </div>
 </div>
 <div class="sect3">
@@ -4470,6 +4585,7 @@ issue</a>.</p>
 
     <span class="tok-c1"># filter settings</span>
     <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">customize</span><span class="tok-p-Indicator">:</span> <span class="tok-p-Indicator">{</span> <span class="tok-nv">scripts</span><span class="tok-p-Indicator">:</span> <span class="tok-p-Indicator">[</span><span class="tok-s">'jquery.js'</span><span class="tok-p-Indicator">,</span> <span class="tok-s">'view-result.js'</span><span class="tok-p-Indicator">]</span> <span class="tok-p-Indicator">}</span>
+    <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">jinja</span><span class="tok-p-Indicator">:</span> <span class="tok-p-Indicator">{</span> <span class="tok-nv">assertion-passed-indicator</span><span class="tok-p-Indicator">:</span> <span class="tok-s">"&lt;div</span><span class="tok-nv"> </span><span class="tok-s">style=\"background-color:</span><span class="tok-nv"> </span><span class="tok-s">green;</span><span class="tok-nv"> </span><span class="tok-s">width:</span><span class="tok-nv"> </span><span class="tok-s">20px;</span><span class="tok-nv"> </span><span class="tok-s">height:</span><span class="tok-nv"> </span><span class="tok-s">20px;\"&gt;OK&lt;/div&gt;"</span> <span class="tok-p-Indicator">}</span>
 
     <span class="tok-c1"># inputs</span>
     <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">assets</span>
@@ -4525,7 +4641,7 @@ issue</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2013-11-22 17:00:56 EST
+Last updated 2013-11-23 20:53:32 PST
 </div>
 </div>
 </body>
