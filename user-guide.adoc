@@ -719,7 +719,7 @@ show that there's a problem:
 
 [source,markdown]
 ----
-{{ d['examples/assertions/docs-without-assertions-results.md'] }}
+{{ d['examples/assertions/docs-without-assertions-results.md'] | assert_contains("SyntaxError") }}
 ----
 
 While Dexy does monitor for nonzero exit codes and notifies you (depending on

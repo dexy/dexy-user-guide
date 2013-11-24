@@ -26,5 +26,11 @@ def save_issues_to_json(repo_owner, repo_name, filename):
     with open(filename, "wb") as f:
         json.dump(issues, f)
 
-save_issues_to_json("dexy", "dexy", "issues.json")
-save_issues_to_json("dexy", "dexy-user-guide", "docs-issues.json")
+try:
+    save_issues_to_json("dexy", "dexy", "issues.json")
+    save_issues_to_json("dexy", "dexy-user-guide", "docs-issues.json")
+except requests.exceptions.ConnectionError:
+    import shutil
+    backups = "/Users/ana/dev/dexy-user-guide/offline-backups/"
+    for f in ["issues.json", "docs-issues.json"]:
+        shutil.copyfile(backups + f, f)

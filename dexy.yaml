@@ -4,6 +4,7 @@ user-guide.adoc|jinja|asciidoctor|customize:
 
     # filter settings
     - customize: { scripts: ['jquery.js', 'view-result.js'] }
+    - jinja: { assertion-passed-indicator: "<div style=\"background-color: green; width: 20px; height: 20px;\">OK</div>" }
 
     # inputs
     - assets
