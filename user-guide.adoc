@@ -654,7 +654,7 @@ environment.
 Subclasses of TemplateFilter take this full environment and pass it to the
 templating system so it can be used to evalute template tags.
 
-==== Choosing Which Template Plugins to Use
+==== Choosing Template Plugins
 
 By default, Dexy's TemplateFilter includes all registered template plugins when
 it generates the template environment. (See the http://dexy.github.io/cashew/[Cashew docs]
@@ -675,15 +675,84 @@ from running all the template plugins.
 ==== The Jinja Filter
 
 The `jinja` filter is the recommended templating filter to use. It is the most
-widely tested and used.
+widely tested and used. It uses the http://jinja.org/[jinja2 templating system].
 
+TODO verfiy this URL
+
+Jinja has a lot of nice features, and you should familiarize yourself with the
+jinja template documentation.
+
+One nice feature is jinja template filters. These are functions which you
+call by placing them after a pipe symbol like {{ "{{ 'foo' | indent }}" }}.
+
+Yeah, we have a lot of "filters" and pipe symbols happening here, but that's
+because both dexy and jinja are following similar conventions. Pipes are a
+classic unix concept and indicate that you take the output from one process and
+"pipe" it to the next process in a chain. It's the same idea as when you write
+a pipe in a `dexy.yaml` file. I'll refer to jinja's implementation of filters
+as "jinja template filters" and dexy's "jinja filter" as "the jinja dexy
+filter".
+
+You can use all of the standard jinja template filters in dexy documents which
+you process through the jinja dexy filter. In addition to the built-in jinja
+template filters, dexy also implements some custom jinja template filters.
+
+You can see the additional jinja template filters provided by dexy when you run
+`dexy env`. They are indicated by an asterisk.
+
+==== Assertions in Documents
+
+The jinja dexy filter allows you to make assertions about content you are
+including via jinja. For example, you may wish to assert that an error message
+does not appear in output, or you may wish to assert that a given HTML element
+is present, or that it contains certain text.
+
+Here's an example of a text file which includes output from a Python script:
+
+[source,markdown]
+----
+{{ d['examples/assertions/docs-without-assertions.md'] }}
+----
+
+There's no indication that anything is wrong when we run dexy, but the results
+show that there's a problem:
+
+[source,markdown]
+----
+{{ d['examples/assertions/docs-without-assertions-results.md'] }}
+----
+
+While Dexy does monitor for nonzero exit codes and notifies you (depending on
+the filter setting), not all errors will result in a nonzero exit code (for a
+variety of reasons). Making assertions is an alternative approach to ensuring
+that you are getting the content you expect from your inputs.
+
+Now here's the document with an assertion filter:
+
+[source,markdown]
+----
+{{ d['examples/assertions/docs-with-assertions.md'] }}
+----
+
+When we run dexy, this is the result:
+
+{{ d['examples/assertions.sh|idio|shint|asciisyn']['run-with-assertions'] }}
+
+After fixing the file, we can run this again:
+
+[source,markdown]
+----
+{{ d['examples/assertions/docs-with-assertions-results.md'] }}
+----
+
+The assertion filters return the original passed content if the assertion
+passes.
 
 ==== Alternative Templating Filters
 
 There are other subclasses of `TemplateFilter` available, although many of
-these are proofs of concept.
-
-
+these are proofs of concept. If you have a reason not to use jinja then please
+get in touch to discuss alternatives.
 
 ==== Stubbing Out Dynamic Content
 
