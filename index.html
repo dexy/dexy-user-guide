@@ -482,8 +482,9 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 <li><a href="#_templating_filters">Templating Filters</a></li>
 <li>
 <ul class="sectlevel3">
-<li><a href="#_choosing_which_template_plugins_to_use">Choosing Which Template Plugins to Use</a></li>
+<li><a href="#_choosing_template_plugins">Choosing Template Plugins</a></li>
 <li><a href="#_the_jinja_filter">The Jinja Filter</a></li>
+<li><a href="#_assertions_in_documents">Assertions in Documents</a></li>
 <li><a href="#_alternative_templating_filters">Alternative Templating Filters</a></li>
 <li><a href="#_stubbing_out_dynamic_content">Stubbing Out Dynamic Content</a></li>
 </ul>
@@ -909,8 +910,8 @@ will be populated with:
 <span class="tok-go">./baz/baz/1.txt-file.abc</span>
 <span class="tok-go">./baz/baz/3.txt-file.abc</span>
 <span class="tok-go">./baz/baz/2.txt-file.abc</span>
+<span class="tok-go">./README.md</span>
 <span class="tok-go">./bell2.txt</span>
-<span class="tok-go">./README</span>
 </code></pre>
 </div>
 </div>
@@ -1387,8 +1388,8 @@ dexy by accident, you’ll see a message like this:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> dexy
-<span class="tok-go">dexy run finished in 0.193</span>
-<span class="tok-go">dexy reports finished in 0.133</span>
+<span class="tok-go">dexy run finished in 0.260</span>
+<span class="tok-go">dexy reports finished in 0.283</span>
 </code></pre>
 </div>
 </div>
@@ -1472,6 +1473,7 @@ automatically.</p>
 <span class="tok-go">  abcm : Runs `abcm2ps` on .abc music files, generating all output formats.</span>
 <span class="tok-go">  ansi2html : Generates HTML from ANSI color codes using ansi2html.</span>
 <span class="tok-go">  apis : Base class for filters which post content to a remote API.</span>
+<span class="tok-go">  applytemplate : Apply template to file. Template should specify %(content)s.</span>
 <span class="tok-go">  archive : Creates a .tgz archive of all input documents.</span>
 <span class="tok-go">  asciidoc : Runs asciidoc command.</span>
 <span class="tok-go">  asciidoctor : Runs `asciidoctor`.</span>
@@ -1495,6 +1497,7 @@ automatically.</p>
 <span class="tok-go">  clang : Compile code using clang and run.</span>
 <span class="tok-go">  clanginput : compile code using clang and run with input.</span>
 <span class="tok-go">  clj : Runs clojure.</span>
+<span class="tok-go">  cljws : Parse clojure code into sections based on whitespace and try to guess a</span>
 <span class="tok-go">  cowsay : Runs input through 'cowsay'.</span>
 <span class="tok-go">  cowthink : Runs input through 'cowthink'.</span>
 <span class="tok-go">  cpickle : Forces previous filter to output .cpickle extension.</span>
@@ -1510,6 +1513,7 @@ automatically.</p>
 <span class="tok-go">  easyhtml : Wraps your text in HTML header/footer which includes Baseline CSS resets.</span>
 <span class="tok-go">  easylatex : Wraps your text in LaTeX article header/footer.</span>
 <span class="tok-go">  ebook : Runs `ebook-convert` command (part of calibre)</span>
+<span class="tok-go">  elixir : Runs Elixir (.ex) files.</span>
 <span class="tok-go">  embedfonts : Runs ghostscript ps2pdf with prepress settings.</span>
 <span class="tok-go">  eps2pdf : Uses epstopdf to convert .eps files to .pdf</span>
 <span class="tok-go">  epstopdf : Uses epstopdf to convert .eps files to .pdf</span>
@@ -1519,7 +1523,7 @@ automatically.</p>
 <span class="tok-go">  figlet : Runs input through 'figlet'.</span>
 <span class="tok-go">  filterargs : Prints out the args it receives.</span>
 <span class="tok-go">  fn : Deprecated. No longer needed.</span>
-<span class="tok-go">  fopdf : Uses asciidoctor-fopdf to generate PDF.</span>
+<span class="tok-go">  fopdf : Uses asciidoctor-fopub to generate PDF.</span>
 <span class="tok-go">  forcebmp : Forces previous filter to output .bmp extension.</span>
 <span class="tok-go">  forcegif : Forces previous filter to output .gif extension.</span>
 <span class="tok-go">  forcehtml : Forces previous filter to output .html extension.</span>
@@ -1535,6 +1539,7 @@ automatically.</p>
 <span class="tok-go">  fortran : Compiles and executes fortran code.</span>
 <span class="tok-go">  ft : Apply another file to bottom of file.</span>
 <span class="tok-go">  gcc : Compile code using gcc and run.</span>
+<span class="tok-go">  ghmd : Converts github-flavored markdown to HTML using redcarpet.</span>
 <span class="tok-go">  gn : Forces previous filter to output .gif extension.</span>
 <span class="tok-go">  go : Runs 'go run' command on an input .go file. http://golang.org/</span>
 <span class="tok-go">  gotest : Runs 'go test' command on an input .go file. http://golang.org/</span>
@@ -1546,6 +1551,10 @@ automatically.</p>
 <span class="tok-go">  html2pdf : Deprecated, use casper.js instead.</span>
 <span class="tok-go">  htmlsections : Splits files into sections based on comments like ### "foo"</span>
 <span class="tok-go">  htmltidy : Uses tidy to clean and validate HTML.</span>
+<span class="tok-go">  ipynb : Get data out of an IPython notebook.</span>
+<span class="tok-go">  ipynbcasper : Launch IPython notebook and run a casperjs script against the server.</span>
+<span class="tok-go">  ipynbx : Generates a static file based on an IPython notebook.</span>
+<span class="tok-go">  ipython : Runs python code in the IPython console.</span>
 <span class="tok-go">  irb : Runs ruby code in irb.</span>
 <span class="tok-go">  irbout : Runs ruby scripts in irb.</span>
 <span class="tok-go">  j : Forces previous filter to output .json extension.</span>
@@ -1569,6 +1578,7 @@ automatically.</p>
 <span class="tok-go">  latexdvi : Run Latex outputting a .dvi file.</span>
 <span class="tok-go">  latextile : Converts textile to LaTeX using Redcloth.</span>
 <span class="tok-go">  lines : Returns each line in its own section.</span>
+<span class="tok-go">  livescript : Runs LiveScript (.ls) files.</span>
 <span class="tok-go">  lua : Runs code through lua interpreter.</span>
 <span class="tok-go">  lynxdump : Converts HTML to plain text by using lynx -dump.</span>
 <span class="tok-go">  lyx : Runs lyx to generate LaTeX output.</span>
@@ -1592,6 +1602,7 @@ automatically.</p>
 <span class="tok-go">  pdfcrop : Runs the PDFcrop script http://pdfcrop.sourceforge.net/</span>
 <span class="tok-go">  pdfinfo : Uses the pdfinfo script to retrieve metadata about a PDF.</span>
 <span class="tok-go">  pdftotext : Uses pdftotext from the poppler library to convert PDFs to text.</span>
+<span class="tok-go">  pegdown : Converts extended markdown to HTML using pegdown.</span>
 <span class="tok-go">  phantomjs : Runs scripts using phantom js.</span>
 <span class="tok-go">  php : Runs php file.</span>
 <span class="tok-go">  phpint : Runs PHP in interpeter mode.</span>
@@ -1626,6 +1637,7 @@ automatically.</p>
 <span class="tok-go">  redcloth : Converts textile to HTML using Redcloth.</span>
 <span class="tok-go">  redclothl : Converts textile to LaTeX using Redcloth.</span>
 <span class="tok-go">  regetron : Filter which loads .regex file into regetron and runs any input text against it.</span>
+<span class="tok-go">  resub : Runs re.sub on each line of input.</span>
 <span class="tok-go">  rhino : Runs code through rhino js interpreter.</span>
 <span class="tok-go">  rhinoint : Runs rhino JavaScript interpeter.</span>
 <span class="tok-go">  rint : Runs R in REPL.</span>
@@ -1651,7 +1663,6 @@ automatically.</p>
 <span class="tok-go">  scala : Compiles and runs .scala files.</span>
 <span class="tok-go">  scalac : Compiles .scala code to .class files.</span>
 <span class="tok-go">  scalai : Runs scala code in the REPL.</span>
-<span class="tok-go">  sectionsbywhitespace : Del</span>
 <span class="tok-go">  sed : Runs a sed script.</span>
 <span class="tok-go">  sh : Runs bash scripts using 'sh' and returns stdout.</span>
 <span class="tok-go">  shint : Runs bash. use to run bash scripts.</span>
@@ -1730,6 +1741,10 @@ the <code>-alias</code> option:</p>
 <span class="tok-go">        Settings to apply to additional documents created as side effects.</span>
 <span class="tok-go">        default value: {}</span>
 
+<span class="tok-go">    assertion-passed-indicator</span>
+<span class="tok-go">        Extra text to return with a passed assertion.</span>
+<span class="tok-go">        default value:</span>
+
 <span class="tok-go">    block-end-string</span>
 <span class="tok-go">        Tag to indicate the start of a block.</span>
 <span class="tok-go">        default value: %}</span>
@@ -1773,6 +1788,10 @@ the <code>-alias</code> option:</p>
 <span class="tok-go">    extension-map</span>
 <span class="tok-go">        Dictionary mapping input extensions to default output extensions.</span>
 <span class="tok-go">        default value: None</span>
+
+<span class="tok-go">    filters</span>
+<span class="tok-go">        List of template plugins to make into jinja filters.</span>
+<span class="tok-go">        default value: ['assertions', 'highlight', 'head', 'tail', 'rstcode', 'stripjavadochtml', 'replacejinjafilters', 'bs4']</span>
 
 <span class="tok-go">    input-extensions</span>
 <span class="tok-go">        List of extensions which this filter can accept as input.</span>
@@ -1952,7 +1971,7 @@ elements present. See the <a href="#_templating_filters">Templating Filters</a> 
 <div class="content">
 <pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> dexy env
 <span class="tok-go">BeautifulSoup: The BeautifulSoup module.</span>
-<span class="tok-go">DEXY_VERSION: The active dexy version. Currently 0.9.9.7d.</span>
+<span class="tok-go">DEXY_VERSION: The active dexy version. Currently 1.0.2d.</span>
 <span class="tok-go">ET: The xml.etree.ElementTree module.</span>
 <span class="tok-go">a: Another way to reference 'd'. Deprecated.</span>
 <span class="tok-go">abs: The python builtin function abs</span>
@@ -1960,6 +1979,12 @@ elements present. See the <a href="#_templating_filters">Templating Filters</a> 
 <span class="tok-go">ansi2html: The convert method from ansi2html module.</span>
 <span class="tok-go">any: The python builtin function any</span>
 <span class="tok-go">args: The document args.</span>
+<span class="tok-go">*assert_contains: Assert that input equals expected value.</span>
+<span class="tok-go">*assert_does_not_contain: Assert that input equals expected value.</span>
+<span class="tok-go">*assert_equals: Assert that input equals expected value.</span>
+<span class="tok-go">*assert_matches: Assert that input matches the specified regular expressino.</span>
+<span class="tok-go">*assert_selector_text: Asserts that the contents of CSS selector matches the expected text.</span>
+<span class="tok-go">*assert_startswith: Assert that the input starts with the specified value.</span>
 <span class="tok-go">attrgetter: The attrgetter method from Python's operator module.</span>
 <span class="tok-go">basestring: The python builtin function basestring</span>
 <span class="tok-go">bin: The python builtin function bin</span>
@@ -1986,15 +2011,18 @@ elements present. See the <a href="#_templating_filters">Templating Filters</a> 
 <span class="tok-go">float: The python builtin function float</span>
 <span class="tok-go">format: The python builtin function format</span>
 <span class="tok-go">hasattr: The python builtin function hasattr</span>
+<span class="tok-go">*head: Returns the first n lines of input string.</span>
 <span class="tok-go">hex: The python builtin function hex</span>
-<span class="tok-go">highlight: Syntax highlights contents. Args are (text, lexer_name).</span>
+<span class="tok-go">*highlight: Pygments syntax highlighter.</span>
 <span class="tok-go">humanize: The humanize method from Python inflection module.</span>
 <span class="tok-go">id: The python builtin function id</span>
+<span class="tok-go">*indent: Jinja's indent function.</span>
 <span class="tok-go">int: The python builtin function int</span>
 <span class="tok-go">isinstance: The python builtin function isinstance</span>
 <span class="tok-go">issubclass: The python builtin function issubclass</span>
 <span class="tok-go">itemgetter: The itemgetter method from Python's operator module.</span>
 <span class="tok-go">iter: The python builtin function iter</span>
+<span class="tok-go">*javadoc2rst: Replace escape character with newlines and remove paragraph tags.</span>
 <span class="tok-go">json: The Python json module.</span>
 <span class="tok-go">len: The python builtin function len</span>
 <span class="tok-go">list: The python builtin function list</span>
@@ -2012,12 +2040,14 @@ elements present. See the <a href="#_templating_filters">Templating Filters</a> 
 <span class="tok-go">ordinal: The ordinal method from Python inflection module.</span>
 <span class="tok-go">ordinalize: The ordinalize method from Python inflection module.</span>
 <span class="tok-go">parameterize: The parameterize method from Python inflection module.</span>
+<span class="tok-go">parse_yaml: Safely load YAML from text.</span>
 <span class="tok-go">pformat: Pretty prints Python objects.</span>
 <span class="tok-go">pluralize: The pluralize method from Python inflection module.</span>
 <span class="tok-go">pow: The python builtin function pow</span>
 <span class="tok-go">ppjson: Pretty prints valid JSON.</span>
 <span class="tok-go">pprint: Pretty prints Python objects.</span>
-<span class="tok-go">prettify_html: Pretty-print HTML using BeautifulSoup</span>
+<span class="tok-go">*prettify_html: Pretty-print HTML using BeautifulSoup</span>
+<span class="tok-go">*pygmentize: Pygments syntax highlighter.</span>
 <span class="tok-go">pygments: Dictionary of pygments stylesheets.</span>
 <span class="tok-go">raise: Alias for `throw`.</span>
 <span class="tok-go">range: The python builtin function range</span>
@@ -2032,8 +2062,10 @@ elements present. See the <a href="#_templating_filters">Templating Filters</a> 
 <span class="tok-go">slice: The python builtin function slice</span>
 <span class="tok-go">sorted: The python builtin function sorted</span>
 <span class="tok-go">str: The python builtin function str</span>
+<span class="tok-go">*strip_javadoc_html: Replace escape character with newlines and remove paragraph tags.</span>
 <span class="tok-go">subdirectories: List of subdirectories of this document.</span>
 <span class="tok-go">sum: The python builtin function sum</span>
+<span class="tok-go">*tail: Returns the last n lines of inptu string.</span>
 <span class="tok-go">throw: A debugging utility which raises exception with argument.</span>
 <span class="tok-go">time: The Python time module.</span>
 <span class="tok-go">titleize: The titleize method from Python inflection module.</span>
@@ -2048,6 +2080,8 @@ elements present. See the <a href="#_templating_filters">Templating Filters</a> 
 <span class="tok-go">xrange: The python builtin function xrange</span>
 <span class="tok-go">year: Current year.</span>
 <span class="tok-go">zip: The python builtin function zip</span>
+
+<span class="tok-go">* indicates the method can be used as a jinja template filter</span>
 </code></pre>
 </div>
 </div>
@@ -2156,6 +2190,12 @@ running the <code>dexy datas</code> command, as suggested in the output of <code
 <span class="tok-go">        are defined in the JSON.</span>
 
 
+<span class="tok-go">    from_yaml</span>
+
+<span class="tok-go">        Attempts to load data using a YAML parser, returning whatever objects</span>
+<span class="tok-go">        are defined in the YAML.</span>
+
+
 <span class="tok-go">    is_canonical_output</span>
 
 <span class="tok-go">        Used by reports to determine if document should be written to output/</span>
@@ -2191,6 +2231,11 @@ running the <code>dexy datas</code> command, as suggested in the output of <code
 
 <span class="tok-go">        Canonical name to output to, relative to output root. Returns None if</span>
 <span class="tok-go">        artifact not in output_root.</span>
+
+
+<span class="tok-go">    output_parent_dir</span>
+
+<span class="tok-go">        Canonical output directory, taking into account custom outputroot and document name.</span>
 
 
 <span class="tok-go">    output_to_file</span>
@@ -2250,6 +2295,11 @@ running the <code>dexy datas</code> command, as suggested in the output of <code
 <span class="tok-go">        Returns dict of all setting values (removes the helpstrings).</span>
 
 <span class="tok-go">        Takes arguments. Run with -source option to see source code.</span>
+
+<span class="tok-go">    settings_and_attributes</span>
+
+<span class="tok-go">        Return a combined dictionary of setting values and attribute values.</span>
+
 
 <span class="tok-go">    splitlines</span>
 
@@ -3306,7 +3356,7 @@ does so by running several Template Plugins, each of which returns a hashmap.</p
 </div>
 <div class="paragraph">
 <p>For example, the DexyVersion template plugin returns a hashmap with one entry,
-to let you refer to <code>DEXY_VERSION</code> (currently 1.0.0d) in your
+to let you refer to <code>DEXY_VERSION</code> (currently 1.0.2d) in your
 documents.
 <span class="icon"><a class="image" href="#"><i class="icon-code"></i></a></span></p>
 </div>
@@ -3335,7 +3385,7 @@ environment.</p>
 templating system so it can be used to evalute template tags.</p>
 </div>
 <div class="sect3">
-<h4 id="_choosing_which_template_plugins_to_use">Choosing Which Template Plugins to Use</h4>
+<h4 id="_choosing_template_plugins">Choosing Template Plugins</h4>
 <div class="paragraph">
 <p>By default, Dexy’s TemplateFilter includes all registered template plugins when
 it generates the template environment. (See the <a href="http://dexy.github.io/cashew/">Cashew docs</a>
@@ -3403,14 +3453,144 @@ from running all the template plugins.</p>
 <h4 id="_the_jinja_filter">The Jinja Filter</h4>
 <div class="paragraph">
 <p>The <code>jinja</code> filter is the recommended templating filter to use. It is the most
-widely tested and used.</p>
+widely tested and used. It uses the <a href="http://jinja.org/">jinja2 templating system</a>.</p>
+</div>
+<div class="paragraph">
+<p>TODO verfiy this URL</p>
+</div>
+<div class="paragraph">
+<p>Jinja has a lot of nice features, and you should familiarize yourself with the
+jinja template documentation.</p>
+</div>
+<div class="paragraph">
+<p>One nice feature is jinja template filters. These are functions which you
+call by placing them after a pipe symbol like {{ <em>foo</em> | indent }}.</p>
+</div>
+<div class="paragraph">
+<p>Yeah, we have a lot of "filters" and pipe symbols happening here, but that’s
+because both dexy and jinja are following similar conventions. Pipes are a
+classic unix concept and indicate that you take the output from one process and
+"pipe" it to the next process in a chain. It’s the same idea as when you write
+a pipe in a <code>dexy.yaml</code> file. I’ll refer to jinja’s implementation of filters
+as "jinja template filters" and dexy’s "jinja filter" as "the jinja dexy
+filter".</p>
+</div>
+<div class="paragraph">
+<p>You can use all of the standard jinja template filters in dexy documents which
+you process through the jinja dexy filter. In addition to the built-in jinja
+template filters, dexy also implements some custom jinja template filters.</p>
+</div>
+<div class="paragraph">
+<p>You can see the additional jinja template filters provided by dexy when you run
+<code>dexy env</code>. They are indicated by an asterisk.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_assertions_in_documents">Assertions in Documents</h4>
+<div class="paragraph">
+<p>The jinja dexy filter allows you to make assertions about content you are
+including via jinja. For example, you may wish to assert that an error message
+does not appear in output, or you may wish to assert that a given HTML element
+is present, or that it contains certain text.</p>
+</div>
+<div class="paragraph">
+<p>Here’s an example of a text file which includes output from a Python script:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="markdown language-markdown">Here is some python code:
+
+    {{ d['broken.py|pycon'] | indent(4) }}
+</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There’s no indication that anything is wrong when we run dexy, but the results
+show that there’s a problem:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="markdown language-markdown">Here is some python code:
+
+    Python 2.7.5+ (default, Sep 19 2013, 13:48:49)
+    [GCC 4.8.1] on linux2
+    Type "help", "copyright", "credits" or "license" for more information.
+    &gt;&gt;&gt; printx "foo"
+      File "<stdin>", line 1
+        printx "foo"
+                   ^
+    SyntaxError: invalid syntax</stdin></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>While Dexy does monitor for nonzero exit codes and notifies you (depending on
+the filter setting), not all errors will result in a nonzero exit code (for a
+variety of reasons). Making assertions is an alternative approach to ensuring
+that you are getting the content you expect from your inputs.</p>
+</div>
+<div class="paragraph">
+<p>Now here’s the document with an assertion filter:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="markdown language-markdown">Here is some python code:
+
+    {{ d['broken.py|pycon'] | assert_does_not_contain("SyntaxError") | indent(4) }}
+</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When we run dexy, this is the result:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> dexy
+<span class="tok-go">ERROR while running docs.md|jinja: input text contained 'SyntaxError'</span>
+<span class="tok-go">dexy run finished in 0.488 WITH ERRORS</span>
+<span class="tok-go">dexy reports finished in 0.284</span>
+</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After fixing the file, we can run this again:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="markdown language-markdown">Here is some python code:
+
+    Python 2.7.5+ (default, Sep 19 2013, 13:48:49)
+    [GCC 4.8.1] on linux2
+    Type "help", "copyright", "credits" or "license" for more information.
+    &gt;&gt;&gt; print 'foo'
+    foo</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The assertion filters return the original passed content if the assertion
+passes.</p>
+</div>
+<div class="paragraph">
+<p>All available assertions can be seen by running the <code>dexy env</code> command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code class="console language-console"><span class="tok-gp">$</span> dexy env | grep assert
+<span class="tok-go">*assert_contains: Assert that input equals expected value.</span>
+<span class="tok-go">*assert_does_not_contain: Assert that input equals expected value.</span>
+<span class="tok-go">*assert_equals: Assert that input equals expected value.</span>
+<span class="tok-go">*assert_matches: Assert that input matches the specified regular expressino.</span>
+<span class="tok-go">*assert_selector_text: Asserts that the contents of CSS selector matches the expected text.</span>
+<span class="tok-go">*assert_startswith: Assert that the input starts with the specified value.</span>
+</code></pre>
+</div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_alternative_templating_filters">Alternative Templating Filters</h4>
 <div class="paragraph">
 <p>There are other subclasses of <code>TemplateFilter</code> available, although many of
-these are proofs of concept.</p>
+these are proofs of concept. If you have a reason not to use jinja then please
+get in touch to discuss alternatives.</p>
 </div>
 </div>
 <div class="sect3">
@@ -3506,11 +3686,15 @@ space-separated report aliases to be run in order.</p>
 <span class="tok-go">  plugins</span>
 <span class="tok-go">    List of template plugin aliases which should be included in jinja</span>
 <span class="tok-go">    environment.</span>
-<span class="tok-go">    (default: ['debug', 'inflection', 'builtins', 'operator', 'datetime', 'pprint'])</span>
+<span class="tok-go">    (default: ['debug', 'inflection', 'builtins', 'operator', 'datetime', 'pprint', 'pygments', 'markdown'])</span>
+
+<span class="tok-go">  readme-contents</span>
+<span class="tok-go">    Contents to be written to README file.</span>
+<span class="tok-go">    (default: 'This directory was generated by the %(alias)s dexy reporter and may be deleted without notice.\n')</span>
 
 <span class="tok-go">  readme-filename</span>
 <span class="tok-go">    Name of README file, or None to omit.</span>
-<span class="tok-go">    (default: 'README')</span>
+<span class="tok-go">    (default: 'README.md')</span>
 
 <span class="tok-go">  run-for-wrapper-states</span>
 <span class="tok-go">    Wrapper states for which report is valid.</span>
@@ -3737,26 +3921,7 @@ names have spaces in them:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code class="html language-html"><span class="tok-nt">&lt;html&gt;</span>
-    <span class="tok-nt">&lt;head&gt;</span>
-    <span class="tok-nt">&lt;/head&gt;</span>
-    <span class="tok-nt">&lt;body&gt;</span>
-    <span class="tok-nt">&lt;div</span> <span class="tok-na">class=</span><span class="tok-s">"introduction"</span><span class="tok-nt">&gt;</span>
-        <span class="tok-nt">&lt;p&gt;</span>This is the introductory section.<span class="tok-nt">&lt;/p&gt;</span>
-
-
-    <span class="tok-nt">&lt;/div&gt;</span>
-    <span class="tok-nt">&lt;div</span> <span class="tok-na">class=</span><span class="tok-s">"acknowledgements"</span><span class="tok-nt">&gt;</span>
-        <span class="tok-nt">&lt;p&gt;</span>I'd like to thank Starfleet Academy.<span class="tok-nt">&lt;/p&gt;</span>
-
-
-    <span class="tok-nt">&lt;/div&gt;</span>
-    <span class="tok-nt">&lt;footer&gt;</span>
-        <span class="tok-nt">&lt;p&gt;</span>Some fine print to bury at the bottom.<span class="tok-nt">&lt;/p&gt;</span>
-
-    <span class="tok-nt">&lt;/footer&gt;</span>
-    <span class="tok-nt">&lt;/body&gt;</span>
-<span class="tok-nt">&lt;/html&gt;</span>
+<pre class="pygments highlight"><code class="html language-html">None
 </code></pre>
 </div>
 </div>
@@ -4139,11 +4304,11 @@ needing to know which page it’s on.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code class="html language-html"><span class="tok-nt">&lt;a</span> <span class="tok-na">href=</span><span class="tok-s">"/index.html"</span><span class="tok-nt">&gt;</span>Home<span class="tok-nt">&lt;/a&gt;</span>
-<span class="tok-nt">&lt;a</span> <span class="tok-na">href=</span><span class="tok-s">"/foo/index.html"</span><span class="tok-nt">&gt;</span>All About Foo<span class="tok-nt">&lt;/a&gt;</span>
-<span class="tok-nt">&lt;a</span> <span class="tok-na">href=</span><span class="tok-s">"/foo/index.html#welcome"</span><span class="tok-nt">&gt;</span>Welcome<span class="tok-nt">&lt;/a&gt;</span>
-<span class="tok-nt">&lt;a</span> <span class="tok-na">href=</span><span class="tok-s">"/foo/index.html#welcome"</span><span class="tok-nt">&gt;</span>Welcome<span class="tok-nt">&lt;/a&gt;</span>
-<span class="tok-nt">&lt;a</span> <span class="tok-na">href=</span><span class="tok-s">"/foo/index.html#foo"</span><span class="tok-nt">&gt;</span>Foo<span class="tok-nt">&lt;/a&gt;</span>
+<pre class="pygments highlight"><code class="html language-html"><span class="tok-nt">&lt;a</span> <span class="tok-na">href=</span><span class="tok-s">"index.html"</span><span class="tok-nt">&gt;</span>Home<span class="tok-nt">&lt;/a&gt;</span>
+<span class="tok-nt">&lt;a</span> <span class="tok-na">href=</span><span class="tok-s">"foo/index.html"</span><span class="tok-nt">&gt;</span>All About Foo<span class="tok-nt">&lt;/a&gt;</span>
+<span class="tok-nt">&lt;a</span> <span class="tok-na">href=</span><span class="tok-s">"foo/index.html#welcome"</span><span class="tok-nt">&gt;</span>Welcome<span class="tok-nt">&lt;/a&gt;</span>
+<span class="tok-nt">&lt;a</span> <span class="tok-na">href=</span><span class="tok-s">"foo/index.html#welcome"</span><span class="tok-nt">&gt;</span>Welcome<span class="tok-nt">&lt;/a&gt;</span>
+<span class="tok-nt">&lt;a</span> <span class="tok-na">href=</span><span class="tok-s">"foo/index.html#foo"</span><span class="tok-nt">&gt;</span>Foo<span class="tok-nt">&lt;/a&gt;</span>
 </code></pre>
 </div>
 </div>
@@ -4382,7 +4547,9 @@ nodes in the tree:</p>
 <span class="tok-go">        locals: The python builtin function locals</span>
 <span class="tok-go">        long: The python builtin function long</span>
 <span class="tok-go">        map: The python builtin function map</span>
+<span class="tok-go">        markdown: Function which converts markdown to HTML.</span>
 <span class="tok-go">        max: The python builtin function max</span>
+<span class="tok-go">        md: Function which converts markdown to HTML.</span>
 <span class="tok-go">        min: The python builtin function min</span>
 <span class="tok-go">        month: Current month.</span>
 <span class="tok-go">        oct: The python builtin function oct</span>
@@ -4394,6 +4561,7 @@ nodes in the tree:</p>
 <span class="tok-go">        pluralize: The pluralize method from Python inflection module.</span>
 <span class="tok-go">        pow: The python builtin function pow</span>
 <span class="tok-go">        pprint: Pretty prints Python objects.</span>
+<span class="tok-go">        pygments: Dictionary of pygments stylesheets.</span>
 <span class="tok-go">        raise: Alias for `throw`.</span>
 <span class="tok-go">        range: The python builtin function range</span>
 <span class="tok-go">        reduce: The python builtin function reduce</span>
@@ -4428,7 +4596,7 @@ nodes in the tree:</p>
 
 
 <span class="tok-go">  active template plugins are:</span>
-<span class="tok-go">    debug, inflection, builtins, operator, datetime, pprint</span>
+<span class="tok-go">    debug, inflection, builtins, operator, datetime, pprint, pygments, markdown</span>
 
 <span class="tok-go">For more information about methods available on this data type run</span>
 <span class="tok-go">`dexy datas -alias generic`</span>
@@ -4470,6 +4638,7 @@ issue</a>.</p>
 
     <span class="tok-c1"># filter settings</span>
     <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">customize</span><span class="tok-p-Indicator">:</span> <span class="tok-p-Indicator">{</span> <span class="tok-nv">scripts</span><span class="tok-p-Indicator">:</span> <span class="tok-p-Indicator">[</span><span class="tok-s">'jquery.js'</span><span class="tok-p-Indicator">,</span> <span class="tok-s">'view-result.js'</span><span class="tok-p-Indicator">]</span> <span class="tok-p-Indicator">}</span>
+    <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">jinja</span><span class="tok-p-Indicator">:</span> <span class="tok-p-Indicator">{</span> <span class="tok-nv">assertion-passed-indicator</span><span class="tok-p-Indicator">:</span> <span class="tok-s">"&lt;div</span><span class="tok-nv"> </span><span class="tok-s">style=\"background-color:</span><span class="tok-nv"> </span><span class="tok-s">green;</span><span class="tok-nv"> </span><span class="tok-s">width:</span><span class="tok-nv"> </span><span class="tok-s">20px;</span><span class="tok-nv"> </span><span class="tok-s">height:</span><span class="tok-nv"> </span><span class="tok-s">20px;\"&gt;OK&lt;/div&gt;"</span> <span class="tok-p-Indicator">}</span>
 
     <span class="tok-c1"># inputs</span>
     <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">assets</span>
@@ -4525,7 +4694,7 @@ issue</a>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2013-11-22 17:00:56 EST
+Last updated 2014-01-06 15:41:35 EST
 </div>
 </div>
 </body>
