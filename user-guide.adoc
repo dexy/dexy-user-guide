@@ -748,6 +748,10 @@ After fixing the file, we can run this again:
 The assertion filters return the original passed content if the assertion
 passes.
 
+All available assertions can be seen by running the `dexy env` command:
+
+{{ d['examples/assertions.sh|idio|shint|asciisyn']['list-assertions'] }}
+
 ==== Alternative Templating Filters
 
 There are other subclasses of `TemplateFilter` available, although many of

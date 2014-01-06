@@ -23,3 +23,6 @@ dexy reset
 ### "run-with-assertions-again"
 dexy
 cp output/docs.md docs-with-assertions-results.md
+
+### "list-assertions"
+dexy env | grep assert
