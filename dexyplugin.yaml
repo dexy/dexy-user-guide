@@ -1,0 +1,3 @@
+reporter:output:
+    help: Customized output reporter.
+    readme-filename: None
